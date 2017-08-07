@@ -1,0 +1,1 @@
+a2x -f pdf -D build -d book -L -v paper.asciidoc

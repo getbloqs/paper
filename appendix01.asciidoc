@@ -1,0 +1,12 @@
+[scenario01]
+
+== Anhang 1: Ethereum Entwicklungsumgebung
+
+=== testrpc
+
+Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet installiert werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung `testrpc` stellt ein solches simuliertes Netzwerk bereit.
+
+Der Quellcode und Dokumentation zu `testrpc` findet sich auf github (https://github.com/ethereumjs/testrpc). Die Anwendung kann mithilfe des node package managers installiert werden: `npm install -g ethereumjs-testrpc`. Nach Installation kann das simulierte Netzwerk über die Kommandozeile gestartet werden. Defaultmäßig wird das Netzwerk auf Port `8545` ausgeführt.  
+
+=== truffle
+
