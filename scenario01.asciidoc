@@ -12,7 +12,7 @@ Am Beispiel einer Sportwette sollen die Funktionsweise und die Eigenschaften ein
 * Mannschaft B gewinnt und Mannschaft A verliert
 * das Spiel geht unentschieden aus
 
-Um nun eine Wette auf eines der möglichen Ergebnisse abzugeben, würde normalerweiße ein sog. Buchmacher konsultiert. Dieser würde Wetten von unterschiedlichen Teilnehmern, mit unterschiedlichen Wetteinsätzen und natürlich unterschiedlichem Tipp entgegennehmen. Dies sollte klarerweise alles vor dem Start eines Fußballspiels geschehen. Aus den gesamten abgegebenen Wetten kann dann die sog. Gewinnquote für die jeweiligen Ergebnisse berechnet werden. Diese Quote gibt an mit welchem Faktor der Wetteinsatz im Falle eines richtigen Tipps multipliziert wird. Aus der Quote errechnet sich somit der mögliche Gewinn für die Wettteilnehmer. In Tabelle 1 wird ein Beispiel eines möglichen Wettverlaufs dargestellt. In diesem vereinfachten Beispiel ist davon auszugehen, dass keine Gebühren für den Buchmacher bzw. keine Steuern erhoben werden.
+Um nun eine Wette auf eines der möglichen Ergebnisse abzugeben, würde normalerweiße ein sog. Buchmacher konsultiert. Dieser würde Wetten von unterschiedlichen Teilnehmern, mit unterschiedlichen Wetteinsätzen und natürlich unterschiedlichen Tipps entgegennehmen. Dies sollte klarerweise alles vor dem Start eines Fußballspiels geschehen. Aus den gesamten abgegebenen Wetten kann dann die sog. Gewinnquote für die jeweiligen Ergebnisse berechnet werden. Diese Quote gibt an mit welchem Faktor der Wetteinsatz im Falle eines richtigen Tipps multipliziert wird. Aus der Quote errechnet sich somit der mögliche Gewinn für die Wettteilnehmer. In Tabelle 1 wird ein Beispiel eines möglichen Wettverlaufs dargestellt. In diesem vereinfachten Beispiel ist davon auszugehen, dass keine Gebühren für den Buchmacher bzw. keine Steuern erhoben werden.
 
 [cols="3,^2,^2,^2",options="header,footer"]
 |=========================================================
@@ -39,9 +39,11 @@ Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wett
 
 Die ordnungsmäßige bzw. korrekte Abwicklung einer Sportwette kann jedoch formal wie in einem Computerprogramm beschrieben werden. Diesen Umstand haben sich bereits etliche online Sportwettanbieter zu nutze gemacht. Anstelle einer vertrauenswürdigen Person welche als Buchmacher Wetten entgegennimmt, kann dies auch über eine Web-Applikation geschehen. Hierbei wird jedoch nur die Abwicklung an sich digitalisiert, eine Manipulation bzw. das Bezahlen hoher Gebühren ist dabei noch nicht ausgeschlossen. Gemeinhin ist es so, dass Web-Applikationen zentral verwaltet sind und es ist nicht möglich den Quellcode einzusehen. Es wäre einem Wettteilnehmer also nicht möglich zu prüfen ob die Software des Sportwettanbieters so agiert wie angepriesen.
 
-Ein Smart Contract hingegen ist ein Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Am Beispiel der Sportwette würde ein Computerprogramm dies in mehreren Phasen durchführen:
+Ein Smart Contract hingegen ist ein Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit der Aussage "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz). 
+
+Konzeptionell würde ein Smart Contract aus verschiedenen Phasen bestehen. Jede Phase würde über Ereignisse beendet bzw. eingeleitet. Das Beispiel der Sportwette könnte generell in 3 Phasen aufgeteilt werden:
 
 * Phase 1: Innerhalb dieser Phase können Wettteilnehmer ihre Wetten platzieren. Diese Phase würde solange andauern, bis das Fußballspiel gestartet wird. Nach diesem Ereignis können keine Wetten mehr platziert werden.
-* Phase 2: Diese Phase würde während das Fußballspiels ablaufen. Der Smart Contract wäre in sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten. Dieses Ereignis müsste dem Smart Contract von außerhalb übermittelt werden.
+* Phase 2: Diese Phase würde während das Fußballspiels ablaufen. Der Smart Contract wäre im sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten.
 * Phase 3: Die letzte Phase, nachdem das Spielergebnis feststeht, wäre die Auszahlungsphase. Die Wettteilnehmer, welche die Wette zu ihren Gunsten platziert haben, können sich nun ihre Gewinne auszahlen.
 
