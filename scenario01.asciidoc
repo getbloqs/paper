@@ -35,15 +35,31 @@ Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wett
 
 === Smart Contracts
 
-Üblicherweiße würde eine Sportwette wie oben beschrieben von einem Buchmacher abgewickelt. Dieser Buchmacher würde sich um die ordnungsmäßige Abwicklung der Wette kümmern. Je nach Vertrauen gegenüber dem Buchmacher, würden Wettteilnehmer dort Wetten abschließen oder auch nicht. Je nach Einsicht der Wettteilnehmer kann der Buchmacher natürlich Gewinnquoten zu seinen Gunsten manipulieren oder hohe Gebühren für Gewinne erheben.
+Üblicherweiße würde eine Sportwette wie oben beschrieben von einem Buchmacher abgewickelt. Dieser Buchmacher würde sich um die ordnungsmäßige Abwicklung der Wette kümmern. Je nach Vertrauen gegenüber dem Buchmacher, würden Wettteilnehmer dort Wetten abschließen oder auch nicht. Je nach Einsicht der Wettteilnehmer könnte ein Buchmacher Gewinnquoten zu seinen Gunsten manipulieren oder hohe Gebühren für Gewinne erheben.
 
-Die ordnungsmäßige bzw. korrekte Abwicklung einer Sportwette kann jedoch formal wie in einem Computerprogramm beschrieben werden. Diesen Umstand haben sich bereits etliche online Sportwettanbieter zu nutze gemacht. Anstelle einer vertrauenswürdigen Person welche als Buchmacher Wetten entgegennimmt, kann dies auch über eine Web-Applikation geschehen. Hierbei wird jedoch nur die Abwicklung an sich digitalisiert, eine Manipulation bzw. das Bezahlen hoher Gebühren ist dabei noch nicht ausgeschlossen. Gemeinhin ist es so, dass Web-Applikationen zentral verwaltet sind und es ist nicht möglich den Quellcode einzusehen. Es wäre einem Wettteilnehmer also nicht möglich zu prüfen ob die Software des Sportwettanbieters so agiert wie angepriesen.
+Die ordnungsmäßige bzw. korrekte Abwicklung einer Sportwette kann jedoch formal wie in einem Computerprogramm beschrieben werden. Diesen Umstand haben sich bereits etliche online Sportwettanbieter zu nutze gemacht. Anstelle einer vertrauenswürdigen Person, welche als Buchmacher Wetten entgegennimmt, kann dies auch über eine Software Anwendung geschehen. Hierbei wird jedoch nur die Abwicklung an sich digitalisiert, eine Manipulation bzw. das Bezahlen hoher Gebühren ist dabei noch nicht ausgeschlossen. Gemeinhin ist es so, dass Software Anwendungen zentral verwaltet sind und es ist nicht möglich den Programmcode einzusehen. Es wäre einem Wettteilnehmer also nicht möglich zu prüfen, ob die Software des Sportwettanbieters so agiert wie angepriesen.
 
-Ein Smart Contract hingegen ist ein Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit der Aussage "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz). 
+Ein Smart Contract hingegen ist ähnlich einem Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit der Aussage "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz). Konzeptionell ist ein Smart Contract einem Computerprogramm sehr ähnlich, jedoch gibt es einige unterscheidende Merkmale:
 
-Konzeptionell würde ein Smart Contract aus verschiedenen Phasen bestehen. Jede Phase würde über Ereignisse beendet bzw. eingeleitet. Das Beispiel der Sportwette könnte generell in 3 Phasen aufgeteilt werden:
+* Smart Contracts sind autonom in ihrer Ausführung. Falls ein Smart Contract einmal im Netzwerk bereitsgestellt ist, steht dieser dort für immer bereit. Die programmierten Regeln sind somit gültig und können nicht mehr abgeschaltet oder verändert werden.
+* Die Kommunikation mit Smart Contracts wird über Transaktionen realisiert. Dabei kann eine Transaktion sowohl Daten als auch Werte, abgebilded als virtueller Token, enthalten. Mit der Transaktion wird dem Smart Contract die Hoheit über die übermittelten Werte übertragen.
+* Für die Ausführung eines Smart Contracts muss bezahlt werden. Die Mining-Knoten, welche das Netzwerk betreiben, bekommen eine Gebühr (Mining Fee) als Entschädigung für ihre Arbeitsleistung. Jede Transaktion, welche mit dem Smart Contract interagiert, muss auch genügend Mittel bereitstellen, damit die programmierten Regeln ausgeführt werden.
 
-* Phase 1: Innerhalb dieser Phase können Wettteilnehmer ihre Wetten platzieren. Diese Phase würde solange andauern, bis das Fußballspiel gestartet wird. Nach diesem Ereignis können keine Wetten mehr platziert werden.
-* Phase 2: Diese Phase würde während das Fußballspiels ablaufen. Der Smart Contract wäre im sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten.
-* Phase 3: Die letzte Phase, nachdem das Spielergebnis feststeht, wäre die Auszahlungsphase. Die Wettteilnehmer, welche die Wette zu ihren Gunsten platziert haben, können sich nun ihre Gewinne auszahlen.
+Konkret ist die Ausführung des Smart Contracts in Abschnitte gegliedert. Jeder Abschnitt wird durch eine Transaktion bzw. durch ein Ereignis gestartet. Am Beispiel der Sportwette können 3 Abschnitte identifiziert werden:
+
+* Abschnitt 1: Innerhalb dieses Abschnitts können Wettteilnehmer ihre Wetten platzieren. Diese Phase würde solange andauern, bis das Fußballspiel gestartet wird. Nach diesem Ereignis können keine Wetten mehr platziert werden.
+* Abschnitt 2: Dieser Abschnitt würde während das Fußballspiels ablaufen. Der Smart Contract wäre im sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten.
+* Abschnitt 3: Der letzte Abschnitt, nachdem das Spielergebnis feststeht, wäre die Auszahlung. Die Wettteilnehmer, welche die Wette zu ihren Gunsten platziert haben, können sich nun ihre Gewinne auszahlen.
+
+=== Implementierung mit Solidity
+
+Der Solidity Programmcode ist innerhalb eines Github Repositories einsehbar.
+
+=== Nutzung des Smart Contracts
+
+Der Smart Contract wurde mit der Programmiersprache Solidity entwickelt, welche in einen Ethereum Smart Contract kompiliert werden kann. Das Ergebnis dieser Kompilierung ist letzlich nichts anderes als Bytecode, welcher auf der Ethereum Virtual Machine (EVM) ausgeführt werden kann.
+
+Der kompilierte Smart Contract kann über eine Ethereum Wallet im Netzwerk bereitgestellt werden. Dies erfordert eine Transaktion an eine leere Adresse, welche als Nachricht den kompilierten Smart Contract enthält. Für diese Bereitstellung muss der Transaktion natürlich genügend Gas als Gebühr mitgegeben werden. Diese Bereitstellung führt ebenfalls den Konstruktor des Smart Contracts aus, das bereitgestellte Gas muss auch dafür reichen.
+
+Nachdem der Smart Contract bereitgestellt wurde, können die bereitgestellten Funktionen über Transaktionen aufgerufen werden. Der Smart Contract besitzt eine eindeutige Addresse an der er bereitgestellt wurde und kann darüber identifiziert und angesprochen werden. Nutzer können Transaktionen an diese Addresse senden. Innerhalb der Nachricht können die gewünschten Funktionen bzw. Funktionsparameter angegeben werden.
 
