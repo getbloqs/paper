@@ -30,7 +30,7 @@ Die Wettquote berechnet sich somit konkret über den gesamten Wetteinsatz dividi
 .Kollektive Intelligenz
 [NOTE]
 ===============================
-Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie `Augur`, `Gnosis` oder `Stox` machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der ``kollektiven Intelligenz'' als Dienstleistung an. Dies ist auch unter den Bezeichnungen `crowd sourcing` oder `prediction markets` bekannt.
+Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie `Augur`{empty}footnote:[Augur: https://augur.net], `Gnosis`{empty}footnote:[Gnosis: https://gnosis.pm/] oder `Stox`{empty}footnote:[Stox: https://www.stox.com] machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der ``kollektiven Intelligenz'' als Dienstleistung an. Dies ist auch unter den Bezeichnungen `crowd sourcing` oder `prediction markets` bekannt.
 ===============================
 
 === Smart Contracts
@@ -53,7 +53,41 @@ Konkret ist die Ausführung des Smart Contracts in Abschnitte gegliedert. Jeder 
 
 === Implementierung mit Solidity
 
-Der Solidity Programmcode ist innerhalb eines Github Repositories einsehbar.
+Der Solidity Programmcode ist innerhalb einem Verzeichnises auf github{empty}footnote:[Szenario 1 auf github: https://github.com/getbloqs/scenario01] hinterlegt und einsehbar. In diesem Abschnitt werden einige Aspekte des Programmcodes erläutert. Dies soll auch dazu dienen, wesentliche Konzepte der Programmiersprache Solidity einzuführen.
+
+[[solidity01]]
+.Listing 1
+----
+contract SimpleBet {
+}
+----
+
+Jeder Smart Contract wird wie oben veranschaulicht (<<solidity01>>) über das Schlüsselwort `contract` deklariert. Dies hat eine starke Ähnlichkeit zur Deklaration von Klassen in Objektorientierten Programmiersprachen (OOP). Im allgemeinen gibt es eine Vielfach Ähnlichkeiten mit OOP, sodass für Softwarentwickler das erlernen von Solidity eine geringe Lernkurve aufweist.
+
+[[solidity02]]
+.Listing 2
+----
+contract SimpleBet is Owned {
+}
+----
+
+Solidity unterstützt auch das Konzept der Vererbung (<<solidity02>>). Dies ist hilfreich um die Wiederverwendbarkeit von Programmcode zu erhöhen. Über das Schlüsselwort `is` erbt `SimpleBet` von `Owned`. Alle Funktionen, welche in Owned definiert sind, sind somit auch Teil von `SimpleBet`. Neben der einfachen Vererbung werden auch `Interfaces` bzw. `abstrakte Methoden` unterstützt, dies wird in einem späteren Abschnitt noch thematisiert.
+
+[[solidity03]]
+.Listing 3
+----
+contract SimpleBet is Owned {
+
+    // unique identifier of sports game
+    string public game;
+
+    function SportsBet(string _game) {        
+        game = _game;
+    }
+}
+----
+
+
 
 === Nutzung des Smart Contracts
 
@@ -61,5 +95,5 @@ Der Smart Contract wurde mit der Programmiersprache Solidity entwickelt, welche 
 
 Der kompilierte Smart Contract kann über eine Ethereum Wallet im Netzwerk bereitgestellt werden. Dies erfordert eine Transaktion an eine leere Adresse, welche als Nachricht den kompilierten Smart Contract enthält. Für diese Bereitstellung muss der Transaktion natürlich genügend Gas als Gebühr mitgegeben werden. Diese Bereitstellung führt ebenfalls den Konstruktor des Smart Contracts aus, das bereitgestellte Gas muss auch dafür reichen.
 
-Nachdem der Smart Contract bereitgestellt wurde, können die bereitgestellten Funktionen über Transaktionen aufgerufen werden. Der Smart Contract besitzt eine eindeutige Addresse an der er bereitgestellt wurde und kann darüber identifiziert und angesprochen werden. Nutzer können Transaktionen an diese Addresse senden. Innerhalb der Nachricht können die gewünschten Funktionen bzw. Funktionsparameter angegeben werden.
+Nachdem der Smart Contract bereitgestellt wurde, kann über Transaktionen mit seiner öffentlichen Schnittstelle (Funktionen) kommuniziert werden. Der Smart Contract besitzt eine eindeutige Addresse und kann darüber identifiziert und angesprochen werden. Nutzer können Transaktionen an diese Addresse senden. Innerhalb der Nachricht können die gewünschten Funktionen bzw. Funktionsparameter angegeben werden. Am Beispiel der Sportwette würde innerhalb der Nachricht ein Tipp für das Ergebnis angegeben. 
 
