@@ -1,1 +1,2 @@
-a2x -a encoding=utf-8 -a lang=de -f pdf -D build -d book -L -v paper.asciidoc
+asciidoctor -d book -a lang=de -D build paper.asciidoc
+asciidoctor -r asciidoctor-pdf -b pdf -d book -a lang=de -D build paper.asciidoc

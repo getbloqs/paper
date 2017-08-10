@@ -1,10 +1,9 @@
 [scenario01]
 
 == Szenario 1
-
 Im folgenden soll anhand eines einfachen Beispiels das Konzept der sog. Smart Contracts eingeführt werden. Anzumerken ist, dass dabei nur die technische Machbarkeit betrachtet wird. Rechtliche Aspekte werden dabei Vollkommen außer acht gelassen, da dies als reine Demonstration zum Verständnis gedacht ist.
 
-=== Einf&uuml;hrung
+=== Einführung
 
 Am Beispiel einer Sportwette sollen die Funktionsweise und die Eigenschaften eines Smart Contracts aufgezeigt werden. Dazu wird die Sportwette auf das Ergebnis eines Fußballspiels betrachtet. Ein Fußballspiel zwischen zwei Maschaften A und B kann generell drei Ergebnisse bzw. Endzustände aufweisen:
 
@@ -28,7 +27,7 @@ Um nun eine Wette auf eines der möglichen Ergebnisse abzugeben, würde normaler
 Die Wettquote berechnet sich somit konkret über den gesamten Wetteinsatz dividiert durch die kummulierten Wetteinsätze aller Teilnehmer für den jeweiligen Tipp. Die Gewinnquote bedeutet somit für einen Wettteilnehmer, dass für jeden Euro der investiert wird das 4-, 1,6- bzw. 8-fache als Gewinn verbucht werden kann. An den Beispielzahlen ist zu erkennen, dass eine Gewinnquote immer größer als 1 sein muss, andernfalls würde die Teilnahme an einer Wette keinen Sinn machen. Zusätzlich ist zu sehen, dass der Tipp mit dem kleinsten kummulierten Wetteinsatz die höchste Gewinnchance bietet. Eine Wette auf das Ergebnis mit der höchsten Gewinnchance ist oft auch mit dem größten Verlustrisiko verbunden.
 
 .Kollektive Intelligenz
-[NOTE]
+[TIP]
 ===============================
 Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie `Augur`{empty}footnote:[Augur: https://augur.net], `Gnosis`{empty}footnote:[Gnosis: https://gnosis.pm/] oder `Stox`{empty}footnote:[Stox: https://www.stox.com] machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der ``kollektiven Intelligenz'' als Dienstleistung an. Dies ist auch unter den Bezeichnungen `crowd sourcing` oder `prediction markets` bekannt.
 ===============================
@@ -87,7 +86,15 @@ contract SimpleBet is Owned {
 }
 ----
 
+Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Variablen deklariert werden. In <<solidity03>> wird dazu eine Variable mit Namen `game` deklariert. Diese Variable hat den Datentyp `string` und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation{empty}footnote:[Liste aller Solidity Datentypen: http://solidity.readthedocs.io/en/latest/types.html] zu entnehmen. Mit der Angabe `public` wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable `game` von anderen Smart Contracts abgefragt werden. Neben `public` gibt es auch die Sichtbarkeit `private`, diese Angabe würde die Variable vor anderen Smart Contracts verstecken (ebenfalls innerhalb der Vererbungshierarchie).
 
+
+
+.Sichtbarkeit von Zuständen
+[WARNING]
+===============================
+Alle Zustände, welche innerhalb eines Smart Contracts hinterlegt werden, sind grundsätzlich über die Blockchain öffentlich einsehbar. Die Sichtbarkeit einer Variable innerhalb eines Smart Contracts (`public` oder `private`) bezieht sich dabei nur auf die programmatischen Zugrifssmöglichkeiten anderer Smart Contracts. Es gibt keine Möglichkeit Daten "nicht-öffentlich" zu Speichern innerhalb einer Blockchain. Somit sind alle Daten die von einem Smart Contract zur Bearbeitung benötigt werden öffentlich.
+===============================
 
 === Nutzung des Smart Contracts
 

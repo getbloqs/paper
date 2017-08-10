@@ -1,12 +1,13 @@
 [introduction]
 
-== Einf&uuml;hrung
+== Einführung
 
 === Bitcoin
 
 "Bitcoin: A Peer-to-Peer Electronic Cash System"{empty}footnote:[Bitcoin: A Peer-to-Peer Electronic Cash System, Satoshi Nakamoto (http://bitcoin.com/bitcoin.pdf)] ist eine Publikation von unbekannten Autoren mit dem Pseudonym "Satoshi Nakamoto". Diese wurde am 1. November 2008 innerhalb einer Mailinglist{empty}footnote:[Link zur archivierten Mailingliste (http://www.mail-archive.com/cryptography@metzdowd.com/msg09959.html)] veröffentlicht. Die Publikation beschreibt auf 9 Seiten konzeptionell ein Transfersystem von virtuellen Tokens (Bitcoins), welches auf einem Peer-to-Peer Ansatz basiert. Das Interessante dabei ist, das keine zentrale Stelle (Mittelsmann bzw. Third Party) benötigt wird um:
-1. Transaktionen zwischen den Teilnehmern durchzuführen und zu prüfen
-2. Neue Tokens im System zu schöpfen (sog. Minting)
+
+. Transaktionen zwischen den Teilnehmern durchzuführen und zu prüfen
+. Neue Tokens im System zu schöpfen (sog. Minting)
 
 
 

@@ -1,5 +1,5 @@
-[appendix01]
-== Anhang 1: Ethereum Entwicklungsumgebung
+[appendix]
+== Ethereum Entwicklungsumgebung
 
 === testrpc
 
