@@ -4,7 +4,7 @@ Stefan Huber <stefan.huber@beyondit.at>
 :appendix-caption: Anhang
 :toc: 
 :toc-title: Inhalt
-:revnumber: 0.0.1
+:revnumber: 0.0.2
 
 include::introduction.asciidoc[]
 

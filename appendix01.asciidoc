@@ -1,9 +1,12 @@
 [appendix]
 == Ethereum Entwicklungsumgebung
 
+=== Mist
+=== geth
+
 === testrpc
 
-Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet installiert werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung `testrpc` stellt ein solches simuliertes Netzwerk bereit.
+Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet bereitgestellt werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung `testrpc` stellt ein solches simuliertes Netzwerk bereit.
 
 Der Quellcode und etwas Dokumentation zu `testrpc` findet sich auf github{empty}footnote:[Link zu testrpc:  https://github.com/ethereumjs/testrpc]. Die Anwendung kann mithilfe des `node package managers` installiert werden. Dazu muss folgender Befehl ausgeführt werden.
 
@@ -15,5 +18,13 @@ Nach Installation kann das simulierte Netzwerk über die Kommandozeile gestartet
 
 === truffle
 
+Truffle{empty}footnote:[Link zu truffle:  http://truffleframework.com] ist ein Kommandozeilenprogramm welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht und erleichtert. Truffle stellt folgende Funktionen bereit:
 
+...
+
+Truffle ist eine node.js Anwendung und kann über den `node package manager` installiert werden. Dazu muss folgender Befehl ausgeführt werden:
+
+----
+$ npm install -g truffle
+----
 

@@ -9,6 +9,8 @@
 . Transaktionen zwischen den Teilnehmern durchzuführen und zu prüfen
 . Neue Tokens im System zu schöpfen (sog. Minting)
 
+=== Ethereum
 
+Adressen, Accounts
 
 

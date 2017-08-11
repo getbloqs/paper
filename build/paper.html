@@ -433,7 +433,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Stefan Huber</span><br>
 <span id="email" class="email"><a href="mailto:stefan.huber@beyondit.at">stefan.huber@beyondit.at</a></span><br>
-<span id="revnumber">version 0.0.1</span>
+<span id="revnumber">version 0.0.2</span>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Inhalt</div>
@@ -441,18 +441,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_einführung">Einführung</a>
 <ul class="sectlevel2">
 <li><a href="#_bitcoin">Bitcoin</a></li>
+<li><a href="#_ethereum">Ethereum</a></li>
 </ul>
 </li>
 <li><a href="#_szenario_1">Szenario 1</a>
 <ul class="sectlevel2">
-<li><a href="#_einführung_2">Einführung</a></li>
-<li><a href="#_smart_contracts">Smart Contracts</a></li>
-<li><a href="#_implementierung_mit_solidity">Implementierung mit Solidity</a></li>
-<li><a href="#_nutzung_des_smart_contracts">Nutzung des Smart Contracts</a></li>
+<li><a href="#section01">Einführung: Eine Sportwette</a></li>
+<li><a href="#section02">Smart Contracts</a></li>
+<li><a href="#section03">Implementierung mit Solidity</a></li>
+<li><a href="#section04">Nutzung des Smart Contracts</a></li>
 </ul>
 </li>
 <li><a href="#_ethereum_entwicklungsumgebung">Anhang A: Ethereum Entwicklungsumgebung</a>
 <ul class="sectlevel2">
+<li><a href="#_mist">Mist</a></li>
+<li><a href="#_geth">geth</a></li>
 <li><a href="#_testrpc">testrpc</a></li>
 <li><a href="#_truffle">truffle</a></li>
 </ul>
@@ -480,16 +483,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_ethereum">Ethereum</h3>
+<div class="paragraph">
+<p>Adressen, Accounts</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_szenario_1">Szenario 1</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Im folgenden soll anhand eines einfachen Beispiels das Konzept der sog. Smart Contracts eingeführt werden. Anzumerken ist, dass dabei nur die technische Machbarkeit betrachtet wird. Rechtliche Aspekte werden dabei Vollkommen außer acht gelassen, da dies als reine Demonstration zum Verständnis gedacht ist.</p>
+<p>In diesem Kapitel soll anhand eines Beispiels das Konzept der Smart Contracts eingeführt und erklärt werden. Im ersten Abschnitt (<a href="#section01">Einführung: Eine Sportwette</a>) wird das zugrunde liegende Beispiel einer Sportwette erklärt. Ein weiterer Abschnitt (<a href="#section02">Smart Contracts</a>) soll weitere Details zu Smart Contracts erkläutern. Gefolgt wird dies (<a href="#section03">Implementierung mit Solidity</a>) von einer Beschreibung zur Implementierung mit der Programmiersprache Solidity. Abschließend wird erörtert wie Smart Contracts genutzt werden können (<a href="#section04">Nutzung des Smart Contracts</a>).</p>
 </div>
 <div class="sect2">
-<h3 id="_einführung_2">Einführung</h3>
+<h3 id="section01">Einführung: Eine Sportwette</h3>
 <div class="paragraph">
 <p>Am Beispiel einer Sportwette sollen die Funktionsweise und die Eigenschaften eines Smart Contracts aufgezeigt werden. Dazu wird die Sportwette auf das Ergebnis eines Fußballspiels betrachtet. Ein Fußballspiel zwischen zwei Maschaften A und B kann generell drei Ergebnisse bzw. Endzustände aufweisen:</p>
 </div>
@@ -511,13 +520,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 22.2222%;">
-<col style="width: 22.2222%;">
-<col style="width: 22.2223%;">
+<col style="width: 18.1818%;">
+<col style="width: 27.2727%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1819%;">
 </colgroup>
 <thead>
 <tr>
+<th class="tableblock halign-center valign-top">Tipp</th>
 <th class="tableblock halign-left valign-top">Ergebnis</th>
 <th class="tableblock halign-center valign-top">kummulierte Einsätze</th>
 <th class="tableblock halign-center valign-top">Prozent</th>
@@ -526,6 +537,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tfoot>
 <tr>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gesamt</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">€ 80.000</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">100%</p></td>
@@ -534,18 +546,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tfoot>
 <tbody>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Tipp 1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mannschaft A gewinnt</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">€ 20.000</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">25%</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">4</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Tipp 2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mannschaft B gewinnt</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">€ 50.000</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">62,5%</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">1,6</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Tipp 3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unentschieden</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">€ 10.000</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">12,5%</p></td>
@@ -565,7 +580,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="content">
 <div class="title">Kollektive Intelligenz</div>
 <div class="paragraph">
-<p>Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie <code>Augur</code><sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>, <code>Gnosis</code><sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup> oder <code>Stox</code><sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</sup> machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der <code>`kollektiven Intelligenz'' als Dienstleistung an. Dies ist auch unter den Bezeichnungen `crowd sourcing</code> oder <code>prediction markets</code> bekannt.</p>
+<p>Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie <code>Augur</code><sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>, <code>Gnosis</code><sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup> oder <code>Stox</code><sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</sup> machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der "kollektiven Intelligenz" als Dienstleistung an. Dies ist auch unter den Bezeichnungen <code>crowd sourcing</code> oder <code>prediction markets</code> bekannt.</p>
 </div>
 </td>
 </tr>
@@ -573,15 +588,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_smart_contracts">Smart Contracts</h3>
+<h3 id="section02">Smart Contracts</h3>
 <div class="paragraph">
 <p>Üblicherweiße würde eine Sportwette wie oben beschrieben von einem Buchmacher abgewickelt. Dieser Buchmacher würde sich um die ordnungsmäßige Abwicklung der Wette kümmern. Je nach Vertrauen gegenüber dem Buchmacher, würden Wettteilnehmer dort Wetten abschließen oder auch nicht. Je nach Einsicht der Wettteilnehmer könnte ein Buchmacher Gewinnquoten zu seinen Gunsten manipulieren oder hohe Gebühren für Gewinne erheben.</p>
 </div>
 <div class="paragraph">
-<p>Die ordnungsmäßige bzw. korrekte Abwicklung einer Sportwette kann jedoch formal wie in einem Computerprogramm beschrieben werden. Diesen Umstand haben sich bereits etliche online Sportwettanbieter zu nutze gemacht. Anstelle einer vertrauenswürdigen Person, welche als Buchmacher Wetten entgegennimmt, kann dies auch über eine Software Anwendung geschehen. Hierbei wird jedoch nur die Abwicklung an sich digitalisiert, eine Manipulation bzw. das Bezahlen hoher Gebühren ist dabei noch nicht ausgeschlossen. Gemeinhin ist es so, dass Software Anwendungen zentral verwaltet sind und es ist nicht möglich den Programmcode einzusehen. Es wäre einem Wettteilnehmer also nicht möglich zu prüfen, ob die Software des Sportwettanbieters so agiert wie angepriesen.</p>
+<p>Die ordnungsmäßige bzw. korrekte Abwicklung einer Sportwette kann jedoch formal wie in einem Algorithmus bzw. einem Computerprogramm beschrieben werden. Diesen Umstand haben sich bereits etliche online Sportwettanbieter zu nutze gemacht. Anstelle einer vertrauenswürdigen Person, welche als Buchmacher Wetten entgegennimmt, kann dies auch über eine Software Anwendung geschehen. Hierbei wird jedoch nur die Abwicklung an sich digitalisiert, eine Manipulation ist dabei noch nicht ausgeschlossen. Gemeinhin ist es so, dass Software Anwendungen zentral verwaltet sind und es ist nicht möglich den Programmcode einzusehen. Es wäre einem Wettteilnehmer also nicht möglich zu prüfen, ob die Software des Sportwettanbieters so agiert wie angepriesen. Es könnte durchaus passieren, dass auch nach einer gewonnen Wette, der Wetteinsatz nicht ordnungsgemäß ausbezahlt wird.</p>
 </div>
 <div class="paragraph">
-<p>Ein Smart Contract hingegen ist ähnlich einem Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit der Aussage "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz). Konzeptionell ist ein Smart Contract einem Computerprogramm sehr ähnlich, jedoch gibt es einige unterscheidende Merkmale:</p>
+<p>Ein Smart Contract hingegen ist ähnlich einem Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit dem Ausspruch "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz). Konzeptionell ist ein Smart Contract einem Computerprogramm sehr ähnlich, jedoch gibt es einige unterscheidende Merkmale:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -614,14 +629,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_implementierung_mit_solidity">Implementierung mit Solidity</h3>
+<h3 id="section03">Implementierung mit Solidity</h3>
 <div class="paragraph">
-<p>Der Solidity Programmcode ist innerhalb einem Verzeichnises auf github<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</sup> hinterlegt und einsehbar. In diesem Abschnitt werden einige Aspekte des Programmcodes erläutert. Dies soll auch dazu dienen, wesentliche Konzepte der Programmiersprache Solidity einzuführen.</p>
+<p>Der Solidity Programmcode ist innerhalb einem Verzeichnises auf github<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</sup> hinterlegt und einsehbar. In diesem Abschnitt werden einige Ausschnitte des Programmcodes angeführt und erläutert. Dies soll dazu dienen den Smart Contract zu dokumentieren und wesentliche Konzepte der Programmiersprache Solidity einzuführen.</p>
 </div>
 <div id="solidity01" class="listingblock">
 <div class="title">Listing 1</div>
 <div class="content">
-<pre>contract SimpleBet {
+<pre>contract SportsBet {
 }</pre>
 </div>
 </div>
@@ -631,17 +646,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="solidity02" class="listingblock">
 <div class="title">Listing 2</div>
 <div class="content">
-<pre>contract SimpleBet is Owned {
+<pre>contract SportsBet is Owned {
 }</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Solidity unterstützt auch das Konzept der Vererbung (<a href="#solidity02">Listing 2</a>). Dies ist hilfreich um die Wiederverwendbarkeit von Programmcode zu erhöhen. Über das Schlüsselwort <code>is</code> erbt <code>SimpleBet</code> von <code>Owned</code>. Alle Funktionen, welche in Owned definiert sind, sind somit auch Teil von <code>SimpleBet</code>. Neben der einfachen Vererbung werden auch <code>Interfaces</code> bzw. <code>abstrakte Methoden</code> unterstützt, dies wird in einem späteren Abschnitt noch thematisiert.</p>
+<p>Solidity unterstützt auch das Konzept der Vererbung (<a href="#solidity02">Listing 2</a>). Dies ist hilfreich um die Wiederverwendbarkeit von Programmcode zu erhöhen. Über das Schlüsselwort <code>is</code> erbt <code>SportsBet</code> von <code>Owned</code>. Alle Funktionen, welche in Owned definiert sind, sind somit auch Teil von <code>SportsBet</code>. Neben der einfachen Vererbung werden auch <code>Interfaces</code> bzw. <code>abstrakte Methoden</code> unterstützt, dies wird in einem späteren Abschnitt noch thematisiert.</p>
 </div>
 <div id="solidity03" class="listingblock">
 <div class="title">Listing 3</div>
 <div class="content">
-<pre>contract SimpleBet is Owned {
+<pre>contract SportsBet is Owned {
 
     // unique identifier of sports game
     string public game;
@@ -653,7 +668,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Variablen deklariert werden. In <a href="#solidity03">Listing 3</a> wird dazu eine Variable mit Namen <code>game</code> deklariert. Diese Variable hat den Datentyp <code>string</code> und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</sup> zu entnehmen. Mit der Angabe <code>public</code> wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable <code>game</code> von anderen Smart Contracts abgefragt werden. Neben <code>public</code> gibt es auch die Sichtbarkeit <code>private</code>, diese Angabe würde die Variable vor anderen Smart Contracts verstecken (ebenfalls innerhalb der Vererbungshierarchie).</p>
+<p>Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Zustandsvariablen deklariert werden. In <a href="#solidity03">Listing 3</a> wird dazu eine Variable mit Namen <code>game</code> deklariert. Diese Variable hat den Datentyp <code>string</code> und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</sup> zu entnehmen. Mit der Angabe <code>public</code> wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable <code>game</code> von anderen Smart Contracts abgefragt werden. Neben <code>public</code> gibt es weitere Sichtbarkeitsdeklarationen, welche ebenfalls für Funktionen gelten und weiter unten eingeführt werden.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -664,7 +679,121 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="content">
 <div class="title">Sichtbarkeit von Zuständen</div>
 <div class="paragraph">
-<p>Alle Zustände, welche innerhalb eines Smart Contracts hinterlegt werden, sind grundsätzlich über die Blockchain öffentlich einsehbar. Die Sichtbarkeit einer Variable innerhalb eines Smart Contracts (<code>public</code> oder <code>private</code>) bezieht sich dabei nur auf die programmatischen Zugrifssmöglichkeiten anderer Smart Contracts. Es gibt keine Möglichkeit Daten "nicht-öffentlich" zu Speichern innerhalb einer Blockchain. Somit sind alle Daten die von einem Smart Contract zur Bearbeitung benötigt werden öffentlich.</p>
+<p>Alle Zustände, welche innerhalb eines Smart Contracts hinterlegt werden, sind grundsätzlich über die Blockchain öffentlich einsehbar. Die Sichtbarkeit einer Variable innerhalb eines Smart Contracts (<code>public</code>, <code>private</code>, <code>internal</code> oder <code>external</code>) bezieht sich dabei nur auf die programmatischen Zugrifssmöglichkeiten anderer Smart Contracts. Es gibt keine Möglichkeit Daten innerhalb einer Blockchain "nicht-öffentlich" zu speichern. Somit sind alle Daten die von einem Smart Contract zur Bearbeitung benötigt werden öffentlich.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ein Smart Contract kann des Weiteren über einen sog. Konstruktor verfügen. <a href="#solidity03">Listing 3</a> enthält ebenfalls einen Konstruktor. Dieser ist generell nichts anderes als eine normale Funktion, mit dem Unterschied, dass der Funktionsname mit dem Namen des Smart Contracts übereinstimmen muss. Eine Funktionsdeklaration wird über das Schlüsselwort <code>function</code> durchgeführt. Die Funktion kann Übergabeparameter definieren, welche zur Konstruktion des Smart Contracts mitgegeben werden müssen.</p>
+</div>
+<div id="solidity04" class="listingblock">
+<div class="title">Listing 4</div>
+<div class="content">
+<pre>contract SportsBet is Owned {
+
+    struct Bet {
+        uint tip;
+        uint amount;
+    }
+
+    mapping (address =&gt; Bet) bets;
+
+    function bet(uint tip) public payable {
+        if (tip &lt; 1) {
+            tip = 1;
+        } else if (tip &gt; 3) {
+            tip = 3;
+        }
+
+        if (bets[msg.sender].tip == 0) {
+            bets[msg.sender].tip = tip;
+        }
+        bets[msg.sender].amount += msg.value;
+    }
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Neben einfachen Datentypen wie in <a href="#solidity03">Listing 3</a> die Variable <code>game</code> können auch komplexere Datentypen selbst definiert werden. Um eine Wette zu repräsentieren wird in <a href="#solidity04">Listing 4</a> der komplexen Datentyp <code>Bet</code> eingeführt. Dieser enthält einen Zahlenwert <code>tip</code> für den Wetttipp und einen weiteren Zahlenwert <code>amount</code> für die höhe des Einsatzes deklariert. <code>uint</code> deklariert dabei einen sog. unsigned Integer, also einen Zahlenwert der nur positiv sein kann. Der komplexe Datentyp wird über das Schlüsselwort <code>struct</code> deklariert.</p>
+</div>
+<div class="paragraph">
+<p>Wie bereits erwähnt besitzen Smart Contracts Funktionen. In <a href="#solidity04">Listing 4</a> werden eine Funktionen des Smart Contracts <code>SportsBet</code> implementiert. Generell stellen Funktionen (je nach Sichtbarkeit) die Schnittstelle des Smart Contracts nach Außen dar. Diese Schnittstelle wird über die sog. Signatur der Funktion definiert. Die Signatur setzt sich aus unterschiedlichen Bestandteilen zusammen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Der Name der Funktion</p>
+</li>
+<li>
+<p>Den spezifizierten Übergabeparametern</p>
+</li>
+<li>
+<p>Den Rückgabewerten, falls diese definiert sind</p>
+</li>
+<li>
+<p>Sichtbarkeits- bzw. sonstigen Modifikatoren</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Neben der Signatur, welche auch als Funktionskopf bezeichnet werden kann, gibt es einen Funktionskörper. Der Funktionskörper wird von zwei geschwungenen Klammern umschlossen <code>{ }</code>. Innerhalb dieses Körpers wird die Logik der Funktion implementiert. Dazu werden unterschiedliche Konstrukte der Programmierung angewandt. In der Funktion <code>bet</code> aus <a href="#solidity04">Listing 4</a> werden sog. Kontrollstrukturen eingesetzt, um den übergebenen Parameter zu überprüfen. Die verfügbaren Kontrollstrukturen in Solidity können in der Dokumentation<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</sup> eingesehen werden. Falls die Signatur Rückgabewerte definiert, müssen diese über das Schlüsselwort <code>return</code> übergeben werden. Dieses Schlüsselwort beendet ebenfalls die Ausführung der Funktion.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Sichtbarkeitsmodifikatoren</div>
+<div class="paragraph">
+<p>Funktionen und Zustandsvariablen besitzen eine Sichtbarkeit innerhalb des Smart Contracts bzw. nach Außen zum Netzwerk. Solidity bietet 4 verschiedene Sichtbarkeitsmodifikatoren.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>external</code>: Externe Funktionen bilden u.a. die Schnittstelle nach Außen eines Smart Contracts. Externe Funktionen können nur über Transaktionen, von anderen Smart Contracts oder über einen Message Call aufgerufen werden. Ein interner Aufruf der Funktion ist nur über <code>this</code> möglich. Zustandsvariablen können nicht als <code>external</code> deklariert werden.</p>
+</li>
+<li>
+<p><code>public</code>: Funktionen und Zustandsvariablen können intern oder extern aufgerufen werden. Für Zustandvariablen, welche als <code>public</code> deklariert wurden, wird automatisch eine sog. Getter-Funktion erzeugt.</p>
+</li>
+<li>
+<p><code>internal</code>: Ein Zugriff auf <code>internal</code> Funktionen oder Zustandsvariablen ist nur vom deklarierten oder vererbeten Smart Contract möglich.</p>
+</li>
+<li>
+<p><code>private</code>: Zustandsvariablen bzw. Funktionen dieser Sichtbarkeit sind nur innerhalb des Smart Contracts ansprechbar.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Die Defaultsichtbarkeit von Funktionen ist <code>public</code> und die von Zustandsvariablen ist <code>internal</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="#solidity04">Listing 4</a> enthält auch ein <code>mapping</code>. Mappings sind sehr wichtige und effiziente Strukturen zur Speicherung von Zuständen in Smart Contracts. In anderen Programmiersprachen werden Mappings auch assoziativ Speicher oder Hashtabellen gennant. Ein mapping ist demnach eine Datenstruktur um Werte anhand einen Schlüssels zu speichern bzw. abzufragen. Das deklarierte <code>mapping</code> in <a href="#solidity04">Listing 4</a> speichert Wetten (<code>Bet</code>) anhand der Adresse (<code>address</code>) des Wettteilnehmers.</p>
+</div>
+<div class="paragraph">
+<p>Die Funktion <code>bet</code> in <a href="#solidity04">Listing 4</a> speichert den übergebenen Parameter <code>tip</code> als Wette (<code>Bet</code>) innerhalb des <code>mapping</code> (<code>bets</code>). Die Funktion prüft zuerst ob ein valider Tipp (Tipp 1, Tipp 2 oder Tipp 3) abgegeben wurde. Dannach wird überprüft ob der Absender der Transaktion und somit der Aufrufer der Funktion <code>bet</code> bereits eine Wette abgegeben hat. Der Absender der Transaktion wird über die spezielle Variable <code>msg.sender</code> abgefragt. Falls noch kein Tipp abgegeben wurde, wird dieser für den Absender gesetzt. Dazu wird der Tip über das <code>mapping</code> mit dem Schlüssel <code>msg.sender</code> (<code>msg.sender</code> ist vom Datentyp <code>address</code>) in der Wette (<code>Bet</code>) gesetzt. In jedem Fall wird der Wetteinsatz erhöht. Dazu wird die Höhe des gesendeten Ethers zum Wetteinsat (<code>amount</code>) addiert.</p>
+</div>
+<div class="paragraph">
+<p>Die Transaktion, welche die Funktion des Smart Contracts aufruft, sendet Ether als Wetteinsatz mit. Dieses Ether wird dem Smart Contract bereitgestellt und dieser verfügt nun darüber.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Spezielle Variablen: Block bzw. Transaktions Eigenschaften</div>
+<div class="paragraph">
+<p>Funktionen haben Zugriff auf spezielle Variablen, welche wichtige Informationen über den aktuellen Ausführungskontext enthalten. So kann zB über die Variable <code>msg</code> auf den Absender der Transaktion (<code>msg.sender</code>) den gesendeten Betrag an Ether (<code>msg.value</code>) oder das noch verfügbare Gas (<code>msg.gas</code>) zugegriffen werden. Alle verfügbaren bzw. speziellen Variablen sind in der Dokumentation<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</sup> einsehbar.</p>
 </div>
 </td>
 </tr>
@@ -672,7 +801,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nutzung_des_smart_contracts">Nutzung des Smart Contracts</h3>
+<h3 id="section04">Nutzung des Smart Contracts</h3>
 <div class="paragraph">
 <p>Der Smart Contract wurde mit der Programmiersprache Solidity entwickelt, welche in einen Ethereum Smart Contract kompiliert werden kann. Das Ergebnis dieser Kompilierung ist letzlich nichts anderes als Bytecode, welcher auf der Ethereum Virtual Machine (EVM) ausgeführt werden kann.</p>
 </div>
@@ -680,7 +809,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Der kompilierte Smart Contract kann über eine Ethereum Wallet im Netzwerk bereitgestellt werden. Dies erfordert eine Transaktion an eine leere Adresse, welche als Nachricht den kompilierten Smart Contract enthält. Für diese Bereitstellung muss der Transaktion natürlich genügend Gas als Gebühr mitgegeben werden. Diese Bereitstellung führt ebenfalls den Konstruktor des Smart Contracts aus, das bereitgestellte Gas muss auch dafür reichen.</p>
 </div>
 <div class="paragraph">
-<p>Nachdem der Smart Contract bereitgestellt wurde, kann über Transaktionen mit seiner öffentlichen Schnittstelle (Funktionen) kommuniziert werden. Der Smart Contract besitzt eine eindeutige Addresse und kann darüber identifiziert und angesprochen werden. Nutzer können Transaktionen an diese Addresse senden. Innerhalb der Nachricht können die gewünschten Funktionen bzw. Funktionsparameter angegeben werden. Am Beispiel der Sportwette würde innerhalb der Nachricht ein Tipp für das Ergebnis angegeben.</p>
+<p>Nachdem der Smart Contract bereitgestellt wurde, kann über Transaktionen mit seiner öffentlichen Schnittstelle (<code>external oder `public</code> Funktionen) kommuniziert werden. Der Smart Contract besitzt eine eindeutige Addresse und kann darüber identifiziert und angesprochen werden. Nutzer können Transaktionen an diese Addresse senden. Innerhalb der Nachricht können die gewünschten Funktionen bzw. Funktionsparameter angegeben werden. Am Beispiel der Sportwette würde innerhalb der Nachricht ein Tipp für das Ergebnis angegeben und die Funktion <code>bet</code> aufgerufen.</p>
 </div>
 </div>
 </div>
@@ -689,12 +818,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_ethereum_entwicklungsumgebung">Anhang A: Ethereum Entwicklungsumgebung</h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="_mist">Mist</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_geth">geth</h3>
+
+</div>
+<div class="sect2">
 <h3 id="_testrpc">testrpc</h3>
 <div class="paragraph">
-<p>Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet installiert werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung <code>testrpc</code> stellt ein solches simuliertes Netzwerk bereit.</p>
+<p>Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet bereitgestellt werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung <code>testrpc</code> stellt ein solches simuliertes Netzwerk bereit.</p>
 </div>
 <div class="paragraph">
-<p>Der Quellcode und etwas Dokumentation zu <code>testrpc</code> findet sich auf github<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</sup>. Die Anwendung kann mithilfe des <code>node package managers</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden.</p>
+<p>Der Quellcode und etwas Dokumentation zu <code>testrpc</code> findet sich auf github<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</sup>. Die Anwendung kann mithilfe des <code>node package managers</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -707,7 +844,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_truffle">truffle</h3>
-
+<div class="paragraph">
+<p>Truffle<sup class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</sup> ist ein Kommandozeilenprogramm welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht und erleichtert. Truffle stellt folgende Funktionen bereit:</p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Truffle ist eine node.js Anwendung und kann über den <code>node package manager</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ npm install -g truffle</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -736,13 +886,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <a href="#_footnoteref_7">7</a>. Liste aller Solidity Datentypen: <a href="http://solidity.readthedocs.io/en/latest/types.html" class="bare">http://solidity.readthedocs.io/en/latest/types.html</a>
 </div>
 <div class="footnote" id="_footnote_8">
-<a href="#_footnoteref_8">8</a>. Link zu testrpc:  <a href="https://github.com/ethereumjs/testrpc" class="bare">https://github.com/ethereumjs/testrpc</a>
+<a href="#_footnoteref_8">8</a>. Kontrollstrukturen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures" class="bare">https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures</a>
+</div>
+<div class="footnote" id="_footnote_9">
+<a href="#_footnoteref_9">9</a>. Spezielle Variablen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions" class="bare">https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions</a>
+</div>
+<div class="footnote" id="_footnote_10">
+<a href="#_footnoteref_10">10</a>. Link zu testrpc:  <a href="https://github.com/ethereumjs/testrpc" class="bare">https://github.com/ethereumjs/testrpc</a>
+</div>
+<div class="footnote" id="_footnote_11">
+<a href="#_footnoteref_11">11</a>. Link zu truffle:  <a href="http://truffleframework.com" class="bare">http://truffleframework.com</a>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.0.1<br>
-Last updated 2017-08-10 12:28:13 CEST
+Version 0.0.2<br>
+Last updated 2017-08-11 21:53:37 CEST
 </div>
 </div>
 </body>
