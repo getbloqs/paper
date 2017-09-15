@@ -442,6 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_bitcoin">Bitcoin</a></li>
 <li><a href="#_ethereum">Ethereum</a></li>
+<li><a href="#_blockchain_anwendungen">Blockchain Anwendungen</a></li>
+<li><a href="#_blockchain_anwendungsarchitektur">Blockchain Anwendungsarchitektur</a></li>
 </ul>
 </li>
 <li><a href="#_szenario_1">Szenario 1</a>
@@ -460,6 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_truffle">truffle</a></li>
 </ul>
 </li>
+<li><a href="#_literatur">Literatur</a></li>
 </ul>
 </div>
 </div>
@@ -470,23 +473,187 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_bitcoin">Bitcoin</h3>
 <div class="paragraph">
-<p>"Bitcoin: A Peer-to-Peer Electronic Cash System"<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup> ist eine Publikation von unbekannten Autoren mit dem Pseudonym "Satoshi Nakamoto". Diese wurde am 1. November 2008 innerhalb einer Mailinglist<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup> veröffentlicht. Die Publikation beschreibt auf 9 Seiten konzeptionell ein Transfersystem von virtuellen Tokens (Bitcoins), welches auf einem Peer-to-Peer Ansatz basiert. Das Interessante dabei ist, das keine zentrale Stelle (Mittelsmann bzw. Third Party) benötigt wird um:</p>
+<p>Im Jahr 2008 wurde von unbekannten Autoren mit dem Pseudonym <em>Satoshi Nakamoto</em> eine Publikation mit dem Titel "Bitcoin: A Peer-to-Peer Electronic Cash System"<a href="#Bit2008">[Bit2008]</a> innerhalb einer Mailingliste <a href="#Mai2008">[Mai2008]</a> veröffentlicht. Die Publikation beschreibt auf 9 Seiten konzeptionell ein Transfersystem von virtuellen Tokens (Bitcoins), welche über das Internet ausgetauscht werden können. Neben dieser konzeptionellen Beschreibung lieferte Satoshi Nakamoto auch eine Open Source Implementierung von Bitcoin.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="paragraph">
+<p>Bitcoin ist als verteiltes Peer-to-Peer Netzwerk organisiert, welches keinen zentralen Dienst erfordert. Somit kann jeder Internetnutzer die Bitcoin Software installieren und Teil des Netzwerks werden. Das Herzstück von Bitcoin stellt eine verteilte Datenstruktur dar (Blockchain), welche eine Liste mit allen Transaktionen zwischen den Netzwerkteilnehmern enthält. Veränderungen in dieser Datenstruktur können nur über einen Prozess der sich Mining nennt durchgeführt werden. Als Belohnung für ihre Arbeit bekommen Mining-Knoten Bitcoin-Token ausgeschüttet. Dies ermöglicht es neue Bitcoins im System zu erschaffen.</p>
+</div>
+<div class="paragraph">
+<p>Zusammengefasst besteht Bitcoin aus 4 Bestandteilen bzw. Schlüsselinnovationen, welche in Kombination Bitcoin ausmachen:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Transaktionen zwischen den Teilnehmern durchzuführen und zu prüfen</p>
+<p>Ein dezentrales Peer-to-Peer Netzwerk: Das Bitcoin Protokoll</p>
 </li>
 <li>
-<p>Neue Tokens im System zu schöpfen (sog. Minting)</p>
+<p>Ein öffentliches Transaktionsbuch: Die Bitcoin Blockchain</p>
 </li>
-</ol>
+<li>
+<p>Ein Bündel an Regeln für die Transaktionsverifizierung und Tokenausgabe: Die Konsensus Regeln</p>
+</li>
+<li>
+<p>Ein Mechanismus zur dezentralen Konsenermittlung über den Status der Blockchain: Proof-of-Work Algorithmus</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_bitcoin_adressen">Bitcoin Adressen</h4>
+<div class="paragraph">
+<p>Das Eigentum von Bitcoins wird über digitale Signaturen sichergestellt. Dabei fungieren Bitcoin Adressen als öffentlich austauschbare Schlüssel, welche weitergegeben werden können um eingehende Bitcoin Transaktion zu erhalten. Zu jeder Bitcoin Adresse gehört ein privater Schlüssel. Dieser Schlüssel kann vom Eigentümer der Bitcoin Adresse verwendet werden um Transaktionen zu signieren und damit die Zustimmung zu geben, dass von der zugehörigen Bitcoin Adresse eine Abbuchung vorgenommen werden darf. Jeder Netzwerkteilnehmer kann sich beliebig viele Bitcoin Adressen dezentral generieren. Aus Gründen der Anonymität sollte für jede Bitcoin Transaktion eine eigene Adresse generiert werden.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bitcoin_transaktionen">Bitcoin Transaktionen</h4>
+<div class="paragraph">
+<p>Transaktionen stellen den wichtigsten Teil innerhalb des Bitcoin Netzwerks dar. Alle anderen Bestandteile des Bitcoin Sytems ermöglichen den Austausch von Transaktionen zwischen den einzelnen Netzwerkteilnehmern. Jede valide Transaktion wird von Mining-Knoten über die Propagation eines Blockes in die Blockchain aufgenommen. Diese Aufnahme in die Blockchain führt zu einer Veränderung der Beträge hinter den Bitcoin Adressen und ermöglicht somit die Werttransfers.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bitcoin_mining">Bitcoin Mining</h4>
+<div class="paragraph">
+<p>Der Prozess zur Generierung eines neuen gültigen Blocks und damit die Veränderung der Blockchain wird Mining gennant.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_ethereum">Ethereum</h3>
 <div class="paragraph">
-<p>Adressen, Accounts</p>
+<p>Ethereum ist als verteiltes Rechennetzwerk konzipiert, sodass jegliches Programm (Turing-Completness) innerhalb einer eigenen isolierten Ablaufumgebung (Ethereum Virtual Machine) deterministisch und reproduzierbar ausgeführt werden kann.</p>
+</div>
+<div class="paragraph">
+<p>Das Ethereum Protokoll ist in ständiger Weiterentwicklung. Es wurden jedoch Design Prinzipien <a href="#Eth2017">[Eth2017]</a> festgelegt, welche die zukünftige Weiterentwicklung leiten. Im folgenden werden diese Prinzipien dargelegt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Einfachheit</strong>: Das grundlegende Protokoll soll so einfach wie möglich sein, sodass ein Programmierer in der Lage sein soll die Spezifikation gänzlich zu verstehen und nötigenfalls zu implementieren. Komplexität durch Optimierungen soll nicht vermieden werden sonder in eine Mittelschicht zwischen Basisprotokoll und Anwendung platziert werden.</p>
+</li>
+<li>
+<p><strong>Freiheiten</strong>: In Analogie zum Konzept der <em>Net Neutrality</em> soll auch im Ethereum Protokoll keinerlei Bevorzugung oder Benachteiligung von bestimmten Transaktionen oder Contracts geschehen können.</p>
+</li>
+<li>
+<p><strong>Generalisierung</strong>: Die Konzepte im Ethereum Protokoll sollen auf dem niedrigsten Level dargestellt werden, um sie dadurch beliebig miteinander kombinierbar zu machen.</p>
+</li>
+<li>
+<p><strong>Ohne Features</strong>: Als folge der Generalisierung enthält das Ethereum Protokoll keinerlei Features welchen häufige Anwendenungsfälle zugrundeliegen. Jegliche Funktionen entstehen aus der Kombination bzw. Nutzung der generalisierten Konzepte.</p>
+</li>
+<li>
+<p><strong>Risikobereitschaft</strong>: Ist ist okay ein höheres Risiko mit einer Implementierung einzugehen, wenn dies nachhaltige Vorteile bringt.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_ethereum_konto_account">Ethereum Konto (Account)</h4>
+<div class="paragraph">
+<p>Ethereum Konten werden über eine 20 byte Addresse identifiziert (zB 0x829BD824B016326A401d083B33D092293333A830) und können genutzt werden um die Ethereum eigene Kryptowährung Ether über Transaktionen auszutauschen. Jedes Konto hat somit einen Kontostand, welcher in Ether geführt wird. In Ethereum können prinzipiell zwei Arten von Konten unterschieden werden:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Externe Konten</strong>: Diese Konten werden von einem privaten Schlüssel kontrolliert. Über den privaten Schlüssel können Transaktionen signiert werden und somit der Kontostand verändert werden.</p>
+</li>
+<li>
+<p><strong>Vertragskonten</strong>: Auf einem Vertragskonto findet sich der ausführbare Programmcode eines Smart Contract, welcher über Transaktionen aktiviert werden kann. Vertragskonten besitzen ebenfalls einen Speicher, welcher den Zustand des Smart Contracts repräsentiert.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ethereum_transaktionen">Ethereum Transaktionen</h4>
+<div class="paragraph">
+<p>Zwischen den Ethereum Konten können Nachrichten bzw. Transaktionen ausgetauscht werden. Eine Transaktion enthält primär folgende Daten:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Menge an Ether, welche vom Sender zum Empfänger übertragen werden soll.</p>
+</li>
+<li>
+<p>Falls der Empfänger ein Smart Contract ist, können auch Daten übertragen werden, welche als Eingabewerte für den Programmcode gelten.</p>
+</li>
+<li>
+<p>Ein sog. Gaspreis, welcher angibt wieviel die Transaktionsausführung maximal Kosten darf.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Neben Transaktionen zwischen bestehenden Ethereum Konten, gibt es eine spezielle Transaktion, welche zur Erstellung eines neuen Vertragskontos verwendet wird. Falls der Empfänger der Transaktion die leere Addresse ("0") ist, dann wird innerhalb des Netzwerkes ein neues Vertragskonto erstellt mit den mitgeführten Daten als Programmcode. Die Addresse des Vertragskontos wird aus der Absender Adresse abgeleitet.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ethereum_zustandsübergänge_und_codeausführung">Ethereum Zustandsübergänge und Codeausführung</h4>
+<div class="paragraph">
+<p>Jede Transaktion führt bei Erfolg zu einer Zustandsänderung der Blockchain und wird innerhalb einer isolierten Instanz der Ethereum Virtual Machine ausgeführt. Jeder Schritt dieser Ausführung ist mit einer definierten Menge an GAS als Kosten bepreist. Jeder Transaktion muss daher genügend Ether als GAS mitgegeben werden, sodass die Ausführung finanziert werden kann. GAS wird somit als effizientes Mittel gegen Denial-of-Service Attacken im Ethereum Netzwerk eingesetzt. Folgendes muss für eine erfolgreiche Transaktionsausführung gelten:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Transaktion muss wohl geformt und vom Absender korrekt signiert sein</p>
+</li>
+<li>
+<p>Es muss genügend Ether (für GAS und den Werttransfer) am Konto des Absenders vorhanden sein</p>
+</li>
+<li>
+<p>Es muss genügend GAS freigegeben werden um die Transaktion durchzuführen</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Falls eine Transaktion fehlschlägt, werden alle Zustandsänderungen revidiert und das gesendete Ether wieder an den Absender rückgeführt. Bei einer erfolgreichen Transaktion wird die Zustandsänderung innerhalb eines Blockes gespeichert und ist nach Validierung der Miner innerhalb der Blockchain verfügbar.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ethereum_blockchain_und_mining">Ethereum Blockchain und Mining</h4>
+<div class="paragraph">
+<p>Die Ethereum Blockchain ist der Bitcoin Blockchain sehr ähnlich. Jegliche Zustandsänderung eines Kontos, sei es am Kontostand oder am Speicher, muss über einen Konsens im Netzwerk geschehen. Das Ethereum Netzwerk basiert ebenfalls auf einem Verbund von vielen und weltweit verteilten Rechnern. Die Mining Knoten im Netzwerk validieren Transaktionen über den oben genannten Prozess und propagieren die Transaktion bei Erfolg innerhalb eines Blockes. Das Ethereum Netzwerk hat eine sehr schnelle Block Validierungs Zeit von ungefähr 17 Sekunden, sodass eine gültige Transaktion relativ rasch integriert wird.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blockchain_anwendungen">Blockchain Anwendungen</h3>
+<div class="paragraph">
+<p>Die Blockchain Technologie wird nach Swan<a href="#Swa2015">[Swa2015]</a> als hoch disruptive Technologie eingestuft und in 3 Kategorien eingeteilt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Blockchain 1.0 - Währungen</strong>: Mit Bitcoin haben Blockchains ihren Ursprung genommen. Bitcoin oder ähnliche Altcoins (zB Litecoin, Dash oder Monero) sind sog. Kryptowährungen und können für Werttransfers über das Internet genutzt werden.</p>
+</li>
+<li>
+<p><strong>Blockchain 2.0 - Verträge</strong>: In diese Kategorie würden alle Anwendungen fallen die mehrstufige Handlungsmuster umfassen, welche durch Regeln oder Wenn-Dann Beziehungen verknüpft sind. Dies könnten Crowdfunding Verträge, Initial Coin Offerings (ICOs), jegliche Formen von Wertpapieren bis hin zu Dezentralen Autonomen Organisationen (DAOs) sein.</p>
+</li>
+<li>
+<p><strong>Blockchain 3.0 - Dezentrale Anwendungen</strong>: Hierein fallen ein breites Spektrum von Anwendungen, welche Einfluss auf politische Prozesse und den Rechtsstaat nehmen könnten. Diese Kategorie ist eher als Ausblick zu verstehen, folgendes könnte dies betreffen: Demokratische Prozesse und Wahlen, Austellung von Identitätsdokumenten, Notariat bis Hin zur Abbildung des Gesundheitswesens.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+</table>
+</div>
+<div class="sect2">
+<h3 id="_blockchain_anwendungsarchitektur">Blockchain Anwendungsarchitektur</h3>
+<div class="paragraph">
+<p>Klassische Softwareanwendungen sind nach einem Client-Server Paradigma strukturiert. Teile der Anwendung finden sich dabei im Client und andere Teile im Server. Dies resultiert in einer sog. Schichtenarchitektur (auch Multitier Architektur gennant). Dabei kann eine Anwendung innerhalb von 3 Schichten betrachtet werden:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Präsentationsschicht: Bei dieser Schicht spricht man vom Frontend oder auch Client. Diese ist für die Präsentation der Anwendungsdaten an den Benutzer bzw. für die Aufnahme von Eingaben vom Benutzer verantwortlich. In Web-Anwendungen würde sich die Präsentationsschicht im Web-Browser finden.</p>
+</li>
+<li>
+<p>Anwendungsschicht: Innerhalb dieser Schicht findet sich die Geschäftslogik der Anwendung. Dies sind alle Regeln einer Domäne, welche die Anwendung abbildet. Gängig ist der sog. Thin Client Ansatz, in dem sich diese Schicht gänzlich am Server befindet. Eine sog. Fat Client Variante wäre ebenfalls möglich, in der sich diese Schicht im Client befindet.</p>
+</li>
+<li>
+<p>Datenhaltungsschicht: Alle Daten welche langfristig innerhalb der Anwendung verfügbar sein müssen, werden über diese Schicht verwaltet. Die Schicht findet sich grundsätzlich am Server, da alle Benutzer der Anwendung mit den Daten interagieren müssen.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Jede Schicht bietet zur anderen eine Kommunikationsschnittstelle, welche als Application Programming Interface (API) bezeichnet wird. Die Anwendungsschicht könnte zB eine Restful API anbieten, welche der Client nutzen kann. Die Datenschnittstelle könnte eine SQL API anbieten über diese könnte die Anwendungsschicht mit der Datenbank kommunizieren.</p>
+</div>
+<div class="paragraph">
+<p>Blockchains bieten ähnlich wie klassische Datenbanken Kommunikationsschnittstellen. Eine Anwendung kann diese Schnittstellen nutzen um lesenden oder schreibenden Zugriff auf die Blockchain bekommt.</p>
 </div>
 </div>
 </div>
@@ -580,7 +747,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="content">
 <div class="title">Kollektive Intelligenz</div>
 <div class="paragraph">
-<p>Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie <code>Augur</code><sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>, <code>Gnosis</code><sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup> oder <code>Stox</code><sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</sup> machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der "kollektiven Intelligenz" als Dienstleistung an. Dies ist auch unter den Bezeichnungen <code>crowd sourcing</code> oder <code>prediction markets</code> bekannt.</p>
+<p>Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie <code>Augur</code><sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>, <code>Gnosis</code><sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup> oder <code>Stox</code><sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup> machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der "kollektiven Intelligenz" als Dienstleistung an. Dies ist auch unter den Bezeichnungen <code>crowd sourcing</code> oder <code>prediction markets</code> bekannt.</p>
 </div>
 </td>
 </tr>
@@ -631,7 +798,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="section03">Implementierung mit Solidity</h3>
 <div class="paragraph">
-<p>Der Solidity Programmcode ist innerhalb einem Verzeichnises auf github<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</sup> hinterlegt und einsehbar. In diesem Abschnitt werden einige Ausschnitte des Programmcodes angeführt und erläutert. Dies soll dazu dienen den Smart Contract zu dokumentieren und wesentliche Konzepte der Programmiersprache Solidity einzuführen.</p>
+<p>Der Solidity Programmcode ist innerhalb einem Verzeichnises auf github<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup> hinterlegt und einsehbar. In diesem Abschnitt werden einige Ausschnitte des Programmcodes angeführt und erläutert. Dies soll dazu dienen den Smart Contract zu dokumentieren und wesentliche Konzepte der Programmiersprache Solidity einzuführen.</p>
 </div>
 <div id="solidity01" class="listingblock">
 <div class="title">Listing 1</div>
@@ -668,7 +835,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Zustandsvariablen deklariert werden. In <a href="#solidity03">Listing 3</a> wird dazu eine Variable mit Namen <code>game</code> deklariert. Diese Variable hat den Datentyp <code>string</code> und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</sup> zu entnehmen. Mit der Angabe <code>public</code> wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable <code>game</code> von anderen Smart Contracts abgefragt werden. Neben <code>public</code> gibt es weitere Sichtbarkeitsdeklarationen, welche ebenfalls für Funktionen gelten und weiter unten eingeführt werden.</p>
+<p>Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Zustandsvariablen deklariert werden. In <a href="#solidity03">Listing 3</a> wird dazu eine Variable mit Namen <code>game</code> deklariert. Diese Variable hat den Datentyp <code>string</code> und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</sup> zu entnehmen. Mit der Angabe <code>public</code> wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable <code>game</code> von anderen Smart Contracts abgefragt werden. Neben <code>public</code> gibt es weitere Sichtbarkeitsdeklarationen, welche ebenfalls für Funktionen gelten und weiter unten eingeführt werden.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -739,7 +906,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>Neben der Signatur, welche auch als Funktionskopf bezeichnet werden kann, gibt es einen Funktionskörper. Der Funktionskörper wird von zwei geschwungenen Klammern umschlossen <code>{ }</code>. Innerhalb dieses Körpers wird die Logik der Funktion implementiert. Dazu werden unterschiedliche Konstrukte der Programmierung angewandt. In der Funktion <code>bet</code> aus <a href="#solidity04">Listing 4</a> werden sog. Kontrollstrukturen eingesetzt, um den übergebenen Parameter zu überprüfen. Die verfügbaren Kontrollstrukturen in Solidity können in der Dokumentation<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</sup> eingesehen werden. Falls die Signatur Rückgabewerte definiert, müssen diese über das Schlüsselwort <code>return</code> übergeben werden. Dieses Schlüsselwort beendet ebenfalls die Ausführung der Funktion.</p>
+<p>Neben der Signatur, welche auch als Funktionskopf bezeichnet werden kann, gibt es einen Funktionskörper. Der Funktionskörper wird von zwei geschwungenen Klammern umschlossen <code>{ }</code>. Innerhalb dieses Körpers wird die Logik der Funktion implementiert. Dazu werden unterschiedliche Konstrukte der Programmierung angewandt. In der Funktion <code>bet</code> aus <a href="#solidity04">Listing 4</a> werden sog. Kontrollstrukturen eingesetzt, um den übergebenen Parameter zu überprüfen. Die verfügbaren Kontrollstrukturen in Solidity können in der Dokumentation<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</sup> eingesehen werden. Falls die Signatur Rückgabewerte definiert, müssen diese über das Schlüsselwort <code>return</code> übergeben werden. Dieses Schlüsselwort beendet ebenfalls die Ausführung der Funktion.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -793,7 +960,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="content">
 <div class="title">Spezielle Variablen: Block bzw. Transaktions Eigenschaften</div>
 <div class="paragraph">
-<p>Funktionen haben Zugriff auf spezielle Variablen, welche wichtige Informationen über den aktuellen Ausführungskontext enthalten. So kann zB über die Variable <code>msg</code> auf den Absender der Transaktion (<code>msg.sender</code>) den gesendeten Betrag an Ether (<code>msg.value</code>) oder das noch verfügbare Gas (<code>msg.gas</code>) zugegriffen werden. Alle verfügbaren bzw. speziellen Variablen sind in der Dokumentation<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</sup> einsehbar.</p>
+<p>Funktionen haben Zugriff auf spezielle Variablen, welche wichtige Informationen über den aktuellen Ausführungskontext enthalten. So kann zB über die Variable <code>msg</code> auf den Absender der Transaktion (<code>msg.sender</code>) den gesendeten Betrag an Ether (<code>msg.value</code>) oder das noch verfügbare Gas (<code>msg.gas</code>) zugegriffen werden. Alle verfügbaren bzw. speziellen Variablen sind in der Dokumentation<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</sup> einsehbar.</p>
 </div>
 </td>
 </tr>
@@ -831,7 +998,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet bereitgestellt werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung <code>testrpc</code> stellt ein solches simuliertes Netzwerk bereit.</p>
 </div>
 <div class="paragraph">
-<p>Der Quellcode und etwas Dokumentation zu <code>testrpc</code> findet sich auf github<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</sup>. Die Anwendung kann mithilfe des <code>node package managers</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden.</p>
+<p>Der Quellcode und etwas Dokumentation zu <code>testrpc</code> findet sich auf github<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</sup>. Die Anwendung kann mithilfe des <code>node package managers</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -845,7 +1012,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_truffle">truffle</h3>
 <div class="paragraph">
-<p>Truffle<sup class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</sup> ist ein Kommandozeilenprogramm welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht und erleichtert. Truffle stellt folgende Funktionen bereit:</p>
+<p>Truffle<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</sup> ist ein Kommandozeilenprogramm welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht und erleichtert. Truffle stellt folgende Funktionen bereit:</p>
 </div>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
@@ -861,47 +1028,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_literatur">Literatur</h2>
+<div class="sectionbody">
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="Bit2008"></a>[Bit2008] Bitcoin: A Peer-to-Peer Electronic Cash System, Satoshi Nakamoto; Link: <a href="http://bitcoin.com/bitcoin.pdf" class="bare">http://bitcoin.com/bitcoin.pdf</a></p>
+</li>
+<li>
+<p><a id="Swa2015"></a>[Swa2015] Melanie Swan. Blockchain</p>
+</li>
+<li>
+<p><a id="Eth2017"></a>[Eth2017] Design Rationale, Ethereum; Link: <a href="https://github.com/ethereum/wiki/wiki/Design-Rationale" class="bare">https://github.com/ethereum/wiki/wiki/Design-Rationale</a></p>
+</li>
+<li>
+<p><a id="Mai2008"></a>[Mai2008] Mail Archive Cypherpunk Mailingliste; Link: <a href="http://www.mail-archive.com/cryptography@metzdowd.com/msg09959.html" class="bare">http://www.mail-archive.com/cryptography@metzdowd.com/msg09959.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a>. Bitcoin: A Peer-to-Peer Electronic Cash System, Satoshi Nakamoto (<a href="http://bitcoin.com/bitcoin.pdf" class="bare">http://bitcoin.com/bitcoin.pdf</a>)
+<a href="#_footnoteref_1">1</a>. Augur: <a href="https://augur.net" class="bare">https://augur.net</a>
 </div>
 <div class="footnote" id="_footnote_2">
-<a href="#_footnoteref_2">2</a>. Link zur archivierten Mailingliste (<a href="http://www.mail-archive.com/cryptography@metzdowd.com/msg09959.html" class="bare">http://www.mail-archive.com/cryptography@metzdowd.com/msg09959.html</a>)
+<a href="#_footnoteref_2">2</a>. Gnosis: <a href="https://gnosis.pm/" class="bare">https://gnosis.pm/</a>
 </div>
 <div class="footnote" id="_footnote_3">
-<a href="#_footnoteref_3">3</a>. Augur: <a href="https://augur.net" class="bare">https://augur.net</a>
+<a href="#_footnoteref_3">3</a>. Stox: <a href="https://www.stox.com" class="bare">https://www.stox.com</a>
 </div>
 <div class="footnote" id="_footnote_4">
-<a href="#_footnoteref_4">4</a>. Gnosis: <a href="https://gnosis.pm/" class="bare">https://gnosis.pm/</a>
+<a href="#_footnoteref_4">4</a>. Szenario 1 auf github: <a href="https://github.com/getbloqs/scenario01" class="bare">https://github.com/getbloqs/scenario01</a>
 </div>
 <div class="footnote" id="_footnote_5">
-<a href="#_footnoteref_5">5</a>. Stox: <a href="https://www.stox.com" class="bare">https://www.stox.com</a>
+<a href="#_footnoteref_5">5</a>. Liste aller Solidity Datentypen: <a href="http://solidity.readthedocs.io/en/latest/types.html" class="bare">http://solidity.readthedocs.io/en/latest/types.html</a>
 </div>
 <div class="footnote" id="_footnote_6">
-<a href="#_footnoteref_6">6</a>. Szenario 1 auf github: <a href="https://github.com/getbloqs/scenario01" class="bare">https://github.com/getbloqs/scenario01</a>
+<a href="#_footnoteref_6">6</a>. Kontrollstrukturen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures" class="bare">https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures</a>
 </div>
 <div class="footnote" id="_footnote_7">
-<a href="#_footnoteref_7">7</a>. Liste aller Solidity Datentypen: <a href="http://solidity.readthedocs.io/en/latest/types.html" class="bare">http://solidity.readthedocs.io/en/latest/types.html</a>
+<a href="#_footnoteref_7">7</a>. Spezielle Variablen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions" class="bare">https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions</a>
 </div>
 <div class="footnote" id="_footnote_8">
-<a href="#_footnoteref_8">8</a>. Kontrollstrukturen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures" class="bare">https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures</a>
+<a href="#_footnoteref_8">8</a>. Link zu testrpc:  <a href="https://github.com/ethereumjs/testrpc" class="bare">https://github.com/ethereumjs/testrpc</a>
 </div>
 <div class="footnote" id="_footnote_9">
-<a href="#_footnoteref_9">9</a>. Spezielle Variablen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions" class="bare">https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions</a>
-</div>
-<div class="footnote" id="_footnote_10">
-<a href="#_footnoteref_10">10</a>. Link zu testrpc:  <a href="https://github.com/ethereumjs/testrpc" class="bare">https://github.com/ethereumjs/testrpc</a>
-</div>
-<div class="footnote" id="_footnote_11">
-<a href="#_footnoteref_11">11</a>. Link zu truffle:  <a href="http://truffleframework.com" class="bare">http://truffleframework.com</a>
+<a href="#_footnoteref_9">9</a>. Link zu truffle:  <a href="http://truffleframework.com" class="bare">http://truffleframework.com</a>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.2<br>
-Last updated 2017-08-11 21:53:37 CEST
+Last updated 2017-09-05 14:00:11 CEST
 </div>
 </div>
 </body>

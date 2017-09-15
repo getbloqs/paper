@@ -1,0 +1,19 @@
+[scenario02]
+
+== Szenario 2
+
+[[section01]]
+=== Problemstellung: Domain Name System
+
+Das Internet und alle darauf basierenden Dienste nutzen sog. IP-Adressen um Rechner im Netzwerk zu identifizieren. IP-Adressen sind mehrstellige Zahlenkombinationen und für Menschen schwer zu merken, sodass Domain-Namen eingeführt wurden um dies zu erleichtern. Ein Domain-Name ist ein leicht merkbarer Bezeichner, welcher quasi als Alias für eine IP-Adresse verwendet wird.
+
+Das System, welches die Namensauflösung, also die Umwandlung von Domain-Name in eine IP-Adresse, ist das Domain Name System (DNS). DNS ist zwar grundsätzlich eine dezentrale Datenbank unterliegt jedoch zentraler Kontrolle. An der obersten Hierarchieebene steht dabei die Internet Corporation for Assigned Names and Numbers (ICANN), welche Top Level Domains (TLD) vergibt und die Verwaltung dieser an die jeweiligen regionalen Verwaltungen weiterreicht. Die regionalen Verwaltungen vertreiben die Domain-Namen dann über akkreditierte Registrare an Domain Käufer.
+
+DNS basiert auf einer Serverinfrastruktur, welche Anfragen für die Übersetzung von Domain-Namen zu IP-Adressen vornehmen. Über die Kontrolle der DNS-Server können Domain-Namen in DNS-Zonen manipuliert und damit zB zensiert werden. So können zB Webseiten wie Wikipedia in Ländern wie der Türkei gesperrt werden.
+
+Ein auf Blockchain-Technologie basierendes Domain Name System würde es ermöglichen nicht nur die Datenhaltung zu dezentralisieren, sonder auch die Kontrolle über die DNS-Einträge. So würde zB der DNS-Eintrag für Wikipedia nur vom Betreiber selbst verwaltet und verändert werden können.
+
+[[section02]]
+=== Implementierung mit Solidity
+
+

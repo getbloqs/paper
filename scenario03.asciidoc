@@ -1,0 +1,9 @@
+[scenario03]
+
+== Szenario 3
+
+[[section01]]
+=== Einführung: Bounties
+
+Open Source Software wird von einer weltweiten Community entwickelt. Wie jede Software ist auch Open Source Software nicht von sog. Bugs (Softwarefehlern) gefeit. Für Anwender sind Softwarefehler natürlich höchst problematisch. Dies kann von leichten Einschränkungen in der Bedienung bis hinzu schwerwiegenden Fehlern in der Bearbeitung reichen.
+

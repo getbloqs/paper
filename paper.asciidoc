@@ -11,3 +11,5 @@ include::introduction.asciidoc[]
 include::scenario01.asciidoc[]
 
 include::appendix01.asciidoc[]
+
+include::references.asciidoc[]
