@@ -1,5 +1,5 @@
 [bibliography]
-== Literatur
+== Referenzen
 
 - [[[Bit2008]]] Bitcoin: A Peer-to-Peer Electronic Cash System, Satoshi Nakamoto; Link: http://bitcoin.com/bitcoin.pdf
 - [[[Swa2015]]] Melanie Swan. Blockchain

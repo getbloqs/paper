@@ -454,6 +454,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section04">Nutzung des Smart Contracts</a></li>
 </ul>
 </li>
+<li><a href="#_szenario_2">Szenario 2</a>
+<ul class="sectlevel2">
+<li><a href="#section0201">Problemstellung: Domain Name System</a></li>
+<li><a href="#section0202">Demonstration einer Subdomain Registry</a></li>
+<li><a href="#section0203">Smart Contract</a></li>
+</ul>
+</li>
+<li><a href="#_szenario_3">Szenario 3</a>
+<ul class="sectlevel2">
+<li><a href="#section0301">Einführung: Initial Coin Offerings</a></li>
+<li><a href="#section0303">Crowdsale Contracts</a></li>
+<li><a href="#section0304">Implementierung des Demo ICO</a></li>
+</ul>
+</li>
 <li><a href="#_ethereum_entwicklungsumgebung">Anhang A: Ethereum Entwicklungsumgebung</a>
 <ul class="sectlevel2">
 <li><a href="#_mist">Mist</a></li>
@@ -462,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_truffle">truffle</a></li>
 </ul>
 </li>
-<li><a href="#_literatur">Literatur</a></li>
+<li><a href="#_referenzen">Referenzen</a></li>
 </ul>
 </div>
 </div>
@@ -982,6 +996,629 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
+<h2 id="_szenario_2">Szenario 2</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="section0201">Problemstellung: Domain Name System</h3>
+<div class="paragraph">
+<p>Das Internet und alle darauf basierenden Dienste nutzen sog. IP-Adressen um Rechner im Netzwerk zu identifizieren. IP-Adressen sind mehrstellige Zahlenkombinationen und für Menschen schwer zu merken, sodass Domain-Namen eingeführt wurden um dies zu erleichtern. Ein Domain-Name ist ein leicht merkbarer Bezeichner, welcher quasi als Alias für eine IP-Adresse verwendet wird.</p>
+</div>
+<div class="paragraph">
+<p>Das System, welches die Namensauflösung, also die Umwandlung von Domain-Name in eine IP-Adresse, ist das Domain Name System (DNS). DNS ist zwar grundsätzlich eine dezentrale Datenbank unterliegt jedoch zentraler Kontrolle. An der obersten Hierarchieebene steht dabei die Internet Corporation for Assigned Names and Numbers (ICANN), welche Top Level Domains (TLD) vergibt und die Verwaltung dieser an die jeweiligen regionalen Verwaltungen weiterreicht. Die regionalen Verwaltungen vertreiben die Domain-Namen dann über akkreditierte Registrare an Domain Käufer.</p>
+</div>
+<div class="paragraph">
+<p>DNS basiert auf einer Serverinfrastruktur, welche Anfragen für die Übersetzung von Domain-Namen zu IP-Adressen vornehmen. Über die Kontrolle der DNS-Server können Domain-Namen in DNS-Zonen manipuliert und damit zB zensiert werden. So können zB Webseiten wie Wikipedia in Ländern wie der Türkei gesperrt werden.</p>
+</div>
+<div class="paragraph">
+<p>Ein auf Blockchain-Technologie basierendes Domain Name System würde es ermöglichen nicht nur die Datenhaltung zu dezentralisieren, sonder auch die Kontrolle über die DNS-Einträge. So würde zB der DNS-Eintrag für Wikipedia nur vom Betreiber selbst verwaltet und verändert werden können.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section0202">Demonstration einer Subdomain Registry</h3>
+<div class="paragraph">
+<p>Als Prototyp einer dezentralen Domain Registrierung wird dies anhand einer Demonstration mittels von Subdomain Redirects realisiert. Das "Eigentum" von Subdomains einer Toplevel Domain werden über einen Smart Contract verwaltet. Folgende Funktionen sind verfügbar:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Es können für einen Gegenwert, welcher in Ether bezahlt wird, Subdomains für einen Zeitraum registriert werden.</p>
+</li>
+<li>
+<p>Der Eigentümer der Subdomain kann einen beliebigen Redirect Link hinterlegen. Bei Aufruf der Subdomain über einen Browser soll ein Redirect zum hinterlegten Link durchgeführt werden.</p>
+</li>
+<li>
+<p>Nach einer gewissen Dauer soll die Registrierung ablaufen. Der Eigentümer hat jedoch während des Registrierungszeitraums die Möglichkeit der Verängerung der Registrierung.</p>
+</li>
+<li>
+<p>Der Ersteller des Smart Contracts soll die Möglichkeit haben unsachgemäße Registrierungen zu löschen.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section0203">Smart Contract</h3>
+<div class="paragraph">
+<p>Im folgenden soll der entsprechende Smart Contract zur Registrierung von Subdomain Redirects besprochen werden. Dabei werden Ausschnitte des gesamten Smart Contracs einzeln angeführt.</p>
+</div>
+<div id="solidity0201" class="listingblock">
+<div class="title">Listing 2.1</div>
+<div class="content">
+<pre>contract SubdomainRedirect {
+
+  struct SubdomainEntry {
+    string redirect;
+    address owner;
+    uint registeredUntil;
+  }
+
+  uint public registrationFee = 5 finney;
+  uint public registrations = 0;
+  mapping (string =&gt; SubdomainEntry) entries;
+  mapping (uint =&gt; string) names;
+
+  // ...
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In <a href="#solidity0201">Listing 2.1</a> werden die generischen Smart Contract Attribute aufgeführt. Als wesentlicher Bestandteil ist die Datenstruktur <code>SubdomainEntry</code> zu nennen, welche eine Registrierung repräsentiert. Folgende Attribute sind im <code>SubdomainEntry</code> enthalten:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>redirect</code> ist eine Zeichenkette, welche den hinterlegten Redirect Link enthält.</p>
+</li>
+<li>
+<p><code>owner</code> repräsentiert den Eigentümer der Registrierung als Ethereum adresse.</p>
+</li>
+<li>
+<p><code>registeredUntil</code> gibt den Zeitstempel an, an dem die Registrierung abläuft.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Im Smart Contract ist des weiteren eine <code>registrationFee</code> hinterlegt, welche die Kosten für eine Registrierung angibt. Im Beispiel werden 5 Finneys angegeben. <code>registrations</code> ist ein Zähler, welcher die Anzahl von Registrierungen angibt. <code>entries</code> enthält alle Registrierungen und sind über den Namen der Subdomain indexiert. Ein weiterer Index <code>names</code> ermöglicht die Abfrage des Namens der registrierten Subdomain anhand einer Ganzahl.</p>
+</div>
+<div id="solidity0202" class="listingblock">
+<div class="title">Listing 2.2</div>
+<div class="content">
+<pre>contract SubdomainRedirect {
+
+    // ...
+
+    function createRegistration(string name, string redirect) external payable {
+        require(
+            msg.value &gt;= registrationFee &amp;&amp;
+            ( entries[name].owner == address(0) ||
+              entries[name].registeredUntil &lt; now ) &amp;&amp;
+            bytes(redirect).length &gt; 0
+        );
+
+        entries[name].redirect = redirect;
+        entries[name].owner = msg.sender;
+        entries[name].registeredUntil = now + 1 years + 30 days;
+        names[registrations] = name;
+        registrations += 1;
+    }
+
+  // ...
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Eine Registrierung kann erstellt werden mittels der Funktion <code>createRegistration</code>, welche in <a href="#solidity0202">Listing 2.2</a> dargestellt ist. Die Registrierung benötigt zwei Parameter <code>name</code> und <code>redirect</code>, welche den zu registrierenden Sudomain Namen und andererseits den zu registrierenden Redirect Link spezifizieren.</p>
+</div>
+<div class="paragraph">
+<p>Im ersten Schritt wir überprüft ob die Registrierung durchgeführt werden kann. Dazu wird überprüft ob die Gebühr enthalten ist und keine gültige Registrierung für den gewünschten Namen vorherscht. Bei einer erfolgreichen Überprüfung wird der Sender der Transaktion als Besitzer der Registrierung angegeben. Weiters wird das Ablaufdatum mit einem Jahr und 30 Tagen gesetzt.</p>
+</div>
+<div id="solidity0203" class="listingblock">
+<div class="title">Listing 2.3</div>
+<div class="content">
+<pre>contract SubdomainRedirect {
+
+    // ...
+
+    function renewRegistration(string name) external payable {
+        require(
+            msg.value &gt;= registrationFee &amp;&amp;
+            entries[name].owner == msg.sender
+        );
+
+        entries[name].registeredUntil = now + 1 years + 30 days;
+    }
+
+    function updateRegistration(string name, string redirect) external {
+        require(
+            entries[name].owner == msg.sender &amp;&amp;
+            entries[name].registeredUntil &gt; now
+        );
+
+        entries[name].redirect = redirect;
+    }
+
+    // ...
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Neben der Erstellung einer neuen Registrierung (siehe <a href="#solidity0202">Listing 2.2</a>) können bestehende Registrierungen (1) erneuert werden bzw. (2) editiert werden. In <a href="#solidity0203">Listing 2.3</a> werden die entsprechenden Funktionen <code>renewRegistration</code> und <code>updateRegistration</code> dargestellt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Erneuerung der Registrierung kann über die Funktion <code>renewRegistration</code> durchgeführt werden. Als Parameter benötigt die Funktion den registrierten Namen <code>name</code>. Falls die Registrierung bereits für den Sender (<code>msg.sender</code>) vorliegt und die entsprechende Gebühr (<code>msg.value</code>) enthalten ist, kann die Erneuerung für 1 Jahr und 30 Tage durchgeführt werden.</p>
+</li>
+<li>
+<p>Eine bestehende Registrierung kann über die Funktion <code>updateRegistration</code> durchgeführt werden. Dabei sieht die Signatur der Funktion die Parameter <code>name</code> und <code>redirect</code> vor, welche den Namen der Subdomain bzw. den neuen Redirect Link enthalten sollen. Falls die Registrierung auf den Sender (<code>msg.sender</code>) der Transaktion registriert ist, kann die Editierung durchgeführt werden.</p>
+</li>
+</ul>
+</div>
+<div id="solidity0204" class="listingblock">
+<div class="title">Listing 2.4</div>
+<div class="content">
+<pre>contract SubdomainRedirect {
+
+    // ...
+
+    function clearRegistration(string name, bool full) ownerOnly external {
+        entries[name].redirect = "";
+
+        if (full) {
+            entries[name].owner = address(0);
+            entries[name].registeredUntil = 0;
+        }
+    }
+
+    // ...
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Für den Ersteller des Smart Contracts wird die Funktion bereitgestellt eine Registrierung aufzulösen. Dabei besteht die Möglichkeit einer schwachen Auflösung (quasi als Warnung) und einer vollen Auflösung. Die Funktion <code>clearRegistration</code> stellt dies bereit. Als Parameter wird der Name der Registrierung (<code>name</code>) und die Angabe ob eine volle Auflösung stattfinden soll (<code>full</code>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_szenario_3">Szenario 3</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="section0301">Einführung: Initial Coin Offerings</h3>
+<div class="paragraph">
+<p>Initial Coin Offerings (ICOs) sind eine Möglichkeit für Startups bzw. Unternehmen ein sog. Crowdfunding mittels Einsatz der Blockchaintechnologie durchzuführen. Dabei werden innerhalb eines vorgegebenen Investitionszeitraums eigens geschaffene Token gegen Investitionen in Kryptowährungen ausgegeben. Die ausgegebenen Token können unterschiedlichste Funktionen bzw. Nutzen für den Investor haben. Ebenfalls, können sie wie eine Kryptowährung genutzt werden und zB auf Börsen gehandelt werden.</p>
+</div>
+<div class="paragraph">
+<p>Mögliche Funktionen eines ICO Tokens:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Utility Token: Die Unternehmen, welche Tokens ausgeben, integrieren den Token in ihr Geschäftsmodell. Der Token kann Vielfach als Gutschein betrachtet werden und wird benötigt um die Dienstleistung bzw. das Produkt des Unternehmens zu nutzen. Filecoin als erfolgreichster ICO im Jahre 2017 beispielsweise führt den Token Filecoin ein um Speicherplatz zu handeln. Nutzer des dezentralen Speicherdienstes können gegen die Bezahlung von Filecoins Daten im Netzwerk speichern. Die Anbieter von Speicherplatz können im Gegenzug Filecoins verdienen.</p>
+</li>
+<li>
+<p>Security Token: Security Tokens können als eine Form von Unternehmensbeteilgung betrachtet werden. Diese Form von ICO Tokens ist rechtlich bzw. regulatorisch eher problematisch einzustufen. Trotzdem gibt es erfolgreiche ICOs von Security Tokens. So wurde der PAY Token als Security Token ausgegeben und soll zukünftig Eigentümern des Tokens eine Gewinnausschüttung in Ether ermöglichen, welche direkt an den Tokenbesitzer (über den Smart Contract) gehen.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>ICOs werden vorranging auf der Ethereum Blockchain abgewickelt. Die Investionen in den ICO werden demnach vorranging in Ether getätigt. Der ERC-20 Standard hat sich als Token Standard herausgebildet um ICOs abzuwickeln. Es gibt kaum ICOs die nicht als ERC-20 Token ausgegeben werden. Demnach soll in Abschnitt <a href="#section0302">ERC-20 Token Standard</a> der ERC-20 Token Standard im Detail beschrieben werden.</p>
+</div>
+<div class="sect3">
+<h4 id="section0302">ERC-20 Token Standard</h4>
+<div class="paragraph">
+<p>Der ERC-20 Token Standard wurde von der Ethereum Community definiert um Token auf der Ethereum Blockchain zu repräsentieren. Ein gemeinsamer und akzeptierter Standard hat viele Vorteile für eine aufstrebende Technologie. Unterschiedliche Anwendungsmöglichkeiten können entstehen und den Standard als Basis nutzen. Einige ausgewählte Beispiele:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ERC-20 Wallets: Wallets welche ERC-20 kompatible Token unterstützen, sind prinzipiell für alle Token, welche den Standard implementieren zugänglich. So können neue Token wie ein Plugin in der Wallet geladen werden. Das aufwändige Programmieren einer eigene Wallet für einen neuen Token würde somit entfallen.</p>
+</li>
+<li>
+<p>ERC-20 Börsen: Kryptowährungen und Tokens werden auf Börsen gehandelt, durch das Zusammentreffen von Angebot und Nachfrage, wird unter anderem der Marktpreis des Tokens ermittelt. Die Aufnahme eines neuen Token, welcher an der Börse gehandelt werden kann, ist technisch einfach realisierbar. Für alle ERC-20 kompatiblen Tokens kann es eine Implementierung geben.</p>
+</li>
+<li>
+<p>ERC-20 Token Explorer: Alle Transaktionen von Kryptowährungen und Token sind generell öffentlich innerhalb der jeweiligen Blockchains einsehbar. Sog. Blockexplorer sind Benutzerfreundliche Web-Anwendungen, welche Blockchains einsehbar machen. Für ERC-20 Token kann ein Explorer entwickelt werden, welcher neue Tokens einfach integrieren kann.</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="_generische_token_repräsentierung">Generische Token Repräsentierung</h5>
+<div class="paragraph">
+<p>Tokens werden innerhalb eines Ethereum Smart Contracts abgebildet. Der Token Contract enthält eine einfache Bilanz, welcher die Tokenstände der einzelnen Konten aufführt. Im folgenden wird eine einfach Darstellung dieser Bilanz als Tabelle repräsentiert. Es werden 3 Token Besitzer <code>A</code>, <code>B</code> und <code>C</code> und deren Token Kontostände abgebildet. Zusätlich wird die Gesamtsumme aller Token angezeigt.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Besitzer</th>
+<th class="tableblock halign-center valign-top">Token Summe</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Gesamtsumme</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>10.000</strong></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">A</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">640</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">B</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">50</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Alle Kontobewegungen innerhalb dieses Tokens werden über diese einfache Bilanz abgebildet. Ein Transfer von 40 Token von Besitzer <code>A</code> zu Besitzer <code>B</code> würde zu einer Transformation der Bilanz führen. Das Konto von <code>A</code> würde sich um 40 Token verringern und das Konto von <code>B</code> würde sich um 40 Token erhöhen. Das Ergebnis würde sich wie folgt darstellen:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Besitzer</th>
+<th class="tableblock halign-center valign-top">Token Summe</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Gesamtsumme</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>10.000</strong></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">A</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">600</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">B</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">90</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Intern hat jeder ERC-20 Token eine Datenstruktur, welche die Kontostände in dieser einfach Form abbildet.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_allgemeine_erc_20_token_schnittstelle">Allgemeine ERC-20 Token Schnittstelle</h5>
+<div class="paragraph">
+<p>Der ERC-20 Tokenstandard definiert eine Schnittstelle für Ethereum Smart Contracts. Diese Schnittstellenbeschreibung besteht aus 4 wichtigen Attributen. Diese Attribute sind <code>name</code>, <code>symbol</code>, <code>decimals</code> und <code>totalSupply</code>. <code>name</code>, <code>symbol</code> und <code>decimals</code> sind zwar optional definiert im Standard, es sind jedoch essentielle Attribute für die Darstellung in Applikationen. Im folgenden sollen die Attribute kurz beschrieben werden:
+* <em>name</em>: Der Name bzw. die Bezeichnung des Tokens wird als Zeichenkette angegeben. Es ist keine maximale Länge für den Namen definiert, es sollte jedoch in Anbetracht der Darstellung in Benutzerschnittstellen auf die Länge geachtet werden.
+* <em>symbol</em>: Jeder Token kann über ein Symbol verfügen, welches als kurze und prägnante Identifikation gilt. Dies ist vergleichbar mit Währungssymbolen. Generell gibt es keine Beschränkung der Symbollänge, gängig sind in jedem Fall 3-stellige Zeichenketten (zB <em>PAY</em> Repräsentiert TenX Tokens). Es ist zu erwähnen, dass es keine zentrale Registrierung für Symbole gibt, sodass durchaus ein Symbol mehrfach in Verwendung sein kann. Bei der Erstellung eines neuen Tokens sollte eine genaue Recherche vorangehen.
+* <em>decimals</em>: Die Angabe des Attribut <code>decimals</code> gibt die Teilbarkeit des Tokens an. Ein Token mit dem Wert <em>5</em> für das Attribut bedeuted das ein Token 5 Dezimalstellen hat: <em>1,00000</em>. Ein Kontostand wird immer in der kleinsten Stückelung eines Tokens geführt und als Ganzzahl angegeben (siehe dazu <code>totalSupply</code>).
+* <em>totalSupply</em>: Das Attribut <code>totalSupply</code> gibt die Gesamtmenge der Tokens an, welche sich in Umlauf befinden. Die Angabe ist dabei eine Ganzzahl, welche in der kleinste Stückelung der Tokens angegeben ist. Das Attribut <code>totalSupply</code> errechnet sich mit folgender Formel <em>totalSupply = (Anzahl Tokens) * 10^decimals</em>.</p>
+</div>
+<div class="paragraph">
+<p>Neben diese 4 Attributen werden im Token Standard noch Funktionen definiert für den Transfer von Token zwischen unterschiedlichen Konten, bzw. auch zur Abfrage von Kontoständen. Die Funktion zum Transfer von Tokens hat folgende Signatur:</p>
+</div>
+<div id="solidity0301" class="listingblock">
+<div class="title">Listing 3.1</div>
+<div class="content">
+<pre>function transfer(address _to, uint256 _value) returns (bool success)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Die Funktion <code>transfer</code> ist verantwortlich für den Eigentumsübergang des angegebenen Tokenbetrags von einem Kontoeigentümer zu einem anderen. Dabei fungiert der Aufrufer der Funktion (<code>msg.sender</code>) als Quelle eines Tokenbetrages (<code>_value</code>), welcher auf dem Konto eines Empfängers (<code>_to</code>) gutgeschrieben wird. Die <code>transfer</code> Funktion gibt als Resultat immer einen boolschen Wert für den Erfolg des Transfers zurück. Es könnte beispielsweise versucht werden, dass der Sender mehr Token transferieren will als sich in seinem Besitz befinden. Dies würde mit einer Rückgabe von <code>false</code> resultieren.</p>
+</div>
+<div class="paragraph">
+<p>Die andere wichtige Funktion <code>balanceOf</code> gibt den Kontostand eines angegebenen Kontos (<code>_owner</code>) zurück. Der Kontostand wird dabei als Ganzahl repräsentiert, welche in der Einheit der kleinste Tokenstückelung angegeben ist. Die Signatur dieser Funktion sieht folgendermaßen aus:</p>
+</div>
+<div id="solidity0302" class="listingblock">
+<div class="title">Listing 3.2</div>
+<div class="content">
+<pre class="highlight"><code>function balanceOf(address _owner) constant returns (uint256 balance)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Zusammenfassend wird in <a href="#solidity0303">Listing 3.3</a> ein vollständiger Smart Contract gezeigt, welcher die bisher besprochene ERC-20 Token Schnittstelle implementiert. Die Bezeichnung (<code>name</code>) des Tokens lautet <em>Example Token</em> und das Token Symbol (<code>symbol</code>) wird als <em>EXP</em> angegeben. Die Anzahl der gesamten verfügbaren Token wird mit <em>10.000</em> angegeben. Die Anzahl der Dezimalstelle wird auf <em>18</em> fixiert, somit ergeben sich <em>10.000 * 10^18</em> Token in der kleinsten Stückelung. Es wird ebenfalls ein Konstruktor angegeben, welcher die definierte Gesamtmenge der Tokens auf dem Konto des Smart Contract Erstellers gutschreibt.</p>
+</div>
+<div class="paragraph">
+<p>In der Funktion <code>transfer</code> wurden überprüfungen eingeführt, welche einerseits ausschließen das Tokens an die <code>address(0)</code> gesendet werden. Zu dieser Adresse ist kein privater Schlüssel verfügbar und wird somit unbrauchbar. Ein Tokentransfer an die Adresse <code>address(0)</code> kommt einer Zerstörung der jeweiligen Tokens gleich (sog. Burning von Token). Andererseits wird überprüft ob der Sender (<code>msg.sender</code>) überhaupt genügend Token zur Verfügung hat.</p>
+</div>
+<div id="solidity0303" class="listingblock">
+<div class="title">Listing 3.3</div>
+<div class="content">
+<pre>contract BasicERC20TokenExample {
+
+  string public constant name = "Example Token";
+  string public constant symbol = "EXP";
+  uint8 public constant decimals = 18;
+  uint256 public constant totalSupply = 10000 * (10 ** uint256(decimals));
+
+  mapping(address =&gt; uint256) balances;
+
+  function BasicERC20TokenExample() public {
+    balances[msg.sender] = totalSupply;
+  }
+
+  function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    require(_value &lt;= balances[msg.sender]);
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    Transfer(msg.sender, _to, _value);
+    return true;
+  }
+
+  function balanceOf(address _owner) public view returns (uint256 balance) {
+    return balances[_owner];
+  }
+
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_weitere_erc_20_token_funktionen">Weitere ERC-20 Token Funktionen</h5>
+<div class="paragraph">
+<p>Neben den generischen Funktionen zum Transfer von Tokens (<code>transfer</code>) und zur Abfrage der Kontostände (<code>balanceOf</code>) von Token Besitzern, werden von der ERC-20 Token Schnittstelle noch Möglichkeit zur Vergabe von Abbuchungslimits für andere Tokenbsitzer bereitgestellt. So kann beispielsweise Token Besitzer <code>A</code> an Token Besitzer <code>B</code> ein Limit über die Verfügung von 100 seiner Token geben. <code>B</code> kann damit bis zur Ausschöpfung des Limits Transfers von Konto <code>A</code> tätigen. Dafür werden die Funktionen <code>approve</code>, <code>transferFrom</code> und <code>allowance</code> in der Schnittstelle spezifiziert.</p>
+</div>
+<div id="solidity0304" class="listingblock">
+<div class="title">Listing 3.4</div>
+<div class="content">
+<pre class="highlight"><code>function approve(address _spender, uint256 _value) returns (bool success)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Die Funktion <code>approve</code> ermöglicht es einem Kontoinhaber ein Limit für einen anderen Kontoinhaber zu setzen. In <a href="#solidity0304">Listing 3.4</a> wird dem <code>_spender</code> ein Betrag von Tokens (<code>_value</code>) als Limit es Kontoinhabers (<code>msg.sender</code>) gesetzt.</p>
+</div>
+<div id="solidity0305" class="listingblock">
+<div class="title">Listing 3.5</div>
+<div class="content">
+<pre class="highlight"><code>function transferFrom(address _from, address _to, uint256 _value) returns (bool success)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Das Limit das über die Funktion <code>approve</code> gesetzt wurde, kann über die Funktion <code>transferFrom</code> genutzt werden. Die Signatur der Funktion <code>transferFrom</code> findet sich in <a href="#solidity0305">Listing 3.5</a>. So kann der Kontoinhaber dem ein Limit für ein anderes Konto (<code>_from</code>) gegeben wurde eine Anzahl von Tokens (<code>_value</code>) an einen dritten Kontoinhaber (<code>_to</code>) weitergeben. Die Funktion <code>transferFrom</code> kann für das entsprechende Konto (<code>_from</code>) solange aufgerufen werden bis das gesetzte Limit ausgeschöpft wurde. Jeder Aufruf der Funktion <code>transferFrom</code> minimiert das gesetzte Limit ensprechend um die Anzahl der Tokens (<code>_value</code>).</p>
+</div>
+<div class="paragraph">
+<p>Änhlich der Funktion <code>balanceOf</code> gibt es auch ein Äquivalent <code>allowance</code> zur Abfrage des gesetzten Limits das ein Kontoinhaber (<code>_owner</code>) einem Anderen (<code>_spender</code>) zur Verfügung stellt. In <a href="#solidity0306">Listing 3.6</a> wird die Signatur dieser Funktion dargestellt.</p>
+</div>
+<div id="solidity0306" class="listingblock">
+<div class="title">Listing 3.6</div>
+<div class="content">
+<pre class="highlight"><code>function allowance(address _owner, address _spender) constant returns (uint256 remaining)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Für den ERC-20 Token sind zusätzlich 2 Ereignisse definiert (<code>Transfer</code> und <code>Approval</code>), welche an entsprechender Stelle erzeugt werden sollten. So wird das <code>Transfer</code> Ereignis innerhalb einer erfolgreichen Ausführung der <code>transfer</code> bzw. <code>transferFrom</code> Funktion ausgeführt. Das <code>Approval</code> Ereignis innerhalb einer erfolgreichen Ausführung der <code>approve</code> Funktion. Anschließend an <a href="#solidity0303">Listing 3.3</a> soll nun in <a href="#solidity0307">Listing 3.7</a> eine vollständige ERC-20 Token Implementierung angeführt sein.</p>
+</div>
+<div id="solidity0307" class="listingblock">
+<div class="title">Listing 3.7</div>
+<div class="content">
+<pre>contract FullERC20TokenExample is BasicERC20TokenExample {
+
+  mapping (address =&gt; mapping (address =&gt; uint256)) internal allowed;
+
+  function transferFrom(address _from, address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    require(_value &lt;= balances[_from]);
+    require(_value &lt;= allowed[_from][msg.sender]);
+
+    balances[_from] = balances[_from] - _value;
+    balances[_to] = balances[_to] + _value;
+    allowed[_from][msg.sender] = allowed[_from][msg.sender] - _value;
+    Transfer(_from, _to, _value);
+    return true;
+  }
+
+  function approve(address _spender, uint256 _value) public returns (bool) {
+    allowed[msg.sender][_spender] = _value;
+    Approval(msg.sender, _spender, _value);
+    return true;
+  }
+
+  function allowance(address _owner, address _spender) public view returns (uint256) {
+    return allowed[_owner][_spender];
+  }
+
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section0303">Crowdsale Contracts</h3>
+<div class="paragraph">
+<p>Neben dem ERC-20 Token Contract, welcher den Token repräsentiert der durch einen ICO ausgegeben wird, wird die Ausgabe selbst über einen Smart Contract getätigt. Crowdsale Contracts können dabei unterschiedlichste Formen annehmen und bieten dem Unternehmen das den ICO durchführt sehr viele Gestaltungsmöglichkeiten.</p>
+</div>
+<div class="paragraph">
+<p>Im folgenden sollen gängige Parameter eines Crowdsale Contracts besprochen werden:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Pre-ICO Phasen</em>: Um den Verkauf von Token attraktiver zu machen, kann als Instrument ein Pre-ICO stattfinden. Vor dem Start des tatsächlichen ICO, können Tokens zu verringerten Preisen angeboten werden. Als Regel für den Smart Contract könnte ein Zeitraum definiert werden, welcher mit einer maximalen Anzahl von Pre-ICO Token angeboten wird. Beispiel: Eine Woche vor dem ICO Start werden 100.000 Token mit einem 10% Rabatt ausgegeben.</p>
+</li>
+<li>
+<p><em>Investitionsschwelle</em>: Im ICO Contract kann eine Mindestinvestmentschwelle definiert werden. Dies würde bedeuten, dass bei einer Unterfinanzierung die Investoren ihr Investment wieder rückfordern können. Der Smart Contract würde dafür eine eigene Methode bereitstellen. Beispiel: Ein ICO wird mit einer mind. Investionsschwelle von 20.000 Token definiert. Werden nun bis Ende des ICO nur 19.000 Token verkauft, könnnen die Investoren ihr Investment über den Smart Contract wieder rückfordern. Der Ersteller des ICO Contracts hat keine Möglichkeit vor Überschreiten der Investmentschwelle auf die Investitionen zuzugreifen.</p>
+</li>
+<li>
+<p><em>Airdrops</em>: Dies eine spezielle Form um die Attraktivität des ICO zu steigern. So kann nach einem gewissen Auswahlschema an Konten vor ICO Start Tokens verschenkt werden. Dies kann dann auch an eine Regel geknüpft sein, dass diese Token nur abgerufen werden können, wenn ein bestimmtes Investment gemacht wird. Beispiel: Für einen neuen ICO werden allen Investoren eines komplementären vorhergehenden ICO 10 Token gutgeschrieben.</p>
+</li>
+<li>
+<p><em>Spezielle Insentives</em>: Es könnten Regeln im ICO definiert sein die nach unterschiedlichen Gegebenheiten Tokens an Investoren verschenken. Beispiel: Jeder zehnte Invetor bekommt einen Token geschenkt.</p>
+</li>
+<li>
+<p><em>Bounties</em>: Für die Unterstützung während des ICO können Token verschenkt werden. Dies kann zB bei der Übersetzung des ICO Whitepapers in unterschiedliche Sprachen passieren oder für spezielle Promitionen in Social Media Netzwerken. Beispiel: Für die Übersetzung des Whitepapers in die Sprache Deutsch werden 100 Token vergeben.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section0304">Implementierung des Demo ICO</h3>
+<div class="paragraph">
+<p>Zur technischen Realisierung eines ICO werden einerseits die entsprechenden Smart Contracts (Token, Crowdsale) und andererseits eine ICO Web Anwendung benötigt. In <a href="#section0305">Crowdsale Smart Contract</a> wird der implementierte Crowdsale Contract besprochen und in <a href="#section0306">ICO Web Anwendung</a> wird auf die implementierte ICO Web Anwendung eingegangen.</p>
+</div>
+<div class="sect3">
+<h4 id="section0305">Crowdsale Smart Contract</h4>
+<div class="paragraph">
+<p>Im folgenden soll ein sehr einfacher Crowdsale Smart Contract besprochen werden. Die Implementierung findet sich in <a href="#solidity0308">Listing 3.8</a> aufgeführt.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Der <code>ExampleCrowdsale</code> Contract enthält einen leicht modifizierten <code>ExampleToken</code> aus <a href="#solidity0306">Listing 3.6</a> und <a href="#solidity0307">Listing 3.7</a> als Attribut. Innerhalb des Konstruktors wird eine Instanz des <code>ExampleToken</code> erstellt und dem Attribut zugewiesen. Dies führt zur Erstellung eines eigenen Smart Contracts mit eigener Adresse, welcher den ERC-20 Token repräsentiert.</p>
+</li>
+<li>
+<p>Dem Konstrukor wird eine Rate (<code>_rate</code>) übergeben. Diese Rate bestimmt sozusagen den Wechselkurs zwischen Ether und dem auszuschüttenden ERC-20 Token.</p>
+</li>
+<li>
+<p>Dem Konstruktor wird ebenfalls eine maximale Investionshöhe (<code>_cap</code>) übergeben. Dies bestimmt die maximale Menge an Tokens, welche ausgeschüttet werden können über den Crowdsale. Falls die investierten Weis (kleinste Einheit von Ethereum) das Maximum erreichen, können keine weiteren Tokens mehr generiert werden.</p>
+</li>
+<li>
+<p>Es gibt eine default Funktion (anonyme Funktion), welche standardmäßig bei Transaktionen an den Crowdsale Contract ausgeführt wird. Diese default Funktion ist sehr wichtig, da somit alle gängigen Ethereum Wallets unterstützt werden können. Nur wenige Wallets können zusätzliche Parameter, wie zB den aufzurufenden Funktionsnamen, übergeben.</p>
+</li>
+<li>
+<p>Die wichtige Funktion <code>buyTokens</code> generiert für den übergebenen Kontoinhaber (<code>beneficiary</code>) neue Tokens. Als wichtige Vorarbeit wird vorerst überprüft, ob es sich um eine valide Transaktion handelt und überhaupt neue Tokens generiert werden können. Dazu wird überprüft, ob das Maximum (<code>cap</code>) noch nicht überschritten wurde und ob überhaupt eine Investion vorliegt (<code>wei &gt; 0</code>). Ebenfalls wird geprüft ob es sich nicht um die <code>address(0)</code> handelt, welche die Transaktion initiert hat. Dies würde nämlich zu einem sog. Token burning führen. Falls die Überprüfung positiv verläuft, werden anhand der Rate die Anzahl der neuen Tokens berechnet und im Token Contract erzeugt. Dazu wird die Funktion <code>mint</code> verwendet, welche in <a href="#solidity0309">Listing 3.9</a> aufgeführt ist.</p>
+</li>
+<li>
+<p>Die Funktion <code>mint</code> aus <a href="#solidity0309">Listing 3.9</a> zeigt auf, dass der Erzeuger bzw. Owner (<code>onlyOwner</code>) die Befähigung hat neue Tokens zu schöpfen. Im Beispiel würde der Erzeuger des <code>ExampleToken</code> der Crowdsale Contract sein und somit die einzige Instanz, welche neue Tokens schöpfen könnte.</p>
+</li>
+</ul>
+</div>
+<div id="solidity0308" class="listingblock">
+<div class="title">Listing 3.8</div>
+<div class="content">
+<pre>contract ExampleCrowdsale {
+
+  ExampleToken public token;
+  address public wallet;
+  uint256 public cap;
+  uint256 public rate;
+  uint256 public weiRaised;
+
+  function ExampleCrowdsale(uint256 _rate, uint256 _cap) public {
+    require(_rate &gt; 0 &amp;&amp; _cap &gt; 0);
+
+    token = new ExampleToken();
+    rate = _rate;
+    cap = _cap;
+    wallet = msg.sender;
+  }
+
+  function () external payable {
+    buyTokens(msg.sender);
+  }
+
+  function buyTokens(address beneficiary) public payable {
+    require(beneficiary != address(0));
+    require(validPurchase());
+
+    uint256 weiAmount = msg.value;
+    uint256 tokens = weiAmount * rate;
+    weiRaised = weiRaised + weiAmount;
+
+    token.mint(beneficiary, tokens);
+  }
+
+  function withdrawFunds() internal {
+    wallet.transfer(this.balance);
+  }
+
+  function validPurchase() internal view returns (bool) {
+    bool nonZeroPurchase = msg.value != 0;
+    bool withinCap = (weiRaised + msg.value) &lt;= cap;
+
+    return nonZeroPurchase &amp;&amp; withinCap;
+  }
+
+}</pre>
+</div>
+</div>
+<div id="solidity0309" class="listingblock">
+<div class="title">Listing 3.9</div>
+<div class="content">
+<pre>contract MintableToken extends BasicERC20TokenExample {
+
+  function mint(address _to, uint256 _amount) onlyOwner public returns (bool) {
+    totalSupply = totalSupply + _amount;
+    balances[_to] = balances[_to] + _amount;
+    return true;
+  }
+
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="section0306">ICO Web Anwendung</h4>
+<div class="paragraph">
+<p>Die zugehörige Web Anwendung zu einem ICO verfolgt primär die Aufgabe einer Investorin den ICO zu vermarkten. So kommt es vorrangig auf eine entsprechende Gestaltung an. Einige gängige Funktionen, welche jede ICO Web Anwendung haben soll, wurden im Beispiel implementiert und im Folgenden erläutert.</p>
+</div>
+<div class="paragraph">
+<p>In <a href="#ico1-image">ICO Web Anwendung</a> findet sich ein Screenshot der implementierten Web Anwendung. Folgende Aspekte finden sich in der Web Anwendung:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Addresse des Smart Contracts, welcher Investments entgegen nimmt, wird klar ersichtlich. Die Investorin würde diese Addresse in ihrer Wallet öffnen und würde somit die Zieladresse der zu tätigenden Transaktion besitzen.</p>
+</li>
+<li>
+<p>Der Wechselkurs zu dem die Investorin Tokens gegen Ether tauschen kann.</p>
+</li>
+<li>
+<p>Es gibt die Möglichkeit eine Suche mittels der Addresse der Kontoinhaberin zu tätigen, um den ensprechenden Tokenstand abzufragen.</p>
+</li>
+<li>
+<p>In <a href="#ico2-image">ICO Kontostand Abfrage</a> wird das Ergebnis der Tokenstandabfrage angezeigt.</p>
+</li>
+</ul>
+</div>
+<div id="ico1-image" class="imageblock">
+<div class="content">
+<img src="images/ICO_1.png" alt="ICO Web Anwendung">
+</div>
+<div class="title">Figure 1. ICO Web Anwendung</div>
+</div>
+<div id="ico2-image" class="imageblock">
+<div class="content">
+<img src="images/ICO_2.png" alt="ICO Kontostand Abfrage">
+</div>
+<div class="title">Figure 2. ICO Kontostand Abfrage</div>
+</div>
+<div class="paragraph">
+<p>Ein wichtiger Aspekt zur Implementierung der Web Anwendung besteht darin mit dem Ethereum Peer-to-Peer Netzwerk zu kommunizieren. Eine Web Anwendung wird in einer sog. Browser Sandbox ausgeführt und kann aus Sicherheitsgründen keine Kommunikation direkt über TCP Sockets durchführen. Das Ethereum Peer-to-Peer Netzwerk verfügt über ein eigenes Protokoll, welches direkt auf der TCP Netzwerkschicht aufsetzt. Innerhalb der Browser Sandbox kann jedoch nur das HTTP-Protokoll genutzt werden.</p>
+</div>
+<div class="paragraph">
+<p>Die ICO Web Anwendung benötigt für entsprechende Funktionen jedoch die Möglichkeit mit den Smart Contracts zu kommunizieren. Es müssen zB die Tokenstandsabfragen durchgeführt werden. In der Implementierung wurde der externe Dienst [<a href="https://infura.io" class="bare">https://infura.io</a>](infura.io) genutzt, welcher einen kostenlosen HTTP Proxy für das Ethereum Netzwerk bereitstellt.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_ethereum_entwicklungsumgebung">Anhang A: Ethereum Entwicklungsumgebung</h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -1029,7 +1666,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_literatur">Literatur</h2>
+<h2 id="_referenzen">Referenzen</h2>
 <div class="sectionbody">
 <div class="ulist bibliography">
 <ul class="bibliography">
@@ -1083,7 +1720,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 0.0.2<br>
-Last updated 2017-09-05 14:00:11 CEST
+Last updated 2018-01-17 10:24:23 CET
 </div>
 </div>
 </body>

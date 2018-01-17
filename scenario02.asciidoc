@@ -2,7 +2,7 @@
 
 == Szenario 2
 
-[[section01]]
+[[section0201]]
 === Problemstellung: Domain Name System
 
 Das Internet und alle darauf basierenden Dienste nutzen sog. IP-Adressen um Rechner im Netzwerk zu identifizieren. IP-Adressen sind mehrstellige Zahlenkombinationen und für Menschen schwer zu merken, sodass Domain-Namen eingeführt wurden um dies zu erleichtern. Ein Domain-Name ist ein leicht merkbarer Bezeichner, welcher quasi als Alias für eine IP-Adresse verwendet wird.
@@ -13,7 +13,139 @@ DNS basiert auf einer Serverinfrastruktur, welche Anfragen für die Übersetzung
 
 Ein auf Blockchain-Technologie basierendes Domain Name System würde es ermöglichen nicht nur die Datenhaltung zu dezentralisieren, sonder auch die Kontrolle über die DNS-Einträge. So würde zB der DNS-Eintrag für Wikipedia nur vom Betreiber selbst verwaltet und verändert werden können.
 
-[[section02]]
-=== Implementierung mit Solidity
+[[section0202]]
+=== Demonstration einer Subdomain Registry
+
+Als Prototyp einer dezentralen Domain Registrierung wird dies anhand einer Demonstration mittels von Subdomain Redirects realisiert. Das "Eigentum" von Subdomains einer Toplevel Domain werden über einen Smart Contract verwaltet. Folgende Funktionen sind verfügbar:
+
+ - Es können für einen Gegenwert, welcher in Ether bezahlt wird, Subdomains für einen Zeitraum registriert werden.
+ - Der Eigentümer der Subdomain kann einen beliebigen Redirect Link hinterlegen. Bei Aufruf der Subdomain über einen Browser soll ein Redirect zum hinterlegten Link durchgeführt werden.
+ - Nach einer gewissen Dauer soll die Registrierung ablaufen. Der Eigentümer hat jedoch während des Registrierungszeitraums die Möglichkeit der Verängerung der Registrierung.
+ - Der Ersteller des Smart Contracts soll die Möglichkeit haben unsachgemäße Registrierungen zu löschen.
+
+[[section0203]]
+=== Smart Contract
+
+Im folgenden soll der entsprechende Smart Contract zur Registrierung von Subdomain Redirects besprochen werden. Dabei werden Ausschnitte des gesamten Smart Contracs einzeln angeführt.
+
+[[solidity0201]]
+.Listing 2.1
+----
+contract SubdomainRedirect {
+ 
+  struct SubdomainEntry {
+    string redirect;
+    address owner;
+    uint registeredUntil;
+  }
+
+  uint public registrationFee = 5 finney;
+  uint public registrations = 0;
+  mapping (string => SubdomainEntry) entries;
+  mapping (uint => string) names;
+
+  // ...
+
+}
+----
+
+In <<solidity0201>> werden die generischen Smart Contract Attribute aufgeführt. Als wesentlicher Bestandteil ist die Datenstruktur `SubdomainEntry` zu nennen, welche eine Registrierung repräsentiert. Folgende Attribute sind im `SubdomainEntry` enthalten:
+
+ - `redirect` ist eine Zeichenkette, welche den hinterlegten Redirect Link enthält.
+ - `owner` repräsentiert den Eigentümer der Registrierung als Ethereum adresse.
+ - `registeredUntil` gibt den Zeitstempel an, an dem die Registrierung abläuft.
+
+Im Smart Contract ist des weiteren eine `registrationFee` hinterlegt, welche die Kosten für eine Registrierung angibt. Im Beispiel werden 5 Finneys angegeben. `registrations` ist ein Zähler, welcher die Anzahl von Registrierungen angibt. `entries` enthält alle Registrierungen und sind über den Namen der Subdomain indexiert. Ein weiterer Index `names` ermöglicht die Abfrage des Namens der registrierten Subdomain anhand einer Ganzahl. 
+
+[[solidity0202]]
+.Listing 2.2
+----
+contract SubdomainRedirect {
+
+    // ...
+ 
+    function createRegistration(string name, string redirect) external payable {
+        require(
+            msg.value >= registrationFee &&
+            ( entries[name].owner == address(0) ||
+              entries[name].registeredUntil < now ) &&
+            bytes(redirect).length > 0
+        );
+
+        entries[name].redirect = redirect;
+        entries[name].owner = msg.sender;
+        entries[name].registeredUntil = now + 1 years + 30 days;
+        names[registrations] = name;
+        registrations += 1;
+    }
+
+  // ...
+
+}
+----
+
+Eine Registrierung kann erstellt werden mittels der Funktion `createRegistration`, welche in <<solidity0202>> dargestellt ist. Die Registrierung benötigt zwei Parameter `name` und `redirect`, welche den zu registrierenden Sudomain Namen und andererseits den zu registrierenden Redirect Link spezifizieren.
+
+Im ersten Schritt wir überprüft ob die Registrierung durchgeführt werden kann. Dazu wird überprüft ob die Gebühr enthalten ist und keine gültige Registrierung für den gewünschten Namen vorherscht. Bei einer erfolgreichen Überprüfung wird der Sender der Transaktion als Besitzer der Registrierung angegeben. Weiters wird das Ablaufdatum mit einem Jahr und 30 Tagen gesetzt.
+
+[[solidity0203]]
+.Listing 2.3
+----
+contract SubdomainRedirect {
+
+    // ...
+ 
+    function renewRegistration(string name) external payable {
+        require(
+            msg.value >= registrationFee &&
+            entries[name].owner == msg.sender
+        );
+
+        entries[name].registeredUntil = now + 1 years + 30 days;
+    }
+
+    function updateRegistration(string name, string redirect) external {
+        require(
+            entries[name].owner == msg.sender &&
+            entries[name].registeredUntil > now
+        );
+
+        entries[name].redirect = redirect;
+    }
+
+    // ...
+
+}
+----
+
+Neben der Erstellung einer neuen Registrierung (siehe <<solidity0202>>) können bestehende Registrierungen (1) erneuert werden bzw. (2) editiert werden. In <<solidity0203>> werden die entsprechenden Funktionen `renewRegistration` und `updateRegistration` dargestellt:
+
+ - Die Erneuerung der Registrierung kann über die Funktion `renewRegistration` durchgeführt werden. Als Parameter benötigt die Funktion den registrierten Namen `name`. Falls die Registrierung bereits für den Sender (`msg.sender`) vorliegt und die entsprechende Gebühr (`msg.value`) enthalten ist, kann die Erneuerung für 1 Jahr und 30 Tage durchgeführt werden.
+ - Eine bestehende Registrierung kann über die Funktion `updateRegistration` durchgeführt werden. Dabei sieht die Signatur der Funktion die Parameter `name` und `redirect` vor, welche den Namen der Subdomain bzw. den neuen Redirect Link enthalten sollen. Falls die Registrierung auf den Sender (`msg.sender`) der Transaktion registriert ist, kann die Editierung durchgeführt werden.
+
+[[solidity0204]]
+.Listing 2.4
+----
+contract SubdomainRedirect {
+
+    // ...
+ 
+    function clearRegistration(string name, bool full) ownerOnly external {
+        entries[name].redirect = "";
+
+        if (full) {
+            entries[name].owner = address(0);
+            entries[name].registeredUntil = 0;
+        }
+    }
+
+    // ...
+
+}
+----
+
+Für den Ersteller des Smart Contracts wird die Funktion bereitgestellt eine Registrierung aufzulösen. Dabei besteht die Möglichkeit einer schwachen Auflösung (quasi als Warnung) und einer vollen Auflösung. Die Funktion `clearRegistration` stellt dies bereit. Als Parameter wird der Name der Registrierung (`name`) und die Angabe ob eine volle Auflösung stattfinden soll (`full`).
+
+=== Server Anwendung
 
 

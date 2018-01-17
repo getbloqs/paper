@@ -10,6 +10,10 @@ include::introduction.asciidoc[]
 
 include::scenario01.asciidoc[]
 
+include::scenario02.asciidoc[]
+
+include::scenario03.asciidoc[]
+
 include::appendix01.asciidoc[]
 
 include::references.asciidoc[]

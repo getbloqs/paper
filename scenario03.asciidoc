@@ -2,8 +2,290 @@
 
 == Szenario 3
 
-[[section01]]
-=== Einführung: Bounties
+[[section0301]]
+=== Einführung: Initial Coin Offerings
 
-Open Source Software wird von einer weltweiten Community entwickelt. Wie jede Software ist auch Open Source Software nicht von sog. Bugs (Softwarefehlern) gefeit. Für Anwender sind Softwarefehler natürlich höchst problematisch. Dies kann von leichten Einschränkungen in der Bedienung bis hinzu schwerwiegenden Fehlern in der Bearbeitung reichen.
+Initial Coin Offerings (ICOs) sind eine Möglichkeit für Startups bzw. Unternehmen ein sog. Crowdfunding mittels Einsatz der Blockchaintechnologie durchzuführen. Dabei werden innerhalb eines vorgegebenen Investitionszeitraums eigens geschaffene Token gegen Investitionen in Kryptowährungen ausgegeben. Die ausgegebenen Token können unterschiedlichste Funktionen bzw. Nutzen für den Investor haben. Ebenfalls, können sie wie eine Kryptowährung genutzt werden und zB auf Börsen gehandelt werden.
+
+Mögliche Funktionen eines ICO Tokens:
+
+* Utility Token: Die Unternehmen, welche Tokens ausgeben, integrieren den Token in ihr Geschäftsmodell. Der Token kann Vielfach als Gutschein betrachtet werden und wird benötigt um die Dienstleistung bzw. das Produkt des Unternehmens zu nutzen. Filecoin als erfolgreichster ICO im Jahre 2017 beispielsweise führt den Token Filecoin ein um Speicherplatz zu handeln. Nutzer des dezentralen Speicherdienstes können gegen die Bezahlung von Filecoins Daten im Netzwerk speichern. Die Anbieter von Speicherplatz können im Gegenzug Filecoins verdienen.
+* Security Token: Security Tokens können als eine Form von Unternehmensbeteilgung betrachtet werden. Diese Form von ICO Tokens ist rechtlich bzw. regulatorisch eher problematisch einzustufen. Trotzdem gibt es erfolgreiche ICOs von Security Tokens. So wurde der PAY Token als Security Token ausgegeben und soll zukünftig Eigentümern des Tokens eine Gewinnausschüttung in Ether ermöglichen, welche direkt an den Tokenbesitzer (über den Smart Contract) gehen.
+
+ICOs werden vorranging auf der Ethereum Blockchain abgewickelt. Die Investionen in den ICO werden demnach vorranging in Ether getätigt. Der ERC-20 Standard hat sich als Token Standard herausgebildet um ICOs abzuwickeln. Es gibt kaum ICOs die nicht als ERC-20 Token ausgegeben werden. Demnach soll in Abschnitt <<section0302>> der ERC-20 Token Standard im Detail beschrieben werden.
+
+[[section0302]]
+==== ERC-20 Token Standard
+
+Der ERC-20 Token Standard wurde von der Ethereum Community definiert um Token auf der Ethereum Blockchain zu repräsentieren. Ein gemeinsamer und akzeptierter Standard hat viele Vorteile für eine aufstrebende Technologie. Unterschiedliche Anwendungsmöglichkeiten können entstehen und den Standard als Basis nutzen. Einige ausgewählte Beispiele:
+
+* ERC-20 Wallets: Wallets welche ERC-20 kompatible Token unterstützen, sind prinzipiell für alle Token, welche den Standard implementieren zugänglich. So können neue Token wie ein Plugin in der Wallet geladen werden. Das aufwändige Programmieren einer eigene Wallet für einen neuen Token würde somit entfallen.
+* ERC-20 Börsen: Kryptowährungen und Tokens werden auf Börsen gehandelt, durch das Zusammentreffen von Angebot und Nachfrage, wird unter anderem der Marktpreis des Tokens ermittelt. Die Aufnahme eines neuen Token, welcher an der Börse gehandelt werden kann, ist technisch einfach realisierbar. Für alle ERC-20 kompatiblen Tokens kann es eine Implementierung geben.
+* ERC-20 Token Explorer: Alle Transaktionen von Kryptowährungen und Token sind generell öffentlich innerhalb der jeweiligen Blockchains einsehbar. Sog. Blockexplorer sind Benutzerfreundliche Web-Anwendungen, welche Blockchains einsehbar machen. Für ERC-20 Token kann ein Explorer entwickelt werden, welcher neue Tokens einfach integrieren kann.
+
+===== Generische Token Repräsentierung
+
+Tokens werden innerhalb eines Ethereum Smart Contracts abgebildet. Der Token Contract enthält eine einfache Bilanz, welcher die Tokenstände der einzelnen Konten aufführt. Im folgenden wird eine einfach Darstellung dieser Bilanz als Tabelle repräsentiert. Es werden 3 Token Besitzer `A`, `B` und `C` und deren Token Kontostände abgebildet. Zusätlich wird die Gesamtsumme aller Token angezeigt.
+
+[cols="^2,^2",options="header,footer"]
+|=========================================================
+| Besitzer | Token Summe 
+| A | 640
+| B | 50
+| C | 100
+| ... | ...
+| **Gesamtsumme** | **10.000**
+|=========================================================
+
+Alle Kontobewegungen innerhalb dieses Tokens werden über diese einfache Bilanz abgebildet. Ein Transfer von 40 Token von Besitzer `A` zu Besitzer `B` würde zu einer Transformation der Bilanz führen. Das Konto von `A` würde sich um 40 Token verringern und das Konto von `B` würde sich um 40 Token erhöhen. Das Ergebnis würde sich wie folgt darstellen:
+
+[cols="^2,^2",options="header,footer"]
+|=========================================================
+| Besitzer | Token Summe 
+| A | 600
+| B | 90
+| C | 100
+| ... | ...
+| **Gesamtsumme** | **10.000**
+|=========================================================
+
+Intern hat jeder ERC-20 Token eine Datenstruktur, welche die Kontostände in dieser einfach Form abbildet.
+
+===== Allgemeine ERC-20 Token Schnittstelle
+
+Der ERC-20 Tokenstandard definiert eine Schnittstelle für Ethereum Smart Contracts. Diese Schnittstellenbeschreibung besteht aus 4 wichtigen Attributen. Diese Attribute sind `name`, `symbol`, `decimals` und `totalSupply`. `name`, `symbol` und `decimals` sind zwar optional definiert im Standard, es sind jedoch essentielle Attribute für die Darstellung in Applikationen. Im folgenden sollen die Attribute kurz beschrieben werden:
+* __name__: Der Name bzw. die Bezeichnung des Tokens wird als Zeichenkette angegeben. Es ist keine maximale Länge für den Namen definiert, es sollte jedoch in Anbetracht der Darstellung in Benutzerschnittstellen auf die Länge geachtet werden.
+* __symbol__: Jeder Token kann über ein Symbol verfügen, welches als kurze und prägnante Identifikation gilt. Dies ist vergleichbar mit Währungssymbolen. Generell gibt es keine Beschränkung der Symbollänge, gängig sind in jedem Fall 3-stellige Zeichenketten (zB _PAY_ Repräsentiert TenX Tokens). Es ist zu erwähnen, dass es keine zentrale Registrierung für Symbole gibt, sodass durchaus ein Symbol mehrfach in Verwendung sein kann. Bei der Erstellung eines neuen Tokens sollte eine genaue Recherche vorangehen.
+* __decimals__: Die Angabe des Attribut `decimals` gibt die Teilbarkeit des Tokens an. Ein Token mit dem Wert __5__ für das Attribut bedeuted das ein Token 5 Dezimalstellen hat: __1,00000__. Ein Kontostand wird immer in der kleinsten Stückelung eines Tokens geführt und als Ganzzahl angegeben (siehe dazu `totalSupply`).
+* __totalSupply__: Das Attribut `totalSupply` gibt die Gesamtmenge der Tokens an, welche sich in Umlauf befinden. Die Angabe ist dabei eine Ganzzahl, welche in der kleinste Stückelung der Tokens angegeben ist. Das Attribut `totalSupply` errechnet sich mit folgender Formel __totalSupply = (Anzahl Tokens) * 10^decimals__.
+
+Neben diese 4 Attributen werden im Token Standard noch Funktionen definiert für den Transfer von Token zwischen unterschiedlichen Konten, bzw. auch zur Abfrage von Kontoständen. Die Funktion zum Transfer von Tokens hat folgende Signatur:
+
+[[solidity0301]]
+.Listing 3.1
+----
+function transfer(address _to, uint256 _value) returns (bool success)
+----
+
+Die Funktion `transfer` ist verantwortlich für den Eigentumsübergang des angegebenen Tokenbetrags von einem Kontoeigentümer zu einem anderen. Dabei fungiert der Aufrufer der Funktion (`msg.sender`) als Quelle eines Tokenbetrages (`_value`), welcher auf dem Konto eines Empfängers (`_to`) gutgeschrieben wird. Die `transfer` Funktion gibt als Resultat immer einen boolschen Wert für den Erfolg des Transfers zurück. Es könnte beispielsweise versucht werden, dass der Sender mehr Token transferieren will als sich in seinem Besitz befinden. Dies würde mit einer Rückgabe von `false` resultieren.
+
+Die andere wichtige Funktion `balanceOf` gibt den Kontostand eines angegebenen Kontos (`_owner`) zurück. Der Kontostand wird dabei als Ganzahl repräsentiert, welche in der Einheit der kleinste Tokenstückelung angegeben ist. Die Signatur dieser Funktion sieht folgendermaßen aus:
+[[solidity0302]]
+.Listing 3.2
+```
+function balanceOf(address _owner) constant returns (uint256 balance)
+```
+
+Zusammenfassend wird in <<solidity0303>> ein vollständiger Smart Contract gezeigt, welcher die bisher besprochene ERC-20 Token Schnittstelle implementiert. Die Bezeichnung (`name`) des Tokens lautet _Example Token_ und das Token Symbol (`symbol`) wird als _EXP_ angegeben. Die Anzahl der gesamten verfügbaren Token wird mit _10.000_ angegeben. Die Anzahl der Dezimalstelle wird auf _18_ fixiert, somit ergeben sich _10.000 * 10^18_ Token in der kleinsten Stückelung. Es wird ebenfalls ein Konstruktor angegeben, welcher die definierte Gesamtmenge der Tokens auf dem Konto des Smart Contract Erstellers gutschreibt.
+
+In der Funktion `transfer` wurden überprüfungen eingeführt, welche einerseits ausschließen das Tokens an die `address(0)` gesendet werden. Zu dieser Adresse ist kein privater Schlüssel verfügbar und wird somit unbrauchbar. Ein Tokentransfer an die Adresse `address(0)` kommt einer Zerstörung der jeweiligen Tokens gleich (sog. Burning von Token). Andererseits wird überprüft ob der Sender (`msg.sender`) überhaupt genügend Token zur Verfügung hat.
+
+[[solidity0303]]
+.Listing 3.3
+----
+contract BasicERC20TokenExample {
+  
+  string public constant name = "Example Token";
+  string public constant symbol = "EXP";
+  uint8 public constant decimals = 18;
+  uint256 public constant totalSupply = 10000 * (10 ** uint256(decimals));
+
+  mapping(address => uint256) balances;
+
+  function BasicERC20TokenExample() public {
+    balances[msg.sender] = totalSupply;
+  }
+
+  function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;    
+    Transfer(msg.sender, _to, _value);
+    return true;
+  }
+
+  function balanceOf(address _owner) public view returns (uint256 balance) {
+    return balances[_owner];
+  }
+
+}
+----
+
+===== Weitere ERC-20 Token Funktionen
+
+Neben den generischen Funktionen zum Transfer von Tokens (`transfer`) und zur Abfrage der Kontostände (`balanceOf`) von Token Besitzern, werden von der ERC-20 Token Schnittstelle noch Möglichkeit zur Vergabe von Abbuchungslimits für andere Tokenbsitzer bereitgestellt. So kann beispielsweise Token Besitzer `A` an Token Besitzer `B` ein Limit über die Verfügung von 100 seiner Token geben. `B` kann damit bis zur Ausschöpfung des Limits Transfers von Konto `A` tätigen. Dafür werden die Funktionen `approve`, `transferFrom` und `allowance` in der Schnittstelle spezifiziert. 
+
+[[solidity0304]]
+.Listing 3.4
+```
+function approve(address _spender, uint256 _value) returns (bool success)
+```
+Die Funktion `approve` ermöglicht es einem Kontoinhaber ein Limit für einen anderen Kontoinhaber zu setzen. In <<solidity0304>> wird dem `_spender` ein Betrag von Tokens (`_value`) als Limit es Kontoinhabers (`msg.sender`) gesetzt.
+
+[[solidity0305]]
+.Listing 3.5
+```
+function transferFrom(address _from, address _to, uint256 _value) returns (bool success)
+```
+Das Limit das über die Funktion `approve` gesetzt wurde, kann über die Funktion `transferFrom` genutzt werden. Die Signatur der Funktion `transferFrom` findet sich in <<solidity0305>>. So kann der Kontoinhaber dem ein Limit für ein anderes Konto (`_from`) gegeben wurde eine Anzahl von Tokens (`_value`) an einen dritten Kontoinhaber (`_to`) weitergeben. Die Funktion `transferFrom` kann für das entsprechende Konto (`_from`) solange aufgerufen werden bis das gesetzte Limit ausgeschöpft wurde. Jeder Aufruf der Funktion `transferFrom` minimiert das gesetzte Limit ensprechend um die Anzahl der Tokens (`_value`).
+
+Änhlich der Funktion `balanceOf` gibt es auch ein Äquivalent `allowance` zur Abfrage des gesetzten Limits das ein Kontoinhaber (`_owner`) einem Anderen (`_spender`) zur Verfügung stellt. In <<solidity0306>> wird die Signatur dieser Funktion dargestellt.
+[[solidity0306]]
+.Listing 3.6
+```
+function allowance(address _owner, address _spender) constant returns (uint256 remaining)
+```
+
+Für den ERC-20 Token sind zusätzlich 2 Ereignisse definiert (`Transfer` und `Approval`), welche an entsprechender Stelle erzeugt werden sollten. So wird das `Transfer` Ereignis innerhalb einer erfolgreichen Ausführung der `transfer` bzw. `transferFrom` Funktion ausgeführt. Das `Approval` Ereignis innerhalb einer erfolgreichen Ausführung der `approve` Funktion. Anschließend an <<solidity0303>> soll nun in <<solidity0307>> eine vollständige ERC-20 Token Implementierung angeführt sein.
+
+[[solidity0307]]
+.Listing 3.7
+----
+contract FullERC20TokenExample is BasicERC20TokenExample {
+  
+  mapping (address => mapping (address => uint256)) internal allowed;
+
+  function transferFrom(address _from, address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    require(_value <= balances[_from]);
+    require(_value <= allowed[_from][msg.sender]);
+
+    balances[_from] = balances[_from] - _value;
+    balances[_to] = balances[_to] + _value;
+    allowed[_from][msg.sender] = allowed[_from][msg.sender] - _value;
+    Transfer(_from, _to, _value);
+    return true;
+  }
+
+  function approve(address _spender, uint256 _value) public returns (bool) {
+    allowed[msg.sender][_spender] = _value;
+    Approval(msg.sender, _spender, _value);
+    return true;
+  }
+
+  function allowance(address _owner, address _spender) public view returns (uint256) {
+    return allowed[_owner][_spender];
+  }
+
+}
+----
+
+[[section0303]]
+=== Crowdsale Contracts
+
+Neben dem ERC-20 Token Contract, welcher den Token repräsentiert der durch einen ICO ausgegeben wird, wird die Ausgabe selbst über einen Smart Contract getätigt. Crowdsale Contracts können dabei unterschiedlichste Formen annehmen und bieten dem Unternehmen das den ICO durchführt sehr viele Gestaltungsmöglichkeiten.
+
+Im folgenden sollen gängige Parameter eines Crowdsale Contracts besprochen werden:
+
+* __Pre-ICO Phasen__: Um den Verkauf von Token attraktiver zu machen, kann als Instrument ein Pre-ICO stattfinden. Vor dem Start des tatsächlichen ICO, können Tokens zu verringerten Preisen angeboten werden. Als Regel für den Smart Contract könnte ein Zeitraum definiert werden, welcher mit einer maximalen Anzahl von Pre-ICO Token angeboten wird. Beispiel: Eine Woche vor dem ICO Start werden 100.000 Token mit einem 10% Rabatt ausgegeben. 
+* __Investitionsschwelle__: Im ICO Contract kann eine Mindestinvestmentschwelle definiert werden. Dies würde bedeuten, dass bei einer Unterfinanzierung die Investoren ihr Investment wieder rückfordern können. Der Smart Contract würde dafür eine eigene Methode bereitstellen. Beispiel: Ein ICO wird mit einer mind. Investionsschwelle von 20.000 Token definiert. Werden nun bis Ende des ICO nur 19.000 Token verkauft, könnnen die Investoren ihr Investment über den Smart Contract wieder rückfordern. Der Ersteller des ICO Contracts hat keine Möglichkeit vor Überschreiten der Investmentschwelle auf die Investitionen zuzugreifen. 
+* __Airdrops__: Dies eine spezielle Form um die Attraktivität des ICO zu steigern. So kann nach einem gewissen Auswahlschema an Konten vor ICO Start Tokens verschenkt werden. Dies kann dann auch an eine Regel geknüpft sein, dass diese Token nur abgerufen werden können, wenn ein bestimmtes Investment gemacht wird. Beispiel: Für einen neuen ICO werden allen Investoren eines komplementären vorhergehenden ICO 10 Token gutgeschrieben.
+* __Spezielle Insentives__: Es könnten Regeln im ICO definiert sein die nach unterschiedlichen Gegebenheiten Tokens an Investoren verschenken. Beispiel: Jeder zehnte Invetor bekommt einen Token geschenkt.
+* __Bounties__: Für die Unterstützung während des ICO können Token verschenkt werden. Dies kann zB bei der Übersetzung des ICO Whitepapers in unterschiedliche Sprachen passieren oder für spezielle Promitionen in Social Media Netzwerken. Beispiel: Für die Übersetzung des Whitepapers in die Sprache Deutsch werden 100 Token vergeben.
+
+[[section0304]]
+=== Implementierung des Demo ICO
+
+Zur technischen Realisierung eines ICO werden einerseits die entsprechenden Smart Contracts (Token, Crowdsale) und andererseits eine ICO Web Anwendung benötigt. In <<section0305>> wird der implementierte Crowdsale Contract besprochen und in <<section0306>> wird auf die implementierte ICO Web Anwendung eingegangen.
+
+[[section0305]]
+==== Crowdsale Smart Contract
+
+Im folgenden soll ein sehr einfacher Crowdsale Smart Contract besprochen werden. Die Implementierung findet sich in <<solidity0308>> aufgeführt.
+
+- Der `ExampleCrowdsale` Contract enthält einen leicht modifizierten `ExampleToken` aus <<solidity0306>> und <<solidity0307>> als Attribut. Innerhalb des Konstruktors wird eine Instanz des `ExampleToken` erstellt und dem Attribut zugewiesen. Dies führt zur Erstellung eines eigenen Smart Contracts mit eigener Adresse, welcher den ERC-20 Token repräsentiert.
+- Dem Konstrukor wird eine Rate (`_rate`) übergeben. Diese Rate bestimmt sozusagen den Wechselkurs zwischen Ether und dem auszuschüttenden ERC-20 Token.
+- Dem Konstruktor wird ebenfalls eine maximale Investionshöhe (`_cap`) übergeben. Dies bestimmt die maximale Menge an Tokens, welche ausgeschüttet werden können über den Crowdsale. Falls die investierten Weis (kleinste Einheit von Ethereum) das Maximum erreichen, können keine weiteren Tokens mehr generiert werden.
+- Es gibt eine default Funktion (anonyme Funktion), welche standardmäßig bei Transaktionen an den Crowdsale Contract ausgeführt wird. Diese default Funktion ist sehr wichtig, da somit alle gängigen Ethereum Wallets unterstützt werden können. Nur wenige Wallets können zusätzliche Parameter, wie zB den aufzurufenden Funktionsnamen, übergeben.
+- Die wichtige Funktion `buyTokens` generiert für den übergebenen Kontoinhaber (`beneficiary`) neue Tokens. Als wichtige Vorarbeit wird vorerst überprüft, ob es sich um eine valide Transaktion handelt und überhaupt neue Tokens generiert werden können. Dazu wird überprüft, ob das Maximum (`cap`) noch nicht überschritten wurde und ob überhaupt eine Investion vorliegt (`wei > 0`). Ebenfalls wird geprüft ob es sich nicht um die `address(0)` handelt, welche die Transaktion initiert hat. Dies würde nämlich zu einem sog. Token burning führen. Falls die Überprüfung positiv verläuft, werden anhand der Rate die Anzahl der neuen Tokens berechnet und im Token Contract erzeugt. Dazu wird die Funktion `mint` verwendet, welche in <<solidity0309>> aufgeführt ist.
+- Die Funktion `mint` aus <<solidity0309>> zeigt auf, dass der Erzeuger bzw. Owner (`onlyOwner`) die Befähigung hat neue Tokens zu schöpfen. Im Beispiel würde der Erzeuger des `ExampleToken` der Crowdsale Contract sein und somit die einzige Instanz, welche neue Tokens schöpfen könnte.
+
+
+[[solidity0308]]
+.Listing 3.8
+----
+contract ExampleCrowdsale {
+
+  ExampleToken public token;
+  address public wallet;  
+  uint256 public cap;
+  uint256 public rate;
+  uint256 public weiRaised;
+
+  function ExampleCrowdsale(uint256 _rate, uint256 _cap) public {
+    require(_rate > 0 && _cap > 0);
+
+    token = new ExampleToken();    
+    rate = _rate;
+    cap = _cap;
+    wallet = msg.sender;
+  }
+
+  function () external payable {
+    buyTokens(msg.sender);
+  }
+
+  function buyTokens(address beneficiary) public payable {
+    require(beneficiary != address(0));
+    require(validPurchase());
+
+    uint256 weiAmount = msg.value;
+    uint256 tokens = weiAmount * rate;
+    weiRaised = weiRaised + weiAmount;
+
+    token.mint(beneficiary, tokens);
+  }
+
+  function withdrawFunds() internal {
+    wallet.transfer(this.balance);
+  }
+
+  function validPurchase() internal view returns (bool) {
+    bool nonZeroPurchase = msg.value != 0;
+    bool withinCap = (weiRaised + msg.value) <= cap;
+
+    return nonZeroPurchase && withinCap;
+  }
+
+}
+----
+
+[[solidity0309]]
+.Listing 3.9
+----
+contract MintableToken extends BasicERC20TokenExample {
+
+  function mint(address _to, uint256 _amount) onlyOwner public returns (bool) {
+    totalSupply = totalSupply + _amount;
+    balances[_to] = balances[_to] + _amount;    
+    return true;
+  }
+
+}
+----
+
+[[section0306]]
+==== ICO Web Anwendung
+
+Die zugehörige Web Anwendung zu einem ICO verfolgt primär die Aufgabe einer Investorin den ICO zu vermarkten. So kommt es vorrangig auf eine entsprechende Gestaltung an. Einige gängige Funktionen, welche jede ICO Web Anwendung haben soll, wurden im Beispiel implementiert und im Folgenden erläutert.
+
+In <<ico1-image>> findet sich ein Screenshot der implementierten Web Anwendung. Folgende Aspekte finden sich in der Web Anwendung:
+
+- Die Addresse des Smart Contracts, welcher Investments entgegen nimmt, wird klar ersichtlich. Die Investorin würde diese Addresse in ihrer Wallet öffnen und würde somit die Zieladresse der zu tätigenden Transaktion besitzen.
+- Der Wechselkurs zu dem die Investorin Tokens gegen Ether tauschen kann.
+- Es gibt die Möglichkeit eine Suche mittels der Addresse der Kontoinhaberin zu tätigen, um den ensprechenden Tokenstand abzufragen.
+- In <<ico2-image>> wird das Ergebnis der Tokenstandabfrage angezeigt.
+
+[[ico1-image]]
+.ICO Web Anwendung
+image::images/ICO_1.png["ICO Web Anwendung"]
+
+[[ico2-image]]
+.ICO Kontostand Abfrage
+image::images/ICO_2.png["ICO Kontostand Abfrage"]
+
+Ein wichtiger Aspekt zur Implementierung der Web Anwendung besteht darin mit dem Ethereum Peer-to-Peer Netzwerk zu kommunizieren. Eine Web Anwendung wird in einer sog. Browser Sandbox ausgeführt und kann aus Sicherheitsgründen keine Kommunikation direkt über TCP Sockets durchführen. Das Ethereum Peer-to-Peer Netzwerk verfügt über ein eigenes Protokoll, welches direkt auf der TCP Netzwerkschicht aufsetzt. Innerhalb der Browser Sandbox kann jedoch nur das HTTP-Protokoll genutzt werden.
+
+Die ICO Web Anwendung benötigt für entsprechende Funktionen jedoch die Möglichkeit mit den Smart Contracts zu kommunizieren. Es müssen zB die Tokenstandsabfragen durchgeführt werden. In der Implementierung wurde der externe Dienst [https://infura.io](infura.io) genutzt, welcher einen kostenlosen HTTP Proxy für das Ethereum Netzwerk bereitstellt.
 
