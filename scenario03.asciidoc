@@ -3,7 +3,7 @@
 == Szenario 3
 
 [[section0301]]
-=== Einführung: Initial Coin Offerings
+=== Problemstellung: Initial Coin Offerings
 
 Initial Coin Offerings (ICOs) sind eine Möglichkeit für Startups bzw. Unternehmen ein sog. Crowdfunding mittels Einsatz der Blockchaintechnologie durchzuführen. Dabei werden innerhalb eines vorgegebenen Investitionszeitraums eigens geschaffene Token gegen Investitionen in Kryptowährungen ausgegeben. Die ausgegebenen Token können unterschiedlichste Funktionen bzw. Nutzen für den Investor haben. Ebenfalls, können sie wie eine Kryptowährung genutzt werden und zB auf Börsen gehandelt werden.
 
@@ -15,7 +15,7 @@ Mögliche Funktionen eines ICO Tokens:
 ICOs werden vorranging auf der Ethereum Blockchain abgewickelt. Die Investionen in den ICO werden demnach vorranging in Ether getätigt. Der ERC-20 Standard hat sich als Token Standard herausgebildet um ICOs abzuwickeln. Es gibt kaum ICOs die nicht als ERC-20 Token ausgegeben werden. Demnach soll in Abschnitt <<section0302>> der ERC-20 Token Standard im Detail beschrieben werden.
 
 [[section0302]]
-==== ERC-20 Token Standard
+=== ERC-20 Token Standard
 
 Der ERC-20 Token Standard wurde von der Ethereum Community definiert um Token auf der Ethereum Blockchain zu repräsentieren. Ein gemeinsamer und akzeptierter Standard hat viele Vorteile für eine aufstrebende Technologie. Unterschiedliche Anwendungsmöglichkeiten können entstehen und den Standard als Basis nutzen. Einige ausgewählte Beispiele:
 
@@ -23,7 +23,7 @@ Der ERC-20 Token Standard wurde von der Ethereum Community definiert um Token au
 * ERC-20 Börsen: Kryptowährungen und Tokens werden auf Börsen gehandelt, durch das Zusammentreffen von Angebot und Nachfrage, wird unter anderem der Marktpreis des Tokens ermittelt. Die Aufnahme eines neuen Token, welcher an der Börse gehandelt werden kann, ist technisch einfach realisierbar. Für alle ERC-20 kompatiblen Tokens kann es eine Implementierung geben.
 * ERC-20 Token Explorer: Alle Transaktionen von Kryptowährungen und Token sind generell öffentlich innerhalb der jeweiligen Blockchains einsehbar. Sog. Blockexplorer sind Benutzerfreundliche Web-Anwendungen, welche Blockchains einsehbar machen. Für ERC-20 Token kann ein Explorer entwickelt werden, welcher neue Tokens einfach integrieren kann.
 
-===== Generische Token Repräsentierung
+==== Generische Token Repräsentierung
 
 Tokens werden innerhalb eines Ethereum Smart Contracts abgebildet. Der Token Contract enthält eine einfache Bilanz, welcher die Tokenstände der einzelnen Konten aufführt. Im folgenden wird eine einfach Darstellung dieser Bilanz als Tabelle repräsentiert. Es werden 3 Token Besitzer `A`, `B` und `C` und deren Token Kontostände abgebildet. Zusätlich wird die Gesamtsumme aller Token angezeigt.
 
@@ -51,7 +51,7 @@ Alle Kontobewegungen innerhalb dieses Tokens werden über diese einfache Bilanz 
 
 Intern hat jeder ERC-20 Token eine Datenstruktur, welche die Kontostände in dieser einfach Form abbildet.
 
-===== Allgemeine ERC-20 Token Schnittstelle
+==== Allgemeine ERC-20 Token Schnittstelle
 
 Der ERC-20 Tokenstandard definiert eine Schnittstelle für Ethereum Smart Contracts. Diese Schnittstellenbeschreibung besteht aus 4 wichtigen Attributen. Diese Attribute sind `name`, `symbol`, `decimals` und `totalSupply`. `name`, `symbol` und `decimals` sind zwar optional definiert im Standard, es sind jedoch essentielle Attribute für die Darstellung in Applikationen. Im folgenden sollen die Attribute kurz beschrieben werden:
 * __name__: Der Name bzw. die Bezeichnung des Tokens wird als Zeichenkette angegeben. Es ist keine maximale Länge für den Namen definiert, es sollte jedoch in Anbetracht der Darstellung in Benutzerschnittstellen auf die Länge geachtet werden.
@@ -112,7 +112,7 @@ contract BasicERC20TokenExample {
 }
 ----
 
-===== Weitere ERC-20 Token Funktionen
+==== Weitere ERC-20 Token Funktionen
 
 Neben den generischen Funktionen zum Transfer von Tokens (`transfer`) und zur Abfrage der Kontostände (`balanceOf`) von Token Besitzern, werden von der ERC-20 Token Schnittstelle noch Möglichkeit zur Vergabe von Abbuchungslimits für andere Tokenbsitzer bereitgestellt. So kann beispielsweise Token Besitzer `A` an Token Besitzer `B` ein Limit über die Verfügung von 100 seiner Token geben. `B` kann damit bis zur Ausschöpfung des Limits Transfers von Konto `A` tätigen. Dafür werden die Funktionen `approve`, `transferFrom` und `allowance` in der Schnittstelle spezifiziert. 
 
@@ -266,7 +266,7 @@ contract MintableToken extends BasicERC20TokenExample {
 ----
 
 [[section0306]]
-==== ICO Web Anwendung
+==== ICO Web-Anwendung
 
 Die zugehörige Web Anwendung zu einem ICO verfolgt primär die Aufgabe einer Investorin den ICO zu vermarkten. So kommt es vorrangig auf eine entsprechende Gestaltung an. Einige gängige Funktionen, welche jede ICO Web Anwendung haben soll, wurden im Beispiel implementiert und im Folgenden erläutert.
 
@@ -288,4 +288,13 @@ image::images/ICO_2.png["ICO Kontostand Abfrage"]
 Ein wichtiger Aspekt zur Implementierung der Web Anwendung besteht darin mit dem Ethereum Peer-to-Peer Netzwerk zu kommunizieren. Eine Web Anwendung wird in einer sog. Browser Sandbox ausgeführt und kann aus Sicherheitsgründen keine Kommunikation direkt über TCP Sockets durchführen. Das Ethereum Peer-to-Peer Netzwerk verfügt über ein eigenes Protokoll, welches direkt auf der TCP Netzwerkschicht aufsetzt. Innerhalb der Browser Sandbox kann jedoch nur das HTTP-Protokoll genutzt werden.
 
 Die ICO Web Anwendung benötigt für entsprechende Funktionen jedoch die Möglichkeit mit den Smart Contracts zu kommunizieren. Es müssen zB die Tokenstandsabfragen durchgeführt werden. In der Implementierung wurde der externe Dienst [https://infura.io](infura.io) genutzt, welcher einen kostenlosen HTTP Proxy für das Ethereum Netzwerk bereitstellt.
+
+[[section0307]]
+=== Diskussion
+
+In der Demonstration wird ein vollständiger ICO Smart Contract inklusive zugehöriger Web-Anwendung entwickelt. Diese Demonstration könnte grundsätzlich für einen richtigen ICO verwendet werden. Da bei einem richtigen ICO eine hohe Investmentsumme im Spiel sein kann, sollten einige Aspekte umbedingt beachtet werden:
+
+ - Es gibt Dienstleitungsunternehmen, welche Smart Contracts auditieren. Ein Audit von einer Partei, welche nicht Teil des Teams ist, sollte umbedingt angestrebt werden. Es sollte ein Auditor gewählt werden, welcher bereits Smart Contracts auditiert hat und diese Audits als Referenz vorweisen kann.
+ - Für ICO Smart Contracts gibt es bereits vorgefertigte und auditierte Bibliotheken, welche genutzt werden können. Als Beispiel soll auf die Bibliothek [https://openzeppelin.org](OpenZepplin) verwiesen werden, welche bereits vielfältig in ICOs zum Einsatz kam. Natürlich kann es unterschiedliche spezielle Funktionen eines ICO Smart Contracts geben, welche nicht als Teil einer Standardbibliothek ausgeliefert werden können. Ein Audit könnte sich nun nur auf diese Funktionen fokusieren.
+ - Es gab unterschiedliedlichste Fälle von Hackerangriffen im Zusammenhang mit ICOs. Als triviales Beispiel eines Hacks kann der CoinDash ICO betrachtet werden. Einem Hacker gelang es, die veröffentlichte Ethereum Adresse auf der ICO Website abzuändern, sodass alle Investments direkt an den Hacker anstelle des Starups gingen. Dies könnte mittels eines sicheren Zungangs auf den Web-Server verhindert werden. Alle klassichen Regeln der IT-Sicherheit sollen bei ICO umbedingt eingehalten werden.
 

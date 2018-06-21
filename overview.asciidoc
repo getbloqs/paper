@@ -1,0 +1,20 @@
+[overview]
+== Übersicht
+
+Innerhalb dieses Dokumentes werden 3 Szenarien vorgestellt, welche exemplarisch als DApps (Distributed Apps) realisiert wurden. Alle DApps wurden speziell für das Ethereum Netzwerk entwickelt und enthalten jeweils entsprechende Smart Contracts, welche die Geschäftslogik enthalten, sowie eine Benutzerschnittstelle zur Interaktion mit den Smart Contracts.
+
+Folgende 3 Szenarien wurden entwickelt und werden im Dokument beschrieben:
+
+* Szenario 1: Abbildung einer Sportwette
+* Szenario 2: Dezentrale Domainregistrierung
+* Szenario 3: Initial Coin Offerings
+
+Alle Software Artefakte und Entwicklerdokumentationen sind unter BSD 2-Clause Lizenz veröffentlicht. Dieses Dokument ist unter der CC BY-SA 4.0 Lizenz veröffentlicht. Alle Quelltexte zum Projekt findet man auf github.com. Im folgenden sind alle Links zu den einzelnen Repositories aufgelistet:
+
+* Szenario 1: https://github.com/getbloqs/scenario01
+* Szenario 1: https://github.com/getbloqs/scenario02
+* Szenario 1: https://github.com/getbloqs/scenario03
+* Dokumentation: https://github.com/getbloqs/paper
+
+
+Das Projekt wurde als Teil der "netidee Projektförderung" im Call 2016 realisiert.

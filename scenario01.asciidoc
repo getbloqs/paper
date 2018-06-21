@@ -1,12 +1,11 @@
 [scenario01]
 
 == Szenario 1
-In diesem Kapitel soll anhand eines Beispiels das Konzept der Smart Contracts eingeführt und erklärt werden. Im ersten Abschnitt (<<section01>>) wird das zugrunde liegende Beispiel einer Sportwette erklärt. Ein weiterer Abschnitt (<<section02>>) soll weitere Details zu Smart Contracts erkläutern. Gefolgt wird dies (<<section03>>) von einer Beschreibung zur Implementierung mit der Programmiersprache Solidity. Abschließend wird erörtert wie Smart Contracts genutzt werden können (<<section04>>).   
 
-[[section01]]
-=== Einführung: Eine Sportwette
+[[section0101]]
+=== Problemstellung: Online Sportwetten
 
-Am Beispiel einer Sportwette sollen die Funktionsweise und die Eigenschaften eines Smart Contracts aufgezeigt werden. Dazu wird die Sportwette auf das Ergebnis eines Fußballspiels betrachtet. Ein Fußballspiel zwischen zwei Maschaften A und B kann generell drei Ergebnisse bzw. Endzustände aufweisen:
+Online Wettportale sind sehr verbreitet im WWW. Diese Portale werden von zentralisierten Betreibern bereitgestellt. Die Berechnung der Gewinnquoten und Ausschüttungen sind oft sehr intransparent und wenig nachvollziehbar. Am vereinfachten Beispiel einer Sportwette sollen die Funktionsweise und Eigenschaften einer online Wette skizziert werden. Dazu wird die Wette auf das Ergebnis eines Fußballspiels betrachtet. Ein Fußballspiel zwischen zwei Maschaften A und B kann generell drei Ergebnisse bzw. Endzustände aufweisen:
 
 * Mannschaft A gewinnt und Mannschaft B verliert
 * Mannschaft B gewinnt und Mannschaft A verliert
@@ -27,35 +26,43 @@ Um nun eine Wette auf eines der möglichen Ergebnisse abzugeben, würde normaler
 
 Die Wettquote berechnet sich somit konkret über den gesamten Wetteinsatz dividiert durch die kummulierten Wetteinsätze aller Teilnehmer für den jeweiligen Tipp. Die Gewinnquote bedeutet somit für einen Wettteilnehmer, dass für jeden Euro der investiert wird das 4-, 1,6- bzw. 8-fache als Gewinn verbucht werden kann. An den Beispielzahlen ist zu erkennen, dass eine Gewinnquote immer größer als 1 sein muss, andernfalls würde die Teilnahme an einer Wette keinen Sinn machen. Zusätzlich ist zu sehen, dass der Tipp mit dem kleinsten kummulierten Wetteinsatz die höchste Gewinnchance bietet. Eine Wette auf das Ergebnis mit der höchsten Gewinnchance ist oft auch mit dem größten Verlustrisiko verbunden.
 
+Falls ein online Wettbüro Wetten abbildet, werden die Wetteinsätze zu den unterschiedlichen Ereignissen nicht offen kommuniziert. Die Quoten werden ebenfalls im geheimen festgelegt. Ein Wettteilnehmer hat somit keine Möglichkeit sich eine genaue Kenntnis über den Ablauf zu verschaffen. Ebenfalls obliegt es dem online Wettbüro Auszahlungen zu tätigen oder auch nicht. Wettteilnehmer müssen dem Wettbüro vertrauen und sind dessen Willkür ausgeliefert.
+
 .Kollektive Intelligenz
 [TIP]
 ===============================
 Wetten könnten auch als Vorhersagen betrachtet werden und die kummulierten Wetteinsätze als Eintrittswahrscheinlichkeit gedeutet werden. Im Beispiel der Fußballwette könnte dies so interpretiert werden, dass mit einer Wahrscheinlichkeit von 12,5% ein Unentschieden gespielt wird. Blockchainstartups wie `Augur`{empty}footnote:[Augur: https://augur.net], `Gnosis`{empty}footnote:[Gnosis: https://gnosis.pm/] oder `Stox`{empty}footnote:[Stox: https://www.stox.com] machen sich genau diesen Umstand zu nutze und bietet Vorhersagen der "kollektiven Intelligenz" als Dienstleistung an. Dies ist auch unter den Bezeichnungen `crowd sourcing` oder `prediction markets` bekannt.
 ===============================
 
-[[section02]]
+
+[[section0102]]
 === Smart Contracts
 
 Üblicherweiße würde eine Sportwette wie oben beschrieben von einem Buchmacher abgewickelt. Dieser Buchmacher würde sich um die ordnungsmäßige Abwicklung der Wette kümmern. Je nach Vertrauen gegenüber dem Buchmacher, würden Wettteilnehmer dort Wetten abschließen oder auch nicht. Je nach Einsicht der Wettteilnehmer könnte ein Buchmacher Gewinnquoten zu seinen Gunsten manipulieren oder hohe Gebühren für Gewinne erheben.
 
 Die ordnungsmäßige bzw. korrekte Abwicklung einer Sportwette kann jedoch formal wie in einem Algorithmus bzw. einem Computerprogramm beschrieben werden. Diesen Umstand haben sich bereits etliche online Sportwettanbieter zu nutze gemacht. Anstelle einer vertrauenswürdigen Person, welche als Buchmacher Wetten entgegennimmt, kann dies auch über eine Software Anwendung geschehen. Hierbei wird jedoch nur die Abwicklung an sich digitalisiert, eine Manipulation ist dabei noch nicht ausgeschlossen. Gemeinhin ist es so, dass Software Anwendungen zentral verwaltet sind und es ist nicht möglich den Programmcode einzusehen. Es wäre einem Wettteilnehmer also nicht möglich zu prüfen, ob die Software des Sportwettanbieters so agiert wie angepriesen. Es könnte durchaus passieren, dass auch nach einer gewonnen Wette, der Wetteinsatz nicht ordnungsgemäß ausbezahlt wird.
 
-Ein Smart Contract hingegen ist ähnlich einem Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit dem Ausspruch "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz). Konzeptionell ist ein Smart Contract einem Computerprogramm sehr ähnlich, jedoch gibt es einige unterscheidende Merkmale:
+Ein Smart Contract hingegen ist ähnlich einem Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit dem Ausspruch "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz).
+
+Ebenfalls sind alle Daten, welche im Smart Contract durch die Interaktion der Wettteilnehmer, öffentlich einsehbar gespeichert. Jeder Wettteilnehmer würde zwar unter einem Pseudonym an der Wette teilnehmen, sodass nicht erörtert werden kann wer konkret hinter einer Wette steckt, jedoch ist die Höhe des Einsatzes und der getätigte Tipp öffentlich. Somit sind alle Informationen transparent und öffentich sichtbar. Mögliche Manipulationen eines Buchmachers sind dadurch ausgeschlossen.
+
+
+Zum Überblick wird die Logik des Smart Contracts, welcher die Sportwette repräsentieren soll, in 3 Phasen eingeteilt. Diese 3 Phasen werden sequentiell ausgeführt, folgend eine Kurzbeschreibung der Phasen:
+
+* Phase 1: Innerhalb dieser Phase können Wettteilnehmer ihre Wetten platzieren. Diese Phase würde solange andauern, bis das Fußballspiel gestartet wird. Nach diesem Ereignis können keine Wetten mehr platziert werden.
+* Phase 2: Diese Phase würde während das Fußballspiels ablaufen. Der Smart Contract wäre im sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten.
+* Phase 3: Der letzte Phase, nachdem das Spielergebnis feststeht, wäre die Auszahlung. Die Wettteilnehmer, welche die Wette zu ihren Gunsten platziert haben, können sich nun ihre Gewinne auszahlen.
+
+Eine paar wichtige Aspekte, welche für Smart Contracts im Allgemeinen zu beachten sind:
 
 * Smart Contracts sind autonom in ihrer Ausführung. Falls ein Smart Contract einmal im Netzwerk bereitsgestellt ist, steht dieser dort für immer bereit. Die programmierten Regeln sind somit gültig und können nicht mehr abgeschaltet oder verändert werden.
 * Die Kommunikation mit Smart Contracts wird über Transaktionen realisiert. Dabei kann eine Transaktion sowohl Daten als auch Werte, abgebilded als virtueller Token, enthalten. Mit der Transaktion wird dem Smart Contract die Hoheit über die übermittelten Werte übertragen.
 * Für die Ausführung eines Smart Contracts muss bezahlt werden. Die Mining-Knoten, welche das Netzwerk betreiben, bekommen eine Gebühr (Mining Fee) als Entschädigung für ihre Arbeitsleistung. Jede Transaktion, welche mit dem Smart Contract interagiert, muss auch genügend Mittel bereitstellen, damit die programmierten Regeln ausgeführt werden.
 
-Konkret ist die Ausführung des Smart Contracts in Abschnitte gegliedert. Jeder Abschnitt wird durch eine Transaktion bzw. durch ein Ereignis gestartet. Am Beispiel der Sportwette können 3 Abschnitte identifiziert werden:
-
-* Abschnitt 1: Innerhalb dieses Abschnitts können Wettteilnehmer ihre Wetten platzieren. Diese Phase würde solange andauern, bis das Fußballspiel gestartet wird. Nach diesem Ereignis können keine Wetten mehr platziert werden.
-* Abschnitt 2: Dieser Abschnitt würde während das Fußballspiels ablaufen. Der Smart Contract wäre im sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten.
-* Abschnitt 3: Der letzte Abschnitt, nachdem das Spielergebnis feststeht, wäre die Auszahlung. Die Wettteilnehmer, welche die Wette zu ihren Gunsten platziert haben, können sich nun ihre Gewinne auszahlen.
-
-[[section03]]
+[[section0103]]
 === Implementierung mit Solidity
 
-Der Solidity Programmcode ist innerhalb einem Verzeichnises auf github{empty}footnote:[Szenario 1 auf github: https://github.com/getbloqs/scenario01] hinterlegt und einsehbar. In diesem Abschnitt werden einige Ausschnitte des Programmcodes angeführt und erläutert. Dies soll dazu dienen den Smart Contract zu dokumentieren und wesentliche Konzepte der Programmiersprache Solidity einzuführen.
+In diesem Abschnitt werden einige Ausschnitte des Programmcodes angeführt und erläutert. Dies soll dazu dienen den Smart Contract zu dokumentieren und wesentliche Konzepte der Programmiersprache Solidity einzuführen.
 
 [[solidity01]]
 .Listing 1
@@ -69,16 +76,16 @@ Jeder Smart Contract wird wie oben veranschaulicht (<<solidity01>>) über das Sc
 [[solidity02]]
 .Listing 2
 ----
-contract SportsBet is Owned {
+contract SportsBet is Ownable {
 }
 ----
 
-Solidity unterstützt auch das Konzept der Vererbung (<<solidity02>>). Dies ist hilfreich um die Wiederverwendbarkeit von Programmcode zu erhöhen. Über das Schlüsselwort `is` erbt `SportsBet` von `Owned`. Alle Funktionen, welche in Owned definiert sind, sind somit auch Teil von `SportsBet`. Neben der einfachen Vererbung werden auch `Interfaces` bzw. `abstrakte Methoden` unterstützt, dies wird in einem späteren Abschnitt noch thematisiert.
+Solidity unterstützt auch das Konzept der Vererbung (<<solidity02>>). Dies ist hilfreich um die Wiederverwendbarkeit von Programmcode zu erhöhen. Über das Schlüsselwort `is` erbt `SportsBet` von `Ownable`. Alle Funktionen, welche in Owned definiert sind, sind somit auch Teil von `SportsBet`. Neben der einfachen Vererbung werden auch `Interfaces` bzw. `abstrakte Methoden` unterstützt.
 
 [[solidity03]]
 .Listing 3
 ----
-contract SportsBet is Owned {
+contract SportsBet is Ownable {
 
     // unique identifier of sports game
     string public game;
@@ -89,7 +96,7 @@ contract SportsBet is Owned {
 }
 ----
 
-Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Zustandsvariablen deklariert werden. In <<solidity03>> wird dazu eine Variable mit Namen `game` deklariert. Diese Variable hat den Datentyp `string` und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation{empty}footnote:[Liste aller Solidity Datentypen: http://solidity.readthedocs.io/en/latest/types.html] zu entnehmen. Mit der Angabe `public` wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable `game` von anderen Smart Contracts abgefragt werden. Neben `public` gibt es weitere Sichtbarkeitsdeklarationen, welche ebenfalls für Funktionen gelten und weiter unten eingeführt werden.
+Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Zustandsvariablen deklariert werden. In <<solidity03>> wird dazu eine Variable mit Namen `game` deklariert. Diese Variable hat den Datentyp `string` und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation http://solidity.readthedocs.io/en/latest/types.html[(Liste aller Solidity Datentypen)] zu entnehmen. Mit der Angabe `public` wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable `game` von anderen Smart Contracts abgefragt werden. Neben `public` gibt es weitere Sichtbarkeitsdeklarationen, welche ebenfalls für Funktionen gelten und weiter unten eingeführt werden.
 
 .Sichtbarkeit von Zuständen
 [WARNING]
@@ -127,7 +134,7 @@ contract SportsBet is Owned {
 }
 ----
 
-Neben einfachen Datentypen wie in <<solidity03>> die Variable `game` können auch komplexere Datentypen selbst definiert werden. Um eine Wette zu repräsentieren wird in <<solidity04>> der komplexen Datentyp `Bet` eingeführt. Dieser enthält einen Zahlenwert `tip` für den Wetttipp und einen weiteren Zahlenwert `amount` für die höhe des Einsatzes deklariert. `uint` deklariert dabei einen sog. unsigned Integer, also einen Zahlenwert der nur positiv sein kann. Der komplexe Datentyp wird über das Schlüsselwort `struct` deklariert.
+Neben einfachen Datentypen wie in <<solidity03>> die Variable `game` können auch komplexere Datentypen selbst definiert werden. Um eine Wette zu repräsentieren wird in <<solidity04>> der komplexen Datentyp `Bet` eingeführt. Dieser enthält einen Zahlenwert `tip` für den Wetttipp und einen weiteren Zahlenwert `amount` für die Höhe des deklarierten Einsatzes. `uint` deklariert dabei einen sog. unsigned Integer, also einen Zahlenwert der nur positiv sein kann. Der komplexe Datentyp wird über das Schlüsselwort `struct` deklariert.
 
 Wie bereits erwähnt besitzen Smart Contracts Funktionen. In <<solidity04>> werden eine Funktionen des Smart Contracts `SportsBet` implementiert. Generell stellen Funktionen (je nach Sichtbarkeit) die Schnittstelle des Smart Contracts nach Außen dar. Diese Schnittstelle wird über die sog. Signatur der Funktion definiert. Die Signatur setzt sich aus unterschiedlichen Bestandteilen zusammen:
 
@@ -136,7 +143,7 @@ Wie bereits erwähnt besitzen Smart Contracts Funktionen. In <<solidity04>> werd
 * Den Rückgabewerten, falls diese definiert sind
 * Sichtbarkeits- bzw. sonstigen Modifikatoren
 
-Neben der Signatur, welche auch als Funktionskopf bezeichnet werden kann, gibt es einen Funktionskörper. Der Funktionskörper wird von zwei geschwungenen Klammern umschlossen `{ }`. Innerhalb dieses Körpers wird die Logik der Funktion implementiert. Dazu werden unterschiedliche Konstrukte der Programmierung angewandt. In der Funktion `bet` aus <<solidity04>> werden sog. Kontrollstrukturen eingesetzt, um den übergebenen Parameter zu überprüfen. Die verfügbaren Kontrollstrukturen in Solidity können in der Dokumentation{empty}footnote:[Kontrollstrukturen in Solidity: https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures] eingesehen werden. Falls die Signatur Rückgabewerte definiert, müssen diese über das Schlüsselwort `return` übergeben werden. Dieses Schlüsselwort beendet ebenfalls die Ausführung der Funktion.
+Neben der Signatur, welche auch als Funktionskopf bezeichnet werden kann, gibt es einen Funktionskörper. Der Funktionskörper wird von zwei geschwungenen Klammern umschlossen `{ }`. Innerhalb dieses Körpers wird die Logik der Funktion implementiert. Dazu werden unterschiedliche Konstrukte der Programmierung angewandt. In der Funktion `bet` aus <<solidity04>> werden sog. Kontrollstrukturen eingesetzt, um den übergebenen Parameter zu überprüfen. Die verfügbaren Kontrollstrukturen in Solidity können in der Dokumentation https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures[(Kontrollstrukturen in Solidity)] eingesehen werden. Falls die Signatur Rückgabewerte definiert, müssen diese über das Schlüsselwort `return` übergeben werden. Dieses Schlüsselwort beendet ebenfalls die Ausführung der Funktion.
 
 
 .Sichtbarkeitsmodifikatoren
@@ -153,7 +160,7 @@ Die Defaultsichtbarkeit von Funktionen ist `public` und die von Zustandsvariable
 
 ===============================
 
-<<solidity04>> enthält auch ein `mapping`. Mappings sind sehr wichtige und effiziente Strukturen zur Speicherung von Zuständen in Smart Contracts. In anderen Programmiersprachen werden Mappings auch assoziativ Speicher oder Hashtabellen gennant. Ein mapping ist demnach eine Datenstruktur um Werte anhand einen Schlüssels zu speichern bzw. abzufragen. Das deklarierte `mapping` in <<solidity04>> speichert Wetten (`Bet`) anhand der Adresse (`address`) des Wettteilnehmers.
+Ein weiteres Konzept in <<solidity04>> ist das sog. `mapping`. Mappings sind sehr wichtige und effiziente Strukturen zur Speicherung von Zuständen in Smart Contracts. In anderen Programmiersprachen werden Mappings auch assoziativ Speicher oder Hashtabellen gennant. Ein mapping ist demnach eine Datenstruktur um Werte anhand einen Schlüssels zu speichern bzw. abzufragen. Das deklarierte `mapping` in <<solidity04>> speichert Wetten (`Bet`) anhand der Adresse (`address`) des Wettteilnehmers.
 
 Die Funktion `bet` in <<solidity04>> speichert den übergebenen Parameter `tip` als Wette (`Bet`) innerhalb des `mapping` (`bets`). Die Funktion prüft zuerst ob ein valider Tipp (Tipp 1, Tipp 2 oder Tipp 3) abgegeben wurde. Dannach wird überprüft ob der Absender der Transaktion und somit der Aufrufer der Funktion `bet` bereits eine Wette abgegeben hat. Der Absender der Transaktion wird über die spezielle Variable `msg.sender` abgefragt. Falls noch kein Tipp abgegeben wurde, wird dieser für den Absender gesetzt. Dazu wird der Tip über das `mapping` mit dem Schlüssel `msg.sender` (`msg.sender` ist vom Datentyp `address`) in der Wette (`Bet`) gesetzt. In jedem Fall wird der Wetteinsatz erhöht. Dazu wird die Höhe des gesendeten Ethers zum Wetteinsat (`amount`) addiert.
 
@@ -163,17 +170,103 @@ Die Transaktion, welche die Funktion des Smart Contracts aufruft, sendet Ether a
 [TIP]
 ===============================
 
-Funktionen haben Zugriff auf spezielle Variablen, welche wichtige Informationen über den aktuellen Ausführungskontext enthalten. So kann zB über die Variable `msg` auf den Absender der Transaktion (`msg.sender`) den gesendeten Betrag an Ether (`msg.value`) oder das noch verfügbare Gas (`msg.gas`) zugegriffen werden. Alle verfügbaren bzw. speziellen Variablen sind in der Dokumentation{empty}footnote:[Spezielle Variablen in Solidity: https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions] einsehbar.
+Funktionen haben Zugriff auf spezielle Variablen, welche wichtige Informationen über den aktuellen Ausführungskontext enthalten. So kann zB über die Variable `msg` auf den Absender der Transaktion (`msg.sender`) den gesendeten Betrag an Ether (`msg.value`) oder das noch verfügbare Gas (`msg.gas`) zugegriffen werden. Alle verfügbaren bzw. speziellen Variablen sind in der Dokumentation https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions[(Spezielle Variablen in Solidity)] einsehbar.
 
 ===============================
 
+[[solidity05]]
+.Listing 5
+----
+contract SportsBet is Owned {
+    
+    // other code
 
-[[section04]]
-=== Nutzung des Smart Contracts
+    function finalizeBet(uint8 _winningTip) external onlyOwner {
+        winningTip = checkTip(_winningTip);
+    }
+}
+----
 
-Der Smart Contract wurde mit der Programmiersprache Solidity entwickelt, welche in einen Ethereum Smart Contract kompiliert werden kann. Das Ergebnis dieser Kompilierung ist letzlich nichts anderes als Bytecode, welcher auf der Ethereum Virtual Machine (EVM) ausgeführt werden kann.
+Nachdem das entsprechende Wettereignis feststeht, muss dieses im Smart Contract mitgeteilt werden. Dazu wurde eine Funktion `finalizeBet` im Smart Contract <<solidity05>> deklariert. Diese Funktion enhält einen `modifier` mit der Bezeichnung `onlyOwner`. Dieser Modifier gibt an, dass diese Funktion nur vom Ersteller der Wette ausgeführt werden kann.
 
-Der kompilierte Smart Contract kann über eine Ethereum Wallet im Netzwerk bereitgestellt werden. Dies erfordert eine Transaktion an eine leere Adresse, welche als Nachricht den kompilierten Smart Contract enthält. Für diese Bereitstellung muss der Transaktion natürlich genügend Gas als Gebühr mitgegeben werden. Diese Bereitstellung führt ebenfalls den Konstruktor des Smart Contracts aus, das bereitgestellte Gas muss auch dafür reichen.
 
-Nachdem der Smart Contract bereitgestellt wurde, kann über Transaktionen mit seiner öffentlichen Schnittstelle (`external oder `public` Funktionen) kommuniziert werden. Der Smart Contract besitzt eine eindeutige Addresse und kann darüber identifiziert und angesprochen werden. Nutzer können Transaktionen an diese Addresse senden. Innerhalb der Nachricht können die gewünschten Funktionen bzw. Funktionsparameter angegeben werden. Am Beispiel der Sportwette würde innerhalb der Nachricht ein Tipp für das Ergebnis angegeben und die Funktion `bet` aufgerufen.
+[[solidity06]]
+.Listing 6
+----
+contract SportsBet is Owned {
+    
+    // other code
 
+    function payout() external {
+        require(
+            winningTip > 0 &&
+            betTips[msg.sender] == winningTip &&
+            betAmounts[msg.sender] > 0
+        );
+        
+        uint256 odds = calculateOdds(winningTip);
+        uint256 out = betAmounts[msg.sender].mul(odds);
+
+        if (this.balance >= out) {
+            betAmounts[msg.sender] = 0;
+            msg.sender.transfer(out);
+        }      
+    }
+}
+----
+
+Letztlich soll noch eine Möglichkeit geschaffen werden, nachdem eine Wette abgeschlossen wurde, die Auszahlungen an Wettteilnehmer durchzuführen. In <<solidity06>> wird die Funktion `payout` eingeführt, welche die umsetzt. Die Funktion beginnt mit einem `require` Block, dieser gibt Bedingungen an, welche bestehen müssen, sodass die weiteren Schritte im Code ausgeführt werden. Im konkreten Fall sind dort 3 Bedingungen definiert:
+
+* Die Wette muss finalisiert worden sein. Also die Funktion `finalizeBet` muss bereits ausgeführt worden sein und den entsprechenden Siegestipp angegeben haben.
+* Der Aufrufer der `payout` Funktion muss den richtigen Tipp gemacht haben.
+* Der Aufrufer muss einen Betrag größer 0 gesetzt haben.
+
+Falls die 3 Bedingungen erfüllt sind, wird der entsprechende Gewinnbetrag an den Aufrufer gesendet. Dazu wird die spezielle Variable `msg.sender` verwendet, welche das Konto des Aufrufers spezifiziert. mit der Funktion `transfer` wird der berechnete Gewinnbetrag in Ether an den Aufrufer gesendet und somit die Auszahlung durchgeführt.
+
+[[section0104]]
+=== Web-Anwendung
+
+Die Web-Anwedung ermöglicht es neue Wetten zu erstellen, welche als Instanzen des Smart Contract `SportsBet` in der Blockchain abgelegt werden. In <<bet1-image>> wird ein Formular gezeigt mit dem eine Wette angelegt werden kann. Es kann ein Name für die Wette angegeben werden, sodass Wetten von Wettteilnehmer aufgefunden werden können. Des Weiteren kann der Wettzeiraum festgelegt werden bis zu dem Wetten abgegeben werden können.
+
+[[bet1-image]]
+.Sportwetten Web-Anwendung 1
+image::images/BET_01.png["Sportwetten Web-Anwendung"]
+
+Die neu erstellte Sportwette wird nun in der Übersicht <<bet2-image>> der "5 neuesten Wetten" gelistet. Von dort können die Details zu dieser Wette eingesehen weren.
+
+[[bet2-image]]
+.Sportwetten Web-Anwendung 2
+image::images/BET_02.png["Sportwetten Web-Anwendung"]
+
+[[bet3-image]]
+.Sportwetten Web-Anwendung 3
+image::images/BET_03.png["Sportwetten Web-Anwendung"]
+
+Die Wettübersicht <<bet3-image>> gibt Aufschluss darüber wie der aktuelle Stand aller Tipps und die entsprechende Verteilung der Einsätze aussieht. Es wird gezeigt wer der Ersteller der Wette ist und ebenfalls wir ein Link zu einem Ethereum Block-Explorer bereitgestellt, welcher alle Transaktionen bzw. den Smart Contract ansicht zeigt.
+
+Solange der erlaubte Zeitraum zur Abgabe von Sportwetten noch nicht abgelaufen ist, können Wetten platziert werden. In <<bet4-image>> ist die Ansicht der Wettabgabe einsehbar. Diese Ansicht erlaubt einerseit die Abgabe eines Tipps (Team 1, Team 2 oder Unentschieden) bzw. die Festlegung eines Wetteinsatzes.
+
+[[bet4-image]]
+.Sportwetten Web-Anwendung 4
+image::images/BET_02.png["Sportwetten Web-Anwendung"]
+
+Letztlich wird nachdem die Wettzeit abgelaufen ist und die Wettdetails vom Ersteller betrachtet werden eine Möglichkeit geschaffen um die Wette abzuschließen. Dazu kann der Ersteller den Siegestipp festlegen (Team 1, Team 2 oder Unentschieden). Veranschaulicht wird das in <<bet5-image>>
+
+[[bet5-image]]
+.Sportwetten Web-Anwendung 5
+image::images/BET_05.png["Sportwetten Web-Anwendung"]
+
+Falls ein Wettteilnehmer einen richtigen Tip abgegeben hat, kann dieser die Möglichkeit einer Auszahlung nutzen. Dies wird in <<bet6-image>> dargestellt.
+
+[[bet6-image]]
+.Sportwetten Web-Anwendung 6
+image::images/BET_06.png["Sportwetten Web-Anwendung"]
+
+[[section0105]]
+=== Diskussion
+
+Die Demonstration zeigt ein vollwertiges und dezentrales Beispiel einer Smart Contract Anwendung inklusive Webbasierter Benutzerschnittstelle zur Abwicklung einer Sportwette. In der Anwendung gibt es eine bestehende Herausforderung und dies ist die Feststellung des tatsächlichen Wettausgangs. Im Falle der Demonstration wurde das Wettergebnis vom Ersteller der Wette angegeben, dies kann klarerweiße zu Manipulationen führen. Es könnte durchaus den Fall geben, dass der Ersteller der Wette selbst Wettteilnehmer ist und mit dem Ausgang des Sportereignisses nicht zufrieden ist und somit eine falsche für den Ersteller günstige Angabe gibt. Um dies zu verhindern könnte entweder ein sog. Oracle eingebunden werden oder eine Möglichkeit zur gemeinschaftlichen Konsensfindung geschaffen werden.
+
+Smart Contracts können nur Daten verarbeiten, welche bereits in der Blockchain existieren. Der Ausgang eines Sportereignisses ist als Datum in der Blockchain nicht verfügbar. Ein Oracle ist ein Dienst, welcher vertrauensvoll Daten aus der realen Welt in die Blockchain schreibt, sodass abhängige Smart Contracts, sowie die Sportwette, diese Daten nutzen können. Es gibt derzeit unterschiedliche Oracles für Ethereum, jedoch sind diese kostenpflichtig und nicht für alle Daten der realen Welt nutzbar. Für zB größere Sportereignisse gibt es Web-APIs, welche Ergebnisse bereitstellen. Bei kleineren regionaleren Sportereignissen sind diese Möglichkeiten jedoch nicht vorhanden und somit kann schwer auf einen Oracle Dienst zurückgegriffen werden.
+
+Als andere Möglichkeit könnte man im Smart Contract vorsehen, dass zumindest 10 Wetteilnehmer, welche mindestens einen gewissen Anteil der Wettsumme beigegeben haben die Wette finalisieren müssen. Eine weitere Möglichkeit wäre, dass ein vertrauenswürdige 3. Partei den Wettabschluss tätigen darf. Dies könnte eine Instanz sein, welche das Vertrauen von allen Wettteilnehmern hat, zB eine Instanz die in der Vergangenheit bereits immer wahrheitsgemäß Wettabschlüsse in die Blockchain eingetragen hat.

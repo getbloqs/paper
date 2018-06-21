@@ -1,30 +1,59 @@
 [appendix]
 == Ethereum Entwicklungsumgebung
 
-=== Mist
-=== geth
+=== Ethereum Client
 
-=== testrpc
+Um sich als Teil des Ethereum Peer-to-Peer Netzwerk zu setzen, muss man einen Ethereum Client betreiben. Ein Ethereum Client würde sich über das Internet mit anderen Knoten synchronisieren und somit den aktuellen Status der Blockchain vorhalten. Für das Initiale Synchronisieren der Blockchain muss ein längerer Zeitraum eingeplant werden, da die gesamte Vergangenheit aller Transaktionen aus dem Netzwerk abgefragt und validiert werden müssen. Ethereum Clients sind meist Dienstprogramme ohne Benutzeroberfläche, welche über die Kommandozeile gesteuert werden. Es gibt verschiedene Implementierungen von Ethereum:
 
-Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet bereitgestellt werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung `testrpc` stellt ein solches simuliertes Netzwerk bereit.
+ - geth: Ist eine Implementierung in Go, welche im Mainnet mit Abstand der populärste Client ist. Geth wird von der Ethereum Foundation entwickelt.
+ - parity: Neben geth ist parity ein weiterer sehr populärer Client, welcher von der Parity Foundation entwickelt wird.
+ - Es gibt noch einige weitere Implementierungen in C++, Java, Python etc, welche jedoch keine großen Anteil im Mainnet ausmachen.
 
-Der Quellcode und etwas Dokumentation zu `testrpc` findet sich auf github{empty}footnote:[Link zu testrpc:  https://github.com/ethereumjs/testrpc]. Die Anwendung kann mithilfe des `node package managers` installiert werden. Dazu muss folgender Befehl ausgeführt werden.
+Neben dem Mainnet von Ethereum, welches den eigentlichen Wert von Ethereum ausmacht, gibt es noch unterschiedliche Varianten von Ethereum Netzwerken für Testzwecke:
 
-----
-$ npm install -g ethereumjs-testrpc
-----
+ - Ropsten Testnet: Das Ropsten Test-Netzwerk ist ein Proof-of-Work Testnet. Dieses Testnet kann relativ langsam sein, da es nicht vor SPAM Attacken geschützt ist. Ropsten bildet das aktuelle Mainnet jedoch am besten nach.
+ - Kovan Testnet: Das Kovan Test-Netzwerk wird von der parity-Community betrieben und unterliegt einem Proof-of-Authority, sodass SPAM Attacken abgewendet werden können.
+ - Rinkeby Testnet: Das Rinkeby Test-Netzwerk wird von der geth-Community betrieben und unterliegt einem Proof-of-Authority, sodass SPAM Attacken abgewendet werden können.
+ - Privates Testnet: Es kann auch ein privates Ethereum Netzwerk betrieben werden. Zum Zweck des reinen Testens wäre aber Ganache (siehe unten) vorteilhafter.
 
-Nach Installation kann das simulierte Netzwerk über die Kommandozeile gestartet werden. Defaultmäßig wird das Netzwerk auf Port `8545` ausgeführt. Dies kann jedoch über Optionen an den Startbefehl geändert werden. Details zu den unterschiedlichen Optionen ist der Dokumentation zu entnehmen.  
+=== Ethereum DApp Browser
 
-=== truffle
+Um DApps nutzen zu können wird ein Browser benötigt, welcher mit dem Ethereum Netzwerk verbunden ist bzw. eine Wallet bereitstellt, sodass Transaktionen signiert werden können. Über eine URI kann eine DApp geöffnet werden und über den DApp Browser genutzt werden. Für Ethereum gibt es unterschiedliche Browser, folgend eine Übersicht:
 
-Truffle{empty}footnote:[Link zu truffle:  http://truffleframework.com] ist ein Kommandozeilenprogramm welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht und erleichtert. Truffle stellt folgende Funktionen bereit:
+ - Mist: Der Mist Browser enthält eine Wallet, einen integrierten Web-Browser und eine Verknüpfung zu geth.
+ - Parity: Auch Parity hat einen DApp Browser und eine Wallet integriert.
+ - Mobile DApp Browser: Es gibt unterschiedliche leichtgewichtige mobilen DApp Browser (zB Status, Toshi), welche keine Ethereum Client voraussetzen, sondern das Netzwerk über einen Proxy anbinden. Aktuell sind alle mobilen DApp Browser Beta Versionen.
 
-...
+=== Truffle
+
+[Truffle](http://truffleframework.com) ist ein Kommandozeilenprogramm,  welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht. Im Wesentlichen stellt Truffle folgende Funktionen bereit:
+
+ - Kompilieren von Smart Contract Quellcode in ausführbaren Bytecode.
+ - Deployment von Bytecode in das Ethereum Mainnet, Testnet bzw. privates Testnet.
+ - Unit Testing von Smart Contracts über das Mocha (javascript) Test Framework.
+ - Debugging einer "historischen" Smart Contract Ausführung. Da alle Smart Contract Ausführungen in der Blockchain gespeichert sind, können diese mittels eines Debuggers Schritt für Schritt nachvollzogen werden.
 
 Truffle ist eine node.js Anwendung und kann über den `node package manager` installiert werden. Dazu muss folgender Befehl ausgeführt werden:
 
 ----
 $ npm install -g truffle
 ----
+
+Dies ermöglicht es `truffle` als Befehl über die Kommandozeile zu nutzen.
+
+=== MetaMask
+
+Ein Web-Browser kann generisch nicht zur Interaktion mit DApps genutzt werden, da eine Verbindung zum Ethereum Netzwerk fehlt bzw. eine Wallet benötigt wird um Transaktionen zu signieren. MetaMask ist eine Browser Extension, welche eine Wallet und eine Verbindung mit dem Ethereum Netzwerk über einen Proxy herstellen kann. MetaMask kann innerhalb von Chrome, Firefox, Opera und Brave genutzt werden. Die Extension kann über die entsprechenden Add-on Stores der Browserhersteller installiert werden. Die Sicherheit der intregrierten Wallet ist jedoch nicht zu vergleichen mit einer reinen Hardware Wallet, sodass nur wenig Ether darauf gehalten werden sollte. MetaMask eignet sich jedoch sehr gut um DApps zu testen, da man ein privates Netzwerk bzw. alle Testnetzwerke anbinden kann.
+
+=== Ganache
+
+Ganache ist eine sehr leichtgewichtige private Ethereum Testumgebung. Ganache bietet einen Kommandozeilenprogramm `ganache-cli` bzw. auch eine Benutzerschnittstelle. Die Bereitstellung eines eigenen Ethereum Client (zB geth oder parity) für Testzwecke kann mitunter aufwendig sein. Ganache bietet hierbei eine starke Vereinfachung und funktioniert ebenfalls für Continous Integration Umgebungen. Um als Entwickler möglichst schnell Smart Contracts in den Testbetrieb zu bekommen, gibt es keine einfachere und schnellere Variante als Ganache.
+
+`ganache-cli` ist eine node.js Anwendung und kann über den `node package manager` installiert werden. Dazu muss folgender Befehl ausgeführt werden:
+
+----
+$ npm install -g ganache-cli
+----
+
+Dies ermöglicht es `ganache-cli` als Befehl über die Kommandozeile zu nutzen. Die Benutzeroberfläche, welche einen grafischen Überblick über die private Blockchain verschafft, kann über die [Ganache Website](http://truffleframework.com/ganache/) für alle Betriebssysteme heruntergeladen werden.
 

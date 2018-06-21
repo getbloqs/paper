@@ -432,13 +432,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>bloqs.at</h1>
 <div class="details">
 <span id="author" class="author">Stefan Huber</span><br>
-<span id="email" class="email"><a href="mailto:stefan.huber@beyondit.at">stefan.huber@beyondit.at</a></span><br>
-<span id="revnumber">version 0.0.2</span>
+<span id="email" class="email"><a href="mailto:mail@stefanhuber.at">mail@stefanhuber.at</a></span><br>
+<span id="revnumber">version 1.0.0</span>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Inhalt</div>
 <ul class="sectlevel1">
-<li><a href="#_einführung">Einführung</a>
+<li><a href="#_Übersicht">Übersicht</a></li>
+<li><a href="#_blockchain_technologie">Blockchain-Technologie</a>
 <ul class="sectlevel2">
 <li><a href="#_bitcoin">Bitcoin</a></li>
 <li><a href="#_ethereum">Ethereum</a></li>
@@ -448,10 +449,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_szenario_1">Szenario 1</a>
 <ul class="sectlevel2">
-<li><a href="#section01">Einführung: Eine Sportwette</a></li>
-<li><a href="#section02">Smart Contracts</a></li>
-<li><a href="#section03">Implementierung mit Solidity</a></li>
-<li><a href="#section04">Nutzung des Smart Contracts</a></li>
+<li><a href="#section0101">Problemstellung: Online Sportwetten</a></li>
+<li><a href="#section0102">Smart Contracts</a></li>
+<li><a href="#section0103">Implementierung mit Solidity</a></li>
+<li><a href="#section0104">Web-Anwendung</a></li>
+<li><a href="#section0105">Diskussion</a></li>
 </ul>
 </li>
 <li><a href="#_szenario_2">Szenario 2</a>
@@ -459,21 +461,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section0201">Problemstellung: Domain Name System</a></li>
 <li><a href="#section0202">Demonstration einer Subdomain Registry</a></li>
 <li><a href="#section0203">Smart Contract</a></li>
+<li><a href="#section0204">Server Anwendung</a></li>
+<li><a href="#section0205">Web-Anwendung</a></li>
+<li><a href="#section0206">Diskussion</a></li>
 </ul>
 </li>
 <li><a href="#_szenario_3">Szenario 3</a>
 <ul class="sectlevel2">
-<li><a href="#section0301">Einführung: Initial Coin Offerings</a></li>
+<li><a href="#section0301">Problemstellung: Initial Coin Offerings</a></li>
+<li><a href="#section0302">ERC-20 Token Standard</a></li>
 <li><a href="#section0303">Crowdsale Contracts</a></li>
 <li><a href="#section0304">Implementierung des Demo ICO</a></li>
+<li><a href="#section0307">Diskussion</a></li>
 </ul>
 </li>
 <li><a href="#_ethereum_entwicklungsumgebung">Anhang A: Ethereum Entwicklungsumgebung</a>
 <ul class="sectlevel2">
-<li><a href="#_mist">Mist</a></li>
-<li><a href="#_geth">geth</a></li>
-<li><a href="#_testrpc">testrpc</a></li>
-<li><a href="#_truffle">truffle</a></li>
+<li><a href="#_ethereum_client">Ethereum Client</a></li>
+<li><a href="#_ethereum_dapp_browser">Ethereum DApp Browser</a></li>
+<li><a href="#_truffle">Truffle</a></li>
+<li><a href="#_metamask">MetaMask</a></li>
+<li><a href="#_ganache">Ganache</a></li>
 </ul>
 </li>
 <li><a href="#_referenzen">Referenzen</a></li>
@@ -482,7 +490,53 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_einführung">Einführung</h2>
+<h2 id="_Übersicht">Übersicht</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Innerhalb dieses Dokumentes werden 3 Szenarien vorgestellt, welche exemplarisch als DApps (Distributed Apps) realisiert wurden. Alle DApps wurden speziell für das Ethereum Netzwerk entwickelt und enthalten jeweils entsprechende Smart Contracts, welche die Geschäftslogik enthalten, sowie eine Benutzerschnittstelle zur Interaktion mit den Smart Contracts.</p>
+</div>
+<div class="paragraph">
+<p>Folgende 3 Szenarien wurden entwickelt und werden im Dokument beschrieben:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Szenario 1: Abbildung einer Sportwette</p>
+</li>
+<li>
+<p>Szenario 2: Dezentrale Domainregistrierung</p>
+</li>
+<li>
+<p>Szenario 3: Initial Coin Offerings</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alle Software Artefakte und Entwicklerdokumentationen sind unter BSD 2-Clause Lizenz veröffentlicht. Dieses Dokument ist unter der CC BY-SA 4.0 Lizenz veröffentlicht. Alle Quelltexte zum Projekt findet man auf github.com. Im folgenden sind alle Links zu den einzelnen Repositories aufgelistet:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Szenario 1: <a href="https://github.com/getbloqs/scenario01" class="bare">https://github.com/getbloqs/scenario01</a></p>
+</li>
+<li>
+<p>Szenario 1: <a href="https://github.com/getbloqs/scenario02" class="bare">https://github.com/getbloqs/scenario02</a></p>
+</li>
+<li>
+<p>Szenario 1: <a href="https://github.com/getbloqs/scenario03" class="bare">https://github.com/getbloqs/scenario03</a></p>
+</li>
+<li>
+<p>Dokumentation: <a href="https://github.com/getbloqs/paper" class="bare">https://github.com/getbloqs/paper</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Das Projekt wurde als Teil der "netidee Projektförderung" im Call 2016 realisiert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_blockchain_technologie">Blockchain-Technologie</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_bitcoin">Bitcoin</h3>
@@ -526,7 +580,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="_bitcoin_mining">Bitcoin Mining</h4>
 <div class="paragraph">
-<p>Der Prozess zur Generierung eines neuen gültigen Blocks und damit die Veränderung der Blockchain wird Mining gennant.</p>
+<p>Der Prozess zur Generierung eines neuen gültigen Blocks und damit die Veränderung der Blockchain wird Mining gennant. Mining passiert auf einem Proof-of-Work Verfahren. Dieses Verfahren verhindert, dass ungültige Transaktionen in die Blockchain integriert werden können. Die Bitcoin Blockchain wird dadurch zu einer Datenbank, welche öffentlich lesbar ist jedoch nur unter bestimmten Bedingungen beschreibbar wird.</p>
+</div>
+<div class="paragraph">
+<p>Im folgenden soll zur Übersicht der Prozess der Integration einer Transaktion in die Blockchain beschrieben werden:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Eine neue Bitcoin Transaktion wird von einem Bitcoin Nutzer erstellt und an das Netzwerk übergeben. Bitcoin Knoten versenden die Transaktion (Gossip Protokoll) an alle weiter Knoten. Die Transaktion wird somit sehr rasch allen Knoten im Netzwerk bekannt.</p>
+</li>
+<li>
+<p>Es sind einige spezielle Mining-Knoten im Netzwerk, welche alle neuen Transaktionen im sog. Mempool sammeln. Für einen potenziellen neuen Block werden Transaktionen zu einem Merkle-Baum zusammengefasst. Die Wurzel des Merkle-Baums bilded neben anderen Parametern den Block-Header.</p>
+</li>
+<li>
+<p>Der Block-Header ist der wesentliche Eingabeparameter für den Proof-of-Work Algorithmus. Dieser sucht durch Hashing des Block-Header und einer veränderlichen Nonce (Number used only once) eine passende Lösung anhand der Schwierigkeitsvorgabe. Eine gefunde Lösung wird an das Bitcoin Netzwerk gesendet und dort wieder verteilt.</p>
+</li>
+<li>
+<p>Um eine Belohnung für die aufgewendete Arbeitsleitung des Miners zu lukrieren, wird eine sog. Coinbase Transaktion in den Block eingefügt. Diese Coinbase Transaktion hat keinen Input aber einen Output mit der Adresse den Miners. Dieser Prozess ist für Schöpfung neuer Bitcoins verantwortlich. Alle 210.000 Blöcke wird die Belohnung halbiert, gestartet wurde bei 50 Bitcoins pro Block.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Der Schwierigkeitsgrad des Proof-of-Work Mining ist variabel und passt sich an die verfügbare Rechenleistung im globalen Bitcoin Netzwerk an. Das Ziel ist das alle 10 Minuten ein neuer Block im Netzwerk entsteht. Alle 2016 Blöcke wird deshalb ein Durchschnittswert über die letzten gefundenen Blöcke berechnet. Falls dieser höher als 10 Minuten ist, wird der Schwierigkeitsgrad minimiert, falls dieser niedriger ist wird dieser erhöht.</p>
 </div>
 </div>
 </div>
@@ -620,7 +696,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="_ethereum_blockchain_und_mining">Ethereum Blockchain und Mining</h4>
 <div class="paragraph">
-<p>Die Ethereum Blockchain ist der Bitcoin Blockchain sehr ähnlich. Jegliche Zustandsänderung eines Kontos, sei es am Kontostand oder am Speicher, muss über einen Konsens im Netzwerk geschehen. Das Ethereum Netzwerk basiert ebenfalls auf einem Verbund von vielen und weltweit verteilten Rechnern. Die Mining Knoten im Netzwerk validieren Transaktionen über den oben genannten Prozess und propagieren die Transaktion bei Erfolg innerhalb eines Blockes. Das Ethereum Netzwerk hat eine sehr schnelle Block Validierungs Zeit von ungefähr 17 Sekunden, sodass eine gültige Transaktion relativ rasch integriert wird.</p>
+<p>Die Ethereum Blockchain ist der Bitcoin Blockchain sehr ähnlich. Jegliche Zustandsänderung eines Kontos, sei es am Kontostand oder am Speicher, muss über einen Konsens im Netzwerk geschehen. Das Ethereum Netzwerk basiert ebenfalls auf einem Verbund von vielen und weltweit verteilten Rechnern. Die Mining Knoten im Netzwerk validieren Transaktionen über den oben genannten Prozess und propagieren die Transaktion bei Erfolg innerhalb eines Blockes. Das Ethereum Netzwerk hat eine sehr schnelle Block Validierungs Zeit von ungefähr 17 Sekunden, sodass eine gültige Transaktion relativ rasch integriert wird. Für Ethereum ist geplant das energieaufwändige Proof-of-Work Verfahren gegen ein Proof-of-Stake Verfahren auszutauschen. Mining Knoten werden zu Validatoren und müssen einen Einsatz (Stake = Ether) auf einem Konto hinterlegen. Ein Validator hat Interesse daran, dass die Blockchain korrekt funktioniert, denn der Einsatz steht auf dem Spiel. Ein Fehlverhalten des Validators kann dazu führen, dass der Stake eingeforen wird.</p>
 </div>
 </div>
 </div>
@@ -642,32 +718,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
-<table class="tableblock frame-all grid-all spread">
-</table>
 </div>
 <div class="sect2">
 <h3 id="_blockchain_anwendungsarchitektur">Blockchain Anwendungsarchitektur</h3>
 <div class="paragraph">
-<p>Klassische Softwareanwendungen sind nach einem Client-Server Paradigma strukturiert. Teile der Anwendung finden sich dabei im Client und andere Teile im Server. Dies resultiert in einer sog. Schichtenarchitektur (auch Multitier Architektur gennant). Dabei kann eine Anwendung innerhalb von 3 Schichten betrachtet werden:</p>
+<p>Klassische Softwareanwendungen sind nach einem Client-Server Paradigma strukturiert. Teile der Anwendung finden sich dabei im Client und andere Teile im Server. Daten werden jedoch immer am Server zentral gehalten. Blockchain Anwendungen sind hierbei anders strukturiert. Der Client kann dabei zwar zentral gehostet werden bzw. auch dezentral zB über IPFS. Die Daten sind jedoch immer dezentral in der Blockchain abgebildet. Blockchain Anwendungen werden vorwiegend mit Web-Technologien als Web-Anwendung entwickelt. Es besteht jedoch der Unterschied zu einer normalen Web-Anwendung, dass die relevante Kommunikation mit dem Ethereum Netzwerk stattfindet und nicht mit einem zentralen Server.</p>
+</div>
+<div id="dapp-architecture-image" class="imageblock">
+<div class="content">
+<img src="images/DAPP_ARCHITECTURE.png" alt="Blockchain Anwendungsarchitektur">
+</div>
+<div class="title">Figure 1. Blockchain Anwendungsarchitektur</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Präsentationsschicht: Bei dieser Schicht spricht man vom Frontend oder auch Client. Diese ist für die Präsentation der Anwendungsdaten an den Benutzer bzw. für die Aufnahme von Eingaben vom Benutzer verantwortlich. In Web-Anwendungen würde sich die Präsentationsschicht im Web-Browser finden.</p>
+<p><em>DApp Browser</em>: Es gibt unterschiedliche Varianten von DApp Browsern. Es kann sich um eine vollständige Anwendung handeln, welche eine lokalen Ethereum-Knoten, eine Wallet und eine Laufzeitumgebung für Web-Anwendungen enthält. Ein Beispiel dafür wäre der Ethereum Mist Browser. Es gibt jedoch auch eine leichtgewichtigere Variante, welche einen klassischen Web-Browser mittels einer Browser Erweiterung in einen DApp Browser verwandelt. Die Browser Erweiterung MetaMask würde zum Beispiel eine solche Erweiterung sein.</p>
 </li>
 <li>
-<p>Anwendungsschicht: Innerhalb dieser Schicht findet sich die Geschäftslogik der Anwendung. Dies sind alle Regeln einer Domäne, welche die Anwendung abbildet. Gängig ist der sog. Thin Client Ansatz, in dem sich diese Schicht gänzlich am Server befindet. Eine sog. Fat Client Variante wäre ebenfalls möglich, in der sich diese Schicht im Client befindet.</p>
+<p><em>Kommunikation</em>: Der DApp Browser kann über einen lokalen Ethereum Knoten mit dem Ethereum Netzwerk kommunizieren. Dies wäre sicherlich die sicherste Variante, hat aber den Nachteil, dass der Betrieb eines Ethereum Knotens sehr ressourcenaufwendig ist. Vorallem für mobile Geräte eignet sich der Betrieb eines Ethereum Knotens in keinster Weise. Zentralisierte Dienste bieten die Möglichkeit das Ethereum Netzwerk ähnlich wie einen Proxy zu nutzen. Der Dienst Infura wäre ein Beispiel dafür. Die Browser-Erweiterung MetaMask sowie unterschieldiche mobile DApp Browser nutzen diese Art von Diensten. Dies hat klarerweise den Nachteil das die Dezentralität der Anwendung dadurch minimiert wird.</p>
 </li>
 <li>
-<p>Datenhaltungsschicht: Alle Daten welche langfristig innerhalb der Anwendung verfügbar sein müssen, werden über diese Schicht verwaltet. Die Schicht findet sich grundsätzlich am Server, da alle Benutzer der Anwendung mit den Daten interagieren müssen.</p>
+<p><em>Wallet</em>: Jede Änderung innerhalb der Blockchain kann nur als Transaktion, welche von einem privaten Schlüssel des Benutzers signiert wurde, durchgeführt werden. Dazu ist es essentiell das der DApp Browser mit einer Wallet verknüpft ist. Diese Wallet kann als externe Anwendung oder integriert in den DApp Browser geführt werden. Die Sicherheit des Benutzers hängt direkt mit der Sicherheit der Wallet in Verbindung. Deshalb ist es wesentlich, dass Benutzer größte Sorgfalt über die Sicherheit ihres privaten Schlüsselmaterials walten lassen.</p>
+</li>
+<li>
+<p><em>Hosting</em>: Eine DApp muss gehostet werden damit sie einem Benutzer verfügbar gemacht werden kann. Dieses Hosting kann entweder zentralisiert auf einem Server, welcher vom Ersteller der DApp verwaltet wird geschehen, oder aber auch auf einem dezentralen Dateisystem. Als dezentrale Dateisysteme kann zB IPFS genutzt werden. Die Nutzung eines dezentralen Dateisystems hat den Vorteil, dass generell wenig Möglichkeiten bestehen die DApp für Benutzer zu zensieren.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>Jede Schicht bietet zur anderen eine Kommunikationsschnittstelle, welche als Application Programming Interface (API) bezeichnet wird. Die Anwendungsschicht könnte zB eine Restful API anbieten, welche der Client nutzen kann. Die Datenschnittstelle könnte eine SQL API anbieten über diese könnte die Anwendungsschicht mit der Datenbank kommunizieren.</p>
-</div>
-<div class="paragraph">
-<p>Blockchains bieten ähnlich wie klassische Datenbanken Kommunikationsschnittstellen. Eine Anwendung kann diese Schnittstellen nutzen um lesenden oder schreibenden Zugriff auf die Blockchain bekommt.</p>
 </div>
 </div>
 </div>
@@ -675,13 +752,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_szenario_1">Szenario 1</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>In diesem Kapitel soll anhand eines Beispiels das Konzept der Smart Contracts eingeführt und erklärt werden. Im ersten Abschnitt (<a href="#section01">Einführung: Eine Sportwette</a>) wird das zugrunde liegende Beispiel einer Sportwette erklärt. Ein weiterer Abschnitt (<a href="#section02">Smart Contracts</a>) soll weitere Details zu Smart Contracts erkläutern. Gefolgt wird dies (<a href="#section03">Implementierung mit Solidity</a>) von einer Beschreibung zur Implementierung mit der Programmiersprache Solidity. Abschließend wird erörtert wie Smart Contracts genutzt werden können (<a href="#section04">Nutzung des Smart Contracts</a>).</p>
-</div>
 <div class="sect2">
-<h3 id="section01">Einführung: Eine Sportwette</h3>
+<h3 id="section0101">Problemstellung: Online Sportwetten</h3>
 <div class="paragraph">
-<p>Am Beispiel einer Sportwette sollen die Funktionsweise und die Eigenschaften eines Smart Contracts aufgezeigt werden. Dazu wird die Sportwette auf das Ergebnis eines Fußballspiels betrachtet. Ein Fußballspiel zwischen zwei Maschaften A und B kann generell drei Ergebnisse bzw. Endzustände aufweisen:</p>
+<p>Online Wettportale sind sehr verbreitet im WWW. Diese Portale werden von zentralisierten Betreibern bereitgestellt. Die Berechnung der Gewinnquoten und Ausschüttungen sind oft sehr intransparent und wenig nachvollziehbar. Am vereinfachten Beispiel einer Sportwette sollen die Funktionsweise und Eigenschaften einer online Wette skizziert werden. Dazu wird die Wette auf das Ergebnis eines Fußballspiels betrachtet. Ein Fußballspiel zwischen zwei Maschaften A und B kann generell drei Ergebnisse bzw. Endzustände aufweisen:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -752,6 +826,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Die Wettquote berechnet sich somit konkret über den gesamten Wetteinsatz dividiert durch die kummulierten Wetteinsätze aller Teilnehmer für den jeweiligen Tipp. Die Gewinnquote bedeutet somit für einen Wettteilnehmer, dass für jeden Euro der investiert wird das 4-, 1,6- bzw. 8-fache als Gewinn verbucht werden kann. An den Beispielzahlen ist zu erkennen, dass eine Gewinnquote immer größer als 1 sein muss, andernfalls würde die Teilnahme an einer Wette keinen Sinn machen. Zusätzlich ist zu sehen, dass der Tipp mit dem kleinsten kummulierten Wetteinsatz die höchste Gewinnchance bietet. Eine Wette auf das Ergebnis mit der höchsten Gewinnchance ist oft auch mit dem größten Verlustrisiko verbunden.</p>
 </div>
+<div class="paragraph">
+<p>Falls ein online Wettbüro Wetten abbildet, werden die Wetteinsätze zu den unterschiedlichen Ereignissen nicht offen kommuniziert. Die Quoten werden ebenfalls im geheimen festgelegt. Ein Wettteilnehmer hat somit keine Möglichkeit sich eine genaue Kenntnis über den Ablauf zu verschaffen. Ebenfalls obliegt es dem online Wettbüro Auszahlungen zu tätigen oder auch nicht. Wettteilnehmer müssen dem Wettbüro vertrauen und sind dessen Willkür ausgeliefert.</p>
+</div>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -769,7 +846,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="section02">Smart Contracts</h3>
+<h3 id="section0102">Smart Contracts</h3>
 <div class="paragraph">
 <p>Üblicherweiße würde eine Sportwette wie oben beschrieben von einem Buchmacher abgewickelt. Dieser Buchmacher würde sich um die ordnungsmäßige Abwicklung der Wette kümmern. Je nach Vertrauen gegenüber dem Buchmacher, würden Wettteilnehmer dort Wetten abschließen oder auch nicht. Je nach Einsicht der Wettteilnehmer könnte ein Buchmacher Gewinnquoten zu seinen Gunsten manipulieren oder hohe Gebühren für Gewinne erheben.</p>
 </div>
@@ -777,7 +854,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Die ordnungsmäßige bzw. korrekte Abwicklung einer Sportwette kann jedoch formal wie in einem Algorithmus bzw. einem Computerprogramm beschrieben werden. Diesen Umstand haben sich bereits etliche online Sportwettanbieter zu nutze gemacht. Anstelle einer vertrauenswürdigen Person, welche als Buchmacher Wetten entgegennimmt, kann dies auch über eine Software Anwendung geschehen. Hierbei wird jedoch nur die Abwicklung an sich digitalisiert, eine Manipulation ist dabei noch nicht ausgeschlossen. Gemeinhin ist es so, dass Software Anwendungen zentral verwaltet sind und es ist nicht möglich den Programmcode einzusehen. Es wäre einem Wettteilnehmer also nicht möglich zu prüfen, ob die Software des Sportwettanbieters so agiert wie angepriesen. Es könnte durchaus passieren, dass auch nach einer gewonnen Wette, der Wetteinsatz nicht ordnungsgemäß ausbezahlt wird.</p>
 </div>
 <div class="paragraph">
-<p>Ein Smart Contract hingegen ist ähnlich einem Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit dem Ausspruch "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz). Konzeptionell ist ein Smart Contract einem Computerprogramm sehr ähnlich, jedoch gibt es einige unterscheidende Merkmale:</p>
+<p>Ein Smart Contract hingegen ist ähnlich einem Computerprogramm, das nachvollziehbar genau das macht, was beschrieben ist und dies unmanipulierbar durchführt. Im Englischen wird dies auch mit dem Ausspruch "Code is Law" bekräftigt. Dies deutet darauf hin, dass so wie es im Quelltext des Smart Contracts beschrieben ist, so gilt es auch (ähnlich wie ein Gesetz).</p>
+</div>
+<div class="paragraph">
+<p>Ebenfalls sind alle Daten, welche im Smart Contract durch die Interaktion der Wettteilnehmer, öffentlich einsehbar gespeichert. Jeder Wettteilnehmer würde zwar unter einem Pseudonym an der Wette teilnehmen, sodass nicht erörtert werden kann wer konkret hinter einer Wette steckt, jedoch ist die Höhe des Einsatzes und der getätigte Tipp öffentlich. Somit sind alle Informationen transparent und öffentich sichtbar. Mögliche Manipulationen eines Buchmachers sind dadurch ausgeschlossen.</p>
+</div>
+<div class="paragraph">
+<p>Zum Überblick wird die Logik des Smart Contracts, welcher die Sportwette repräsentieren soll, in 3 Phasen eingeteilt. Diese 3 Phasen werden sequentiell ausgeführt, folgend eine Kurzbeschreibung der Phasen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Phase 1: Innerhalb dieser Phase können Wettteilnehmer ihre Wetten platzieren. Diese Phase würde solange andauern, bis das Fußballspiel gestartet wird. Nach diesem Ereignis können keine Wetten mehr platziert werden.</p>
+</li>
+<li>
+<p>Phase 2: Diese Phase würde während das Fußballspiels ablaufen. Der Smart Contract wäre im sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten.</p>
+</li>
+<li>
+<p>Phase 3: Der letzte Phase, nachdem das Spielergebnis feststeht, wäre die Auszahlung. Die Wettteilnehmer, welche die Wette zu ihren Gunsten platziert haben, können sich nun ihre Gewinne auszahlen.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Eine paar wichtige Aspekte, welche für Smart Contracts im Allgemeinen zu beachten sind:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -792,27 +891,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Konkret ist die Ausführung des Smart Contracts in Abschnitte gegliedert. Jeder Abschnitt wird durch eine Transaktion bzw. durch ein Ereignis gestartet. Am Beispiel der Sportwette können 3 Abschnitte identifiziert werden:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Abschnitt 1: Innerhalb dieses Abschnitts können Wettteilnehmer ihre Wetten platzieren. Diese Phase würde solange andauern, bis das Fußballspiel gestartet wird. Nach diesem Ereignis können keine Wetten mehr platziert werden.</p>
-</li>
-<li>
-<p>Abschnitt 2: Dieser Abschnitt würde während das Fußballspiels ablaufen. Der Smart Contract wäre im sog. Leerlauf und würde nur auf das Ereignis "Ende des Fußballspiels" warten.</p>
-</li>
-<li>
-<p>Abschnitt 3: Der letzte Abschnitt, nachdem das Spielergebnis feststeht, wäre die Auszahlung. Die Wettteilnehmer, welche die Wette zu ihren Gunsten platziert haben, können sich nun ihre Gewinne auszahlen.</p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
-<h3 id="section03">Implementierung mit Solidity</h3>
+<h3 id="section0103">Implementierung mit Solidity</h3>
 <div class="paragraph">
-<p>Der Solidity Programmcode ist innerhalb einem Verzeichnises auf github<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup> hinterlegt und einsehbar. In diesem Abschnitt werden einige Ausschnitte des Programmcodes angeführt und erläutert. Dies soll dazu dienen den Smart Contract zu dokumentieren und wesentliche Konzepte der Programmiersprache Solidity einzuführen.</p>
+<p>In diesem Abschnitt werden einige Ausschnitte des Programmcodes angeführt und erläutert. Dies soll dazu dienen den Smart Contract zu dokumentieren und wesentliche Konzepte der Programmiersprache Solidity einzuführen.</p>
 </div>
 <div id="solidity01" class="listingblock">
 <div class="title">Listing 1</div>
@@ -827,17 +910,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="solidity02" class="listingblock">
 <div class="title">Listing 2</div>
 <div class="content">
-<pre>contract SportsBet is Owned {
+<pre>contract SportsBet is Ownable {
 }</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Solidity unterstützt auch das Konzept der Vererbung (<a href="#solidity02">Listing 2</a>). Dies ist hilfreich um die Wiederverwendbarkeit von Programmcode zu erhöhen. Über das Schlüsselwort <code>is</code> erbt <code>SportsBet</code> von <code>Owned</code>. Alle Funktionen, welche in Owned definiert sind, sind somit auch Teil von <code>SportsBet</code>. Neben der einfachen Vererbung werden auch <code>Interfaces</code> bzw. <code>abstrakte Methoden</code> unterstützt, dies wird in einem späteren Abschnitt noch thematisiert.</p>
+<p>Solidity unterstützt auch das Konzept der Vererbung (<a href="#solidity02">Listing 2</a>). Dies ist hilfreich um die Wiederverwendbarkeit von Programmcode zu erhöhen. Über das Schlüsselwort <code>is</code> erbt <code>SportsBet</code> von <code>Ownable</code>. Alle Funktionen, welche in Owned definiert sind, sind somit auch Teil von <code>SportsBet</code>. Neben der einfachen Vererbung werden auch <code>Interfaces</code> bzw. <code>abstrakte Methoden</code> unterstützt.</p>
 </div>
 <div id="solidity03" class="listingblock">
 <div class="title">Listing 3</div>
 <div class="content">
-<pre>contract SportsBet is Owned {
+<pre>contract SportsBet is Ownable {
 
     // unique identifier of sports game
     string public game;
@@ -849,7 +932,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Zustandsvariablen deklariert werden. In <a href="#solidity03">Listing 3</a> wird dazu eine Variable mit Namen <code>game</code> deklariert. Diese Variable hat den Datentyp <code>string</code> und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</sup> zu entnehmen. Mit der Angabe <code>public</code> wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable <code>game</code> von anderen Smart Contracts abgefragt werden. Neben <code>public</code> gibt es weitere Sichtbarkeitsdeklarationen, welche ebenfalls für Funktionen gelten und weiter unten eingeführt werden.</p>
+<p>Eine wesentliche und wichtige Eigenschaft von Smart Contracts ist es Zustände zu speichern. Dazu können Attribute bzw. Zustandsvariablen deklariert werden. In <a href="#solidity03">Listing 3</a> wird dazu eine Variable mit Namen <code>game</code> deklariert. Diese Variable hat den Datentyp <code>string</code> und kann Zeichenketten enthalten. Solidity unterstützen unterschiedlichste Datentypen, eine umfassende Liste ist der Dokumentation <a href="http://solidity.readthedocs.io/en/latest/types.html">(Liste aller Solidity Datentypen)</a> zu entnehmen. Mit der Angabe <code>public</code> wird die Sichtbarkeit der Variable für andere Smart Contracts angegeben. Somit kann die Variable <code>game</code> von anderen Smart Contracts abgefragt werden. Neben <code>public</code> gibt es weitere Sichtbarkeitsdeklarationen, welche ebenfalls für Funktionen gelten und weiter unten eingeführt werden.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -898,7 +981,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Neben einfachen Datentypen wie in <a href="#solidity03">Listing 3</a> die Variable <code>game</code> können auch komplexere Datentypen selbst definiert werden. Um eine Wette zu repräsentieren wird in <a href="#solidity04">Listing 4</a> der komplexen Datentyp <code>Bet</code> eingeführt. Dieser enthält einen Zahlenwert <code>tip</code> für den Wetttipp und einen weiteren Zahlenwert <code>amount</code> für die höhe des Einsatzes deklariert. <code>uint</code> deklariert dabei einen sog. unsigned Integer, also einen Zahlenwert der nur positiv sein kann. Der komplexe Datentyp wird über das Schlüsselwort <code>struct</code> deklariert.</p>
+<p>Neben einfachen Datentypen wie in <a href="#solidity03">Listing 3</a> die Variable <code>game</code> können auch komplexere Datentypen selbst definiert werden. Um eine Wette zu repräsentieren wird in <a href="#solidity04">Listing 4</a> der komplexen Datentyp <code>Bet</code> eingeführt. Dieser enthält einen Zahlenwert <code>tip</code> für den Wetttipp und einen weiteren Zahlenwert <code>amount</code> für die Höhe des deklarierten Einsatzes. <code>uint</code> deklariert dabei einen sog. unsigned Integer, also einen Zahlenwert der nur positiv sein kann. Der komplexe Datentyp wird über das Schlüsselwort <code>struct</code> deklariert.</p>
 </div>
 <div class="paragraph">
 <p>Wie bereits erwähnt besitzen Smart Contracts Funktionen. In <a href="#solidity04">Listing 4</a> werden eine Funktionen des Smart Contracts <code>SportsBet</code> implementiert. Generell stellen Funktionen (je nach Sichtbarkeit) die Schnittstelle des Smart Contracts nach Außen dar. Diese Schnittstelle wird über die sog. Signatur der Funktion definiert. Die Signatur setzt sich aus unterschiedlichen Bestandteilen zusammen:</p>
@@ -920,7 +1003,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>Neben der Signatur, welche auch als Funktionskopf bezeichnet werden kann, gibt es einen Funktionskörper. Der Funktionskörper wird von zwei geschwungenen Klammern umschlossen <code>{ }</code>. Innerhalb dieses Körpers wird die Logik der Funktion implementiert. Dazu werden unterschiedliche Konstrukte der Programmierung angewandt. In der Funktion <code>bet</code> aus <a href="#solidity04">Listing 4</a> werden sog. Kontrollstrukturen eingesetzt, um den übergebenen Parameter zu überprüfen. Die verfügbaren Kontrollstrukturen in Solidity können in der Dokumentation<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</sup> eingesehen werden. Falls die Signatur Rückgabewerte definiert, müssen diese über das Schlüsselwort <code>return</code> übergeben werden. Dieses Schlüsselwort beendet ebenfalls die Ausführung der Funktion.</p>
+<p>Neben der Signatur, welche auch als Funktionskopf bezeichnet werden kann, gibt es einen Funktionskörper. Der Funktionskörper wird von zwei geschwungenen Klammern umschlossen <code>{ }</code>. Innerhalb dieses Körpers wird die Logik der Funktion implementiert. Dazu werden unterschiedliche Konstrukte der Programmierung angewandt. In der Funktion <code>bet</code> aus <a href="#solidity04">Listing 4</a> werden sog. Kontrollstrukturen eingesetzt, um den übergebenen Parameter zu überprüfen. Die verfügbaren Kontrollstrukturen in Solidity können in der Dokumentation <a href="https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures">(Kontrollstrukturen in Solidity)</a> eingesehen werden. Falls die Signatur Rückgabewerte definiert, müssen diese über das Schlüsselwort <code>return</code> übergeben werden. Dieses Schlüsselwort beendet ebenfalls die Ausführung der Funktion.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -957,7 +1040,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="paragraph">
-<p><a href="#solidity04">Listing 4</a> enthält auch ein <code>mapping</code>. Mappings sind sehr wichtige und effiziente Strukturen zur Speicherung von Zuständen in Smart Contracts. In anderen Programmiersprachen werden Mappings auch assoziativ Speicher oder Hashtabellen gennant. Ein mapping ist demnach eine Datenstruktur um Werte anhand einen Schlüssels zu speichern bzw. abzufragen. Das deklarierte <code>mapping</code> in <a href="#solidity04">Listing 4</a> speichert Wetten (<code>Bet</code>) anhand der Adresse (<code>address</code>) des Wettteilnehmers.</p>
+<p>Ein weiteres Konzept in <a href="#solidity04">Listing 4</a> ist das sog. <code>mapping</code>. Mappings sind sehr wichtige und effiziente Strukturen zur Speicherung von Zuständen in Smart Contracts. In anderen Programmiersprachen werden Mappings auch assoziativ Speicher oder Hashtabellen gennant. Ein mapping ist demnach eine Datenstruktur um Werte anhand einen Schlüssels zu speichern bzw. abzufragen. Das deklarierte <code>mapping</code> in <a href="#solidity04">Listing 4</a> speichert Wetten (<code>Bet</code>) anhand der Adresse (<code>address</code>) des Wettteilnehmers.</p>
 </div>
 <div class="paragraph">
 <p>Die Funktion <code>bet</code> in <a href="#solidity04">Listing 4</a> speichert den übergebenen Parameter <code>tip</code> als Wette (<code>Bet</code>) innerhalb des <code>mapping</code> (<code>bets</code>). Die Funktion prüft zuerst ob ein valider Tipp (Tipp 1, Tipp 2 oder Tipp 3) abgegeben wurde. Dannach wird überprüft ob der Absender der Transaktion und somit der Aufrufer der Funktion <code>bet</code> bereits eine Wette abgegeben hat. Der Absender der Transaktion wird über die spezielle Variable <code>msg.sender</code> abgefragt. Falls noch kein Tipp abgegeben wurde, wird dieser für den Absender gesetzt. Dazu wird der Tip über das <code>mapping</code> mit dem Schlüssel <code>msg.sender</code> (<code>msg.sender</code> ist vom Datentyp <code>address</code>) in der Wette (<code>Bet</code>) gesetzt. In jedem Fall wird der Wetteinsatz erhöht. Dazu wird die Höhe des gesendeten Ethers zum Wetteinsat (<code>amount</code>) addiert.</p>
@@ -974,23 +1057,140 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="content">
 <div class="title">Spezielle Variablen: Block bzw. Transaktions Eigenschaften</div>
 <div class="paragraph">
-<p>Funktionen haben Zugriff auf spezielle Variablen, welche wichtige Informationen über den aktuellen Ausführungskontext enthalten. So kann zB über die Variable <code>msg</code> auf den Absender der Transaktion (<code>msg.sender</code>) den gesendeten Betrag an Ether (<code>msg.value</code>) oder das noch verfügbare Gas (<code>msg.gas</code>) zugegriffen werden. Alle verfügbaren bzw. speziellen Variablen sind in der Dokumentation<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</sup> einsehbar.</p>
+<p>Funktionen haben Zugriff auf spezielle Variablen, welche wichtige Informationen über den aktuellen Ausführungskontext enthalten. So kann zB über die Variable <code>msg</code> auf den Absender der Transaktion (<code>msg.sender</code>) den gesendeten Betrag an Ether (<code>msg.value</code>) oder das noch verfügbare Gas (<code>msg.gas</code>) zugegriffen werden. Alle verfügbaren bzw. speziellen Variablen sind in der Dokumentation <a href="https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions">(Spezielle Variablen in Solidity)</a> einsehbar.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
+<div id="solidity05" class="listingblock">
+<div class="title">Listing 5</div>
+<div class="content">
+<pre>contract SportsBet is Owned {
+
+    // other code
+
+    function finalizeBet(uint8 _winningTip) external onlyOwner {
+        winningTip = checkTip(_winningTip);
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nachdem das entsprechende Wettereignis feststeht, muss dieses im Smart Contract mitgeteilt werden. Dazu wurde eine Funktion <code>finalizeBet</code> im Smart Contract <a href="#solidity05">Listing 5</a> deklariert. Diese Funktion enhält einen <code>modifier</code> mit der Bezeichnung <code>onlyOwner</code>. Dieser Modifier gibt an, dass diese Funktion nur vom Ersteller der Wette ausgeführt werden kann.</p>
+</div>
+<div id="solidity06" class="listingblock">
+<div class="title">Listing 6</div>
+<div class="content">
+<pre>contract SportsBet is Owned {
+
+    // other code
+
+    function payout() external {
+        require(
+            winningTip &gt; 0 &amp;&amp;
+            betTips[msg.sender] == winningTip &amp;&amp;
+            betAmounts[msg.sender] &gt; 0
+        );
+
+        uint256 odds = calculateOdds(winningTip);
+        uint256 out = betAmounts[msg.sender].mul(odds);
+
+        if (this.balance &gt;= out) {
+            betAmounts[msg.sender] = 0;
+            msg.sender.transfer(out);
+        }
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Letztlich soll noch eine Möglichkeit geschaffen werden, nachdem eine Wette abgeschlossen wurde, die Auszahlungen an Wettteilnehmer durchzuführen. In <a href="#solidity06">Listing 6</a> wird die Funktion <code>payout</code> eingeführt, welche die umsetzt. Die Funktion beginnt mit einem <code>require</code> Block, dieser gibt Bedingungen an, welche bestehen müssen, sodass die weiteren Schritte im Code ausgeführt werden. Im konkreten Fall sind dort 3 Bedingungen definiert:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Wette muss finalisiert worden sein. Also die Funktion <code>finalizeBet</code> muss bereits ausgeführt worden sein und den entsprechenden Siegestipp angegeben haben.</p>
+</li>
+<li>
+<p>Der Aufrufer der <code>payout</code> Funktion muss den richtigen Tipp gemacht haben.</p>
+</li>
+<li>
+<p>Der Aufrufer muss einen Betrag größer 0 gesetzt haben.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Falls die 3 Bedingungen erfüllt sind, wird der entsprechende Gewinnbetrag an den Aufrufer gesendet. Dazu wird die spezielle Variable <code>msg.sender</code> verwendet, welche das Konto des Aufrufers spezifiziert. mit der Funktion <code>transfer</code> wird der berechnete Gewinnbetrag in Ether an den Aufrufer gesendet und somit die Auszahlung durchgeführt.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="section04">Nutzung des Smart Contracts</h3>
+<h3 id="section0104">Web-Anwendung</h3>
 <div class="paragraph">
-<p>Der Smart Contract wurde mit der Programmiersprache Solidity entwickelt, welche in einen Ethereum Smart Contract kompiliert werden kann. Das Ergebnis dieser Kompilierung ist letzlich nichts anderes als Bytecode, welcher auf der Ethereum Virtual Machine (EVM) ausgeführt werden kann.</p>
+<p>Die Web-Anwedung ermöglicht es neue Wetten zu erstellen, welche als Instanzen des Smart Contract <code>SportsBet</code> in der Blockchain abgelegt werden. In <a href="#bet1-image">Sportwetten Web-Anwendung 1</a> wird ein Formular gezeigt mit dem eine Wette angelegt werden kann. Es kann ein Name für die Wette angegeben werden, sodass Wetten von Wettteilnehmer aufgefunden werden können. Des Weiteren kann der Wettzeiraum festgelegt werden bis zu dem Wetten abgegeben werden können.</p>
+</div>
+<div id="bet1-image" class="imageblock">
+<div class="content">
+<img src="images/BET_01.png" alt="Sportwetten Web-Anwendung">
+</div>
+<div class="title">Figure 2. Sportwetten Web-Anwendung 1</div>
 </div>
 <div class="paragraph">
-<p>Der kompilierte Smart Contract kann über eine Ethereum Wallet im Netzwerk bereitgestellt werden. Dies erfordert eine Transaktion an eine leere Adresse, welche als Nachricht den kompilierten Smart Contract enthält. Für diese Bereitstellung muss der Transaktion natürlich genügend Gas als Gebühr mitgegeben werden. Diese Bereitstellung führt ebenfalls den Konstruktor des Smart Contracts aus, das bereitgestellte Gas muss auch dafür reichen.</p>
+<p>Die neu erstellte Sportwette wird nun in der Übersicht <a href="#bet2-image">Sportwetten Web-Anwendung 2</a> der "5 neuesten Wetten" gelistet. Von dort können die Details zu dieser Wette eingesehen weren.</p>
+</div>
+<div id="bet2-image" class="imageblock">
+<div class="content">
+<img src="images/BET_02.png" alt="Sportwetten Web-Anwendung">
+</div>
+<div class="title">Figure 3. Sportwetten Web-Anwendung 2</div>
+</div>
+<div id="bet3-image" class="imageblock">
+<div class="content">
+<img src="images/BET_03.png" alt="Sportwetten Web-Anwendung">
+</div>
+<div class="title">Figure 4. Sportwetten Web-Anwendung 3</div>
 </div>
 <div class="paragraph">
-<p>Nachdem der Smart Contract bereitgestellt wurde, kann über Transaktionen mit seiner öffentlichen Schnittstelle (<code>external oder `public</code> Funktionen) kommuniziert werden. Der Smart Contract besitzt eine eindeutige Addresse und kann darüber identifiziert und angesprochen werden. Nutzer können Transaktionen an diese Addresse senden. Innerhalb der Nachricht können die gewünschten Funktionen bzw. Funktionsparameter angegeben werden. Am Beispiel der Sportwette würde innerhalb der Nachricht ein Tipp für das Ergebnis angegeben und die Funktion <code>bet</code> aufgerufen.</p>
+<p>Die Wettübersicht <a href="#bet3-image">Sportwetten Web-Anwendung 3</a> gibt Aufschluss darüber wie der aktuelle Stand aller Tipps und die entsprechende Verteilung der Einsätze aussieht. Es wird gezeigt wer der Ersteller der Wette ist und ebenfalls wir ein Link zu einem Ethereum Block-Explorer bereitgestellt, welcher alle Transaktionen bzw. den Smart Contract ansicht zeigt.</p>
+</div>
+<div class="paragraph">
+<p>Solange der erlaubte Zeitraum zur Abgabe von Sportwetten noch nicht abgelaufen ist, können Wetten platziert werden. In <a href="#bet4-image">Sportwetten Web-Anwendung 4</a> ist die Ansicht der Wettabgabe einsehbar. Diese Ansicht erlaubt einerseit die Abgabe eines Tipps (Team 1, Team 2 oder Unentschieden) bzw. die Festlegung eines Wetteinsatzes.</p>
+</div>
+<div id="bet4-image" class="imageblock">
+<div class="content">
+<img src="images/BET_02.png" alt="Sportwetten Web-Anwendung">
+</div>
+<div class="title">Figure 5. Sportwetten Web-Anwendung 4</div>
+</div>
+<div class="paragraph">
+<p>Letztlich wird nachdem die Wettzeit abgelaufen ist und die Wettdetails vom Ersteller betrachtet werden eine Möglichkeit geschaffen um die Wette abzuschließen. Dazu kann der Ersteller den Siegestipp festlegen (Team 1, Team 2 oder Unentschieden). Veranschaulicht wird das in <a href="#bet5-image">Sportwetten Web-Anwendung 5</a></p>
+</div>
+<div id="bet5-image" class="imageblock">
+<div class="content">
+<img src="images/BET_05.png" alt="Sportwetten Web-Anwendung">
+</div>
+<div class="title">Figure 6. Sportwetten Web-Anwendung 5</div>
+</div>
+<div class="paragraph">
+<p>Falls ein Wettteilnehmer einen richtigen Tip abgegeben hat, kann dieser die Möglichkeit einer Auszahlung nutzen. Dies wird in <a href="#bet6-image">Sportwetten Web-Anwendung 6</a> dargestellt.</p>
+</div>
+<div id="bet6-image" class="imageblock">
+<div class="content">
+<img src="images/BET_06.png" alt="Sportwetten Web-Anwendung">
+</div>
+<div class="title">Figure 7. Sportwetten Web-Anwendung 6</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section0105">Diskussion</h3>
+<div class="paragraph">
+<p>Die Demonstration zeigt ein vollwertiges und dezentrales Beispiel einer Smart Contract Anwendung inklusive Webbasierter Benutzerschnittstelle zur Abwicklung einer Sportwette. In der Anwendung gibt es eine bestehende Herausforderung und dies ist die Feststellung des tatsächlichen Wettausgangs. Im Falle der Demonstration wurde das Wettergebnis vom Ersteller der Wette angegeben, dies kann klarerweiße zu Manipulationen führen. Es könnte durchaus den Fall geben, dass der Ersteller der Wette selbst Wettteilnehmer ist und mit dem Ausgang des Sportereignisses nicht zufrieden ist und somit eine falsche für den Ersteller günstige Angabe gibt. Um dies zu verhindern könnte entweder ein sog. Oracle eingebunden werden oder eine Möglichkeit zur gemeinschaftlichen Konsensfindung geschaffen werden.</p>
+</div>
+<div class="paragraph">
+<p>Smart Contracts können nur Daten verarbeiten, welche bereits in der Blockchain existieren. Der Ausgang eines Sportereignisses ist als Datum in der Blockchain nicht verfügbar. Ein Oracle ist ein Dienst, welcher vertrauensvoll Daten aus der realen Welt in die Blockchain schreibt, sodass abhängige Smart Contracts, sowie die Sportwette, diese Daten nutzen können. Es gibt derzeit unterschiedliche Oracles für Ethereum, jedoch sind diese kostenpflichtig und nicht für alle Daten der realen Welt nutzbar. Für zB größere Sportereignisse gibt es Web-APIs, welche Ergebnisse bereitstellen. Bei kleineren regionaleren Sportereignissen sind diese Möglichkeiten jedoch nicht vorhanden und somit kann schwer auf einen Oracle Dienst zurückgegriffen werden.</p>
+</div>
+<div class="paragraph">
+<p>Als andere Möglichkeit könnte man im Smart Contract vorsehen, dass zumindest 10 Wetteilnehmer, welche mindestens einen gewissen Anteil der Wettsumme beigegeben haben die Wette finalisieren müssen. Eine weitere Möglichkeit wäre, dass ein vertrauenswürdige 3. Partei den Wettabschluss tätigen darf. Dies könnte eine Instanz sein, welche das Vertrauen von allen Wettteilnehmern hat, zB eine Instanz die in der Vergangenheit bereits immer wahrheitsgemäß Wettabschlüsse in die Blockchain eingetragen hat.</p>
 </div>
 </div>
 </div>
@@ -1181,13 +1381,105 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Für den Ersteller des Smart Contracts wird die Funktion bereitgestellt eine Registrierung aufzulösen. Dabei besteht die Möglichkeit einer schwachen Auflösung (quasi als Warnung) und einer vollen Auflösung. Die Funktion <code>clearRegistration</code> stellt dies bereit. Als Parameter wird der Name der Registrierung (<code>name</code>) und die Angabe ob eine volle Auflösung stattfinden soll (<code>full</code>).</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="section0204">Server Anwendung</h3>
+<div class="paragraph">
+<p>Die Server Anwendung würde vom Betreiber der Subdomain Registry ausgeführt werden müssen. Die Server Anwendung nimmt Aufrufe entgegen und interpretiert diese entsprechend (Extraktion der Subdomain) und erzeug einen entsprechenden Redirect.</p>
+</div>
+<div id="listing0205" class="listingblock">
+<div class="title">Listing 2.5</div>
+<div class="content">
+<pre class="highlight"><code>var request, response, contract;
+var subdomain = '';
+
+if (request.hasSubdomains()) {
+    subdomain = request.getSubdomain();
+}
+
+var registration = contract.getRegistration(subdomain);
+
+if (registration &amp;&amp; now &lt;= registration.registeredUntil) {
+    response.redirect(registration.redirect);
+} else {
+    response.send(404, "No redirect registered");
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In <a href="#listing0205">Listing 2.5</a> ist das Server Programm als einfaches Pseudocode Programm aufgelistet. Es gibt einen <code>request</code> an den Server, welcher falls vorhanden die Subdomain abfragen lässt (<code>request.getSubdomain()</code>). Der Smart Contract kann ebenfalls über eine Schnittstelle zum Ethereum Netzwerk abgefragt werden. Dies wird über die <code>contract</code> Variable beschrieben. So kann der <code>contract</code> über die Funktion <code>getRegistration()</code> und dem Übergabeparameter <code>subdomain</code> abgefragt werden. In der Variable <code>registration</code> befinden sich die entsprechenden Informationen zur Registrierung, falls eine vorhanden ist. Falls die Registrierung noch gültig ist (<code>now &#8656; registration.registeredUntil</code>) wir ein Redirect (<code>response.redirect()</code>) zur hinterlegten Subdomain (<code>registration.redirect</code>) initiert. Falls keine Subdomain registriert wurde, wird ein 404 Status an den Client (<code>Not Found</code>) zurückgesendet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section0205">Web-Anwendung</h3>
+<div class="paragraph">
+<p>Die Webanwendung zur Registrierung von Subdomain Redirects bietet eine Benutzerschnittstelle um folgende Funktionen auszuführen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Die neuesten Registrierungen werden inklusive wichtiger Daten (zB Ablaufdatum) angezeigt.</p>
+</li>
+<li>
+<p>Es können neue Registrierungen erstellt werden.</p>
+</li>
+<li>
+<p>Die Besitzerin einer Registrierung kann jederzeit den Redirect Link verändern.</p>
+</li>
+<li>
+<p>Die Besitzerin einer Registrierung kann die Registrierung verlängern.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In &lt;&lt;redirect-image1&gt; wird die grundlegende Benutzerschnittstelle dargestellt. Dort befinden sich 3 Buttons um die ensprechenden 3 Funktionen <code>Erstellung</code>, <code>Änderung</code> bzw. <code>Verlängerung</code> von Registierungen auszuführen. Ebenfalls sind die neuesten Registrierungen geordnet nach einem Ablaufdatum ersichtlich.</p>
+</div>
+<div id="redirect1-image" class="imageblock">
+<div class="content">
+<img src="images/REDIRECT_1.png" alt="Subdomain Registry Web Anwendung">
+</div>
+<div class="title">Figure 8. Subdomain Registry Web Anwendung 1</div>
+</div>
+<div class="paragraph">
+<p>In &lt;&lt;redirect2-image&gt; ist die Maske zur Erstellung einer neuen Registrierung ersichtlich. Über diese Maske kann ein <code>Name</code> bzw. ein <code>Redirect Link</code> für die Registrierung festgelegt werden. Falls der <code>Name</code> noch verfügbar ist bzw. eine bestehende Registrierung bereits abgelaufen ist, würde eine neue Registrierung erfolgreich sein.</p>
+</div>
+<div id="redirect2-image" class="imageblock">
+<div class="content">
+<img src="images/REDIRECT_2.png" alt="Subdomain Registry Web Anwendung">
+</div>
+<div class="title">Figure 9. Subdomain Registry Web Anwendung 2</div>
+</div>
+<div class="paragraph">
+<p><a href="#redirect3-image">Subdomain Registry Web Anwendung 3</a> zeigt die Maske zur Verlängerung einer bestehenden Registrierung. Die Besitzerin der Registrierung kann über die Eingabe des <code>Namen</code> der registrierten Subdomain eine Verlängerung durchführen. Dies ist nur möglich falls die Subdomain auch tatsächlich durch sie registriert wurde.</p>
+</div>
+<div id="redirect3-image" class="imageblock">
+<div class="content">
+<img src="images/REDIRECT_3.png" alt="Subdomain Registry Web Anwendung">
+</div>
+<div class="title">Figure 10. Subdomain Registry Web Anwendung 3</div>
+</div>
+<div class="paragraph">
+<p>Eine bestehende Registrierung kann von der Besitzerin jederzeit abgeändert werden. Der <code>Redirect Link</code> kann somit jederzeit geändert werden. Die Besitzerin muss den <code>Name</code> der bestehenden Sudomain Registrierung und zusätzlich einen neuen <code>Redirect Link</code> angeben. Die ist in <a href="#redirect4-image">Subdomain Registry Web Anwendung 4</a> ersichtlich.</p>
+</div>
+<div id="redirect4-image" class="imageblock">
+<div class="content">
+<img src="images/REDIRECT_4.png" alt="Subdomain Registry Web Anwendung">
+</div>
+<div class="title">Figure 11. Subdomain Registry Web Anwendung 4</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section0206">Diskussion</h3>
+<div class="paragraph">
+<p>Die Demonstration zeigt einen Smart Contract zur Subdomain-Registrierung mit zugehöriger Web-Anwendung für Benutzer und einer Serveranwendung für den Betreiber. Der Smart Contract und die Web-Anwendung können potenziell vollständig dezentralisiert werden, sodass der Einfluss des Betreibers minimiert wird. Jedoch muss die Serveranwendung, welche den Redirect durchführt zentral vom Betreiber gehostet werden. Um eine vollständige Dezentralisierung des Szenarios durchzuführen, müsste die Serveranwendung, welche eine Web-Service bereitstellt dezentralisiert werden. Es gibt Projekte (zB [<a href="https://dadi.cloud" class="bare">https://dadi.cloud</a>](DADI)) mit dem Ziel Web-Services zu dezentralisieren, eine verlässliche Nutzbarkeit ist jedoch noch ungewiss.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_szenario_3">Szenario 3</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="section0301">Einführung: Initial Coin Offerings</h3>
+<h3 id="section0301">Problemstellung: Initial Coin Offerings</h3>
 <div class="paragraph">
 <p>Initial Coin Offerings (ICOs) sind eine Möglichkeit für Startups bzw. Unternehmen ein sog. Crowdfunding mittels Einsatz der Blockchaintechnologie durchzuführen. Dabei werden innerhalb eines vorgegebenen Investitionszeitraums eigens geschaffene Token gegen Investitionen in Kryptowährungen ausgegeben. Die ausgegebenen Token können unterschiedlichste Funktionen bzw. Nutzen für den Investor haben. Ebenfalls, können sie wie eine Kryptowährung genutzt werden und zB auf Börsen gehandelt werden.</p>
 </div>
@@ -1207,8 +1499,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>ICOs werden vorranging auf der Ethereum Blockchain abgewickelt. Die Investionen in den ICO werden demnach vorranging in Ether getätigt. Der ERC-20 Standard hat sich als Token Standard herausgebildet um ICOs abzuwickeln. Es gibt kaum ICOs die nicht als ERC-20 Token ausgegeben werden. Demnach soll in Abschnitt <a href="#section0302">ERC-20 Token Standard</a> der ERC-20 Token Standard im Detail beschrieben werden.</p>
 </div>
-<div class="sect3">
-<h4 id="section0302">ERC-20 Token Standard</h4>
+</div>
+<div class="sect2">
+<h3 id="section0302">ERC-20 Token Standard</h3>
 <div class="paragraph">
 <p>Der ERC-20 Token Standard wurde von der Ethereum Community definiert um Token auf der Ethereum Blockchain zu repräsentieren. Ein gemeinsamer und akzeptierter Standard hat viele Vorteile für eine aufstrebende Technologie. Unterschiedliche Anwendungsmöglichkeiten können entstehen und den Standard als Basis nutzen. Einige ausgewählte Beispiele:</p>
 </div>
@@ -1225,8 +1518,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
-<div class="sect4">
-<h5 id="_generische_token_repräsentierung">Generische Token Repräsentierung</h5>
+<div class="sect3">
+<h4 id="_generische_token_repräsentierung">Generische Token Repräsentierung</h4>
 <div class="paragraph">
 <p>Tokens werden innerhalb eines Ethereum Smart Contracts abgebildet. Der Token Contract enthält eine einfache Bilanz, welcher die Tokenstände der einzelnen Konten aufführt. Im folgenden wird eine einfach Darstellung dieser Bilanz als Tabelle repräsentiert. Es werden 3 Token Besitzer <code>A</code>, <code>B</code> und <code>C</code> und deren Token Kontostände abgebildet. Zusätlich wird die Gesamtsumme aller Token angezeigt.</p>
 </div>
@@ -1309,8 +1602,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Intern hat jeder ERC-20 Token eine Datenstruktur, welche die Kontostände in dieser einfach Form abbildet.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_allgemeine_erc_20_token_schnittstelle">Allgemeine ERC-20 Token Schnittstelle</h5>
+<div class="sect3">
+<h4 id="_allgemeine_erc_20_token_schnittstelle">Allgemeine ERC-20 Token Schnittstelle</h4>
 <div class="paragraph">
 <p>Der ERC-20 Tokenstandard definiert eine Schnittstelle für Ethereum Smart Contracts. Diese Schnittstellenbeschreibung besteht aus 4 wichtigen Attributen. Diese Attribute sind <code>name</code>, <code>symbol</code>, <code>decimals</code> und <code>totalSupply</code>. <code>name</code>, <code>symbol</code> und <code>decimals</code> sind zwar optional definiert im Standard, es sind jedoch essentielle Attribute für die Darstellung in Applikationen. Im folgenden sollen die Attribute kurz beschrieben werden:
 * <em>name</em>: Der Name bzw. die Bezeichnung des Tokens wird als Zeichenkette angegeben. Es ist keine maximale Länge für den Namen definiert, es sollte jedoch in Anbetracht der Darstellung in Benutzerschnittstellen auf die Länge geachtet werden.
@@ -1378,8 +1671,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_weitere_erc_20_token_funktionen">Weitere ERC-20 Token Funktionen</h5>
+<div class="sect3">
+<h4 id="_weitere_erc_20_token_funktionen">Weitere ERC-20 Token Funktionen</h4>
 <div class="paragraph">
 <p>Neben den generischen Funktionen zum Transfer von Tokens (<code>transfer</code>) und zur Abfrage der Kontostände (<code>balanceOf</code>) von Token Besitzern, werden von der ERC-20 Token Schnittstelle noch Möglichkeit zur Vergabe von Abbuchungslimits für andere Tokenbsitzer bereitgestellt. So kann beispielsweise Token Besitzer <code>A</code> an Token Besitzer <code>B</code> ein Limit über die Verfügung von 100 seiner Token geben. <code>B</code> kann damit bis zur Ausschöpfung des Limits Transfers von Konto <code>A</code> tätigen. Dafür werden die Funktionen <code>approve</code>, <code>transferFrom</code> und <code>allowance</code> in der Schnittstelle spezifiziert.</p>
 </div>
@@ -1447,7 +1740,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-</div>
 <div class="sect2">
 <h3 id="section0303">Crowdsale Contracts</h3>
 <div class="paragraph">
@@ -1479,7 +1771,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="section0304">Implementierung des Demo ICO</h3>
 <div class="paragraph">
-<p>Zur technischen Realisierung eines ICO werden einerseits die entsprechenden Smart Contracts (Token, Crowdsale) und andererseits eine ICO Web Anwendung benötigt. In <a href="#section0305">Crowdsale Smart Contract</a> wird der implementierte Crowdsale Contract besprochen und in <a href="#section0306">ICO Web Anwendung</a> wird auf die implementierte ICO Web Anwendung eingegangen.</p>
+<p>Zur technischen Realisierung eines ICO werden einerseits die entsprechenden Smart Contracts (Token, Crowdsale) und andererseits eine ICO Web Anwendung benötigt. In <a href="#section0305">Crowdsale Smart Contract</a> wird der implementierte Crowdsale Contract besprochen und in <a href="#section0306">ICO Web-Anwendung</a> wird auf die implementierte ICO Web Anwendung eingegangen.</p>
 </div>
 <div class="sect3">
 <h4 id="section0305">Crowdsale Smart Contract</h4>
@@ -1573,7 +1865,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="section0306">ICO Web Anwendung</h4>
+<h4 id="section0306">ICO Web-Anwendung</h4>
 <div class="paragraph">
 <p>Die zugehörige Web Anwendung zu einem ICO verfolgt primär die Aufgabe einer Investorin den ICO zu vermarkten. So kommt es vorrangig auf eine entsprechende Gestaltung an. Einige gängige Funktionen, welche jede ICO Web Anwendung haben soll, wurden im Beispiel implementiert und im Folgenden erläutert.</p>
 </div>
@@ -1600,13 +1892,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <img src="images/ICO_1.png" alt="ICO Web Anwendung">
 </div>
-<div class="title">Figure 1. ICO Web Anwendung</div>
+<div class="title">Figure 12. ICO Web Anwendung</div>
 </div>
 <div id="ico2-image" class="imageblock">
 <div class="content">
 <img src="images/ICO_2.png" alt="ICO Kontostand Abfrage">
 </div>
-<div class="title">Figure 2. ICO Kontostand Abfrage</div>
+<div class="title">Figure 13. ICO Kontostand Abfrage</div>
 </div>
 <div class="paragraph">
 <p>Ein wichtiger Aspekt zur Implementierung der Web Anwendung besteht darin mit dem Ethereum Peer-to-Peer Netzwerk zu kommunizieren. Eine Web Anwendung wird in einer sog. Browser Sandbox ausgeführt und kann aus Sicherheitsgründen keine Kommunikation direkt über TCP Sockets durchführen. Das Ethereum Peer-to-Peer Netzwerk verfügt über ein eigenes Protokoll, welches direkt auf der TCP Netzwerkschicht aufsetzt. Innerhalb der Browser Sandbox kann jedoch nur das HTTP-Protokoll genutzt werden.</p>
@@ -1616,43 +1908,107 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="section0307">Diskussion</h3>
+<div class="paragraph">
+<p>In der Demonstration wird ein vollständiger ICO Smart Contract inklusive zugehöriger Web-Anwendung entwickelt. Diese Demonstration könnte grundsätzlich für einen richtigen ICO verwendet werden. Da bei einem richtigen ICO eine hohe Investmentsumme im Spiel sein kann, sollten einige Aspekte umbedingt beachtet werden:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Es gibt Dienstleitungsunternehmen, welche Smart Contracts auditieren. Ein Audit von einer Partei, welche nicht Teil des Teams ist, sollte umbedingt angestrebt werden. Es sollte ein Auditor gewählt werden, welcher bereits Smart Contracts auditiert hat und diese Audits als Referenz vorweisen kann.</p>
+</li>
+<li>
+<p>Für ICO Smart Contracts gibt es bereits vorgefertigte und auditierte Bibliotheken, welche genutzt werden können. Als Beispiel soll auf die Bibliothek [<a href="https://openzeppelin.org" class="bare">https://openzeppelin.org</a>](OpenZepplin) verwiesen werden, welche bereits vielfältig in ICOs zum Einsatz kam. Natürlich kann es unterschiedliche spezielle Funktionen eines ICO Smart Contracts geben, welche nicht als Teil einer Standardbibliothek ausgeliefert werden können. Ein Audit könnte sich nun nur auf diese Funktionen fokusieren.</p>
+</li>
+<li>
+<p>Es gab unterschiedliedlichste Fälle von Hackerangriffen im Zusammenhang mit ICOs. Als triviales Beispiel eines Hacks kann der CoinDash ICO betrachtet werden. Einem Hacker gelang es, die veröffentlichte Ethereum Adresse auf der ICO Website abzuändern, sodass alle Investments direkt an den Hacker anstelle des Starups gingen. Dies könnte mittels eines sicheren Zungangs auf den Web-Server verhindert werden. Alle klassichen Regeln der IT-Sicherheit sollen bei ICO umbedingt eingehalten werden.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_ethereum_entwicklungsumgebung">Anhang A: Ethereum Entwicklungsumgebung</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_mist">Mist</h3>
-
+<h3 id="_ethereum_client">Ethereum Client</h3>
+<div class="paragraph">
+<p>Um sich als Teil des Ethereum Peer-to-Peer Netzwerk zu setzen, muss man einen Ethereum Client betreiben. Ein Ethereum Client würde sich über das Internet mit anderen Knoten synchronisieren und somit den aktuellen Status der Blockchain vorhalten. Für das Initiale Synchronisieren der Blockchain muss ein längerer Zeitraum eingeplant werden, da die gesamte Vergangenheit aller Transaktionen aus dem Netzwerk abgefragt und validiert werden müssen. Ethereum Clients sind meist Dienstprogramme ohne Benutzeroberfläche, welche über die Kommandozeile gesteuert werden. Es gibt verschiedene Implementierungen von Ethereum:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>geth: Ist eine Implementierung in Go, welche im Mainnet mit Abstand der populärste Client ist. Geth wird von der Ethereum Foundation entwickelt.</p>
+</li>
+<li>
+<p>parity: Neben geth ist parity ein weiterer sehr populärer Client, welcher von der Parity Foundation entwickelt wird.</p>
+</li>
+<li>
+<p>Es gibt noch einige weitere Implementierungen in C++, Java, Python etc, welche jedoch keine großen Anteil im Mainnet ausmachen.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Neben dem Mainnet von Ethereum, welches den eigentlichen Wert von Ethereum ausmacht, gibt es noch unterschiedliche Varianten von Ethereum Netzwerken für Testzwecke:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ropsten Testnet: Das Ropsten Test-Netzwerk ist ein Proof-of-Work Testnet. Dieses Testnet kann relativ langsam sein, da es nicht vor SPAM Attacken geschützt ist. Ropsten bildet das aktuelle Mainnet jedoch am besten nach.</p>
+</li>
+<li>
+<p>Kovan Testnet: Das Kovan Test-Netzwerk wird von der parity-Community betrieben und unterliegt einem Proof-of-Authority, sodass SPAM Attacken abgewendet werden können.</p>
+</li>
+<li>
+<p>Rinkeby Testnet: Das Rinkeby Test-Netzwerk wird von der geth-Community betrieben und unterliegt einem Proof-of-Authority, sodass SPAM Attacken abgewendet werden können.</p>
+</li>
+<li>
+<p>Privates Testnet: Es kann auch ein privates Ethereum Netzwerk betrieben werden. Zum Zweck des reinen Testens wäre aber Ganache (siehe unten) vorteilhafter.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_geth">geth</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_testrpc">testrpc</h3>
+<h3 id="_ethereum_dapp_browser">Ethereum DApp Browser</h3>
 <div class="paragraph">
-<p>Smart Contracts, welche für die Ethereum Blockchain entwickelt werden, sollten auch entsprechend getestet werden. Erst dannach sollten die Smart Contracts im Livenet bereitgestellt werden. Neben dem Livenet gibt es für Ethereum auch reale Testnetzwerke, welche von der Ethereum Community betrieben werden. Um Smart Contracts am eigenen Rechner zu entwickeln und testen, kann auf ein simuliertes Testnetzwerk zurückgegriffen werden. Die node.js Anwendung <code>testrpc</code> stellt ein solches simuliertes Netzwerk bereit.</p>
+<p>Um DApps nutzen zu können wird ein Browser benötigt, welcher mit dem Ethereum Netzwerk verbunden ist bzw. eine Wallet bereitstellt, sodass Transaktionen signiert werden können. Über eine URI kann eine DApp geöffnet werden und über den DApp Browser genutzt werden. Für Ethereum gibt es unterschiedliche Browser, folgend eine Übersicht:</p>
 </div>
-<div class="paragraph">
-<p>Der Quellcode und etwas Dokumentation zu <code>testrpc</code> findet sich auf github<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</sup>. Die Anwendung kann mithilfe des <code>node package managers</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ npm install -g ethereumjs-testrpc</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Nach Installation kann das simulierte Netzwerk über die Kommandozeile gestartet werden. Defaultmäßig wird das Netzwerk auf Port <code>8545</code> ausgeführt. Dies kann jedoch über Optionen an den Startbefehl geändert werden. Details zu den unterschiedlichen Optionen ist der Dokumentation zu entnehmen.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Mist: Der Mist Browser enthält eine Wallet, einen integrierten Web-Browser und eine Verknüpfung zu geth.</p>
+</li>
+<li>
+<p>Parity: Auch Parity hat einen DApp Browser und eine Wallet integriert.</p>
+</li>
+<li>
+<p>Mobile DApp Browser: Es gibt unterschiedliche leichtgewichtige mobilen DApp Browser (zB Status, Toshi), welche keine Ethereum Client voraussetzen, sondern das Netzwerk über einen Proxy anbinden. Aktuell sind alle mobilen DApp Browser Beta Versionen.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_truffle">truffle</h3>
+<h3 id="_truffle">Truffle</h3>
 <div class="paragraph">
-<p>Truffle<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</sup> ist ein Kommandozeilenprogramm welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht und erleichtert. Truffle stellt folgende Funktionen bereit:</p>
+<p>[Truffle](<a href="http://truffleframework.com" class="bare">http://truffleframework.com</a>) ist ein Kommandozeilenprogramm,  welches die Entwicklung von Smart Contract Projekten mit Solidity stark vereinfacht. Im Wesentlichen stellt Truffle folgende Funktionen bereit:</p>
 </div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Kompilieren von Smart Contract Quellcode in ausführbaren Bytecode.</p>
+</li>
+<li>
+<p>Deployment von Bytecode in das Ethereum Mainnet, Testnet bzw. privates Testnet.</p>
+</li>
+<li>
+<p>Unit Testing von Smart Contracts über das Mocha (javascript) Test Framework.</p>
+</li>
+<li>
+<p>Debugging einer "historischen" Smart Contract Ausführung. Da alle Smart Contract Ausführungen in der Blockchain gespeichert sind, können diese mittels eines Debuggers Schritt für Schritt nachvollzogen werden.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Truffle ist eine node.js Anwendung und kann über den <code>node package manager</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden:</p>
@@ -1661,6 +2017,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre>$ npm install -g truffle</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Dies ermöglicht es <code>truffle</code> als Befehl über die Kommandozeile zu nutzen.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_metamask">MetaMask</h3>
+<div class="paragraph">
+<p>Ein Web-Browser kann generisch nicht zur Interaktion mit DApps genutzt werden, da eine Verbindung zum Ethereum Netzwerk fehlt bzw. eine Wallet benötigt wird um Transaktionen zu signieren. MetaMask ist eine Browser Extension, welche eine Wallet und eine Verbindung mit dem Ethereum Netzwerk über einen Proxy herstellen kann. MetaMask kann innerhalb von Chrome, Firefox, Opera und Brave genutzt werden. Die Extension kann über die entsprechenden Add-on Stores der Browserhersteller installiert werden. Die Sicherheit der intregrierten Wallet ist jedoch nicht zu vergleichen mit einer reinen Hardware Wallet, sodass nur wenig Ether darauf gehalten werden sollte. MetaMask eignet sich jedoch sehr gut um DApps zu testen, da man ein privates Netzwerk bzw. alle Testnetzwerke anbinden kann.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ganache">Ganache</h3>
+<div class="paragraph">
+<p>Ganache ist eine sehr leichtgewichtige private Ethereum Testumgebung. Ganache bietet einen Kommandozeilenprogramm <code>ganache-cli</code> bzw. auch eine Benutzerschnittstelle. Die Bereitstellung eines eigenen Ethereum Client (zB geth oder parity) für Testzwecke kann mitunter aufwendig sein. Ganache bietet hierbei eine starke Vereinfachung und funktioniert ebenfalls für Continous Integration Umgebungen. Um als Entwickler möglichst schnell Smart Contracts in den Testbetrieb zu bekommen, gibt es keine einfachere und schnellere Variante als Ganache.</p>
+</div>
+<div class="paragraph">
+<p><code>ganache-cli</code> ist eine node.js Anwendung und kann über den <code>node package manager</code> installiert werden. Dazu muss folgender Befehl ausgeführt werden:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ npm install -g ganache-cli</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dies ermöglicht es <code>ganache-cli</code> als Befehl über die Kommandozeile zu nutzen. Die Benutzeroberfläche, welche einen grafischen Überblick über die private Blockchain verschafft, kann über die [Ganache Website](<a href="http://truffleframework.com/ganache/" class="bare">http://truffleframework.com/ganache/</a>) für alle Betriebssysteme heruntergeladen werden.</p>
 </div>
 </div>
 </div>
@@ -1698,29 +2080,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="footnote" id="_footnote_3">
 <a href="#_footnoteref_3">3</a>. Stox: <a href="https://www.stox.com" class="bare">https://www.stox.com</a>
 </div>
-<div class="footnote" id="_footnote_4">
-<a href="#_footnoteref_4">4</a>. Szenario 1 auf github: <a href="https://github.com/getbloqs/scenario01" class="bare">https://github.com/getbloqs/scenario01</a>
-</div>
-<div class="footnote" id="_footnote_5">
-<a href="#_footnoteref_5">5</a>. Liste aller Solidity Datentypen: <a href="http://solidity.readthedocs.io/en/latest/types.html" class="bare">http://solidity.readthedocs.io/en/latest/types.html</a>
-</div>
-<div class="footnote" id="_footnote_6">
-<a href="#_footnoteref_6">6</a>. Kontrollstrukturen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures" class="bare">https://solidity.readthedocs.io/en/latest/control-structures.html#control-structures</a>
-</div>
-<div class="footnote" id="_footnote_7">
-<a href="#_footnoteref_7">7</a>. Spezielle Variablen in Solidity: <a href="https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions" class="bare">https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#special-variables-and-functions</a>
-</div>
-<div class="footnote" id="_footnote_8">
-<a href="#_footnoteref_8">8</a>. Link zu testrpc:  <a href="https://github.com/ethereumjs/testrpc" class="bare">https://github.com/ethereumjs/testrpc</a>
-</div>
-<div class="footnote" id="_footnote_9">
-<a href="#_footnoteref_9">9</a>. Link zu truffle:  <a href="http://truffleframework.com" class="bare">http://truffleframework.com</a>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.0.2<br>
-Last updated 2018-01-17 10:24:23 CET
+Version 1.0.0<br>
+Last updated 2018-06-21 11:48:03 CEST
 </div>
 </div>
 </body>

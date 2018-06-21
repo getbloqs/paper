@@ -1,6 +1,0 @@
-[developer-environment]
-
-== Entwicklungsugebung
-
-=== Ethereum
-

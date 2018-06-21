@@ -1,10 +1,12 @@
 = bloqs.at
-Stefan Huber <stefan.huber@beyondit.at>
+Stefan Huber <mail@stefanhuber.at>
 :icons: font
 :appendix-caption: Anhang
 :toc: 
 :toc-title: Inhalt
-:revnumber: 0.0.2
+:revnumber: 1.0.0
+
+include::overview.asciidoc[]
 
 include::introduction.asciidoc[]
 

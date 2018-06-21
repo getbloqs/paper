@@ -1,5 +1,4 @@
 [scenario02]
-
 == Szenario 2
 
 [[section0201]]
@@ -146,6 +145,67 @@ contract SubdomainRedirect {
 
 Für den Ersteller des Smart Contracts wird die Funktion bereitgestellt eine Registrierung aufzulösen. Dabei besteht die Möglichkeit einer schwachen Auflösung (quasi als Warnung) und einer vollen Auflösung. Die Funktion `clearRegistration` stellt dies bereit. Als Parameter wird der Name der Registrierung (`name`) und die Angabe ob eine volle Auflösung stattfinden soll (`full`).
 
+[[section0204]]
 === Server Anwendung
 
+Die Server Anwendung würde vom Betreiber der Subdomain Registry ausgeführt werden müssen. Die Server Anwendung nimmt Aufrufe entgegen und interpretiert diese entsprechend (Extraktion der Subdomain) und erzeug einen entsprechenden Redirect.
 
+[[listing0205]]
+.Listing 2.5
+```
+var request, response, contract;
+var subdomain = '';
+
+if (request.hasSubdomains()) {
+    subdomain = request.getSubdomain();
+}
+
+var registration = contract.getRegistration(subdomain);
+
+if (registration && now <= registration.registeredUntil) {
+    response.redirect(registration.redirect);
+} else {
+    response.send(404, "No redirect registered");
+}
+```
+
+In <<listing0205>> ist das Server Programm als einfaches Pseudocode Programm aufgelistet. Es gibt einen `request` an den Server, welcher falls vorhanden die Subdomain abfragen lässt (`request.getSubdomain()`). Der Smart Contract kann ebenfalls über eine Schnittstelle zum Ethereum Netzwerk abgefragt werden. Dies wird über die `contract` Variable beschrieben. So kann der `contract` über die Funktion `getRegistration()` und dem Übergabeparameter `subdomain` abgefragt werden. In der Variable `registration` befinden sich die entsprechenden Informationen zur Registrierung, falls eine vorhanden ist. Falls die Registrierung noch gültig ist (`now <= registration.registeredUntil`) wir ein Redirect (`response.redirect()`) zur hinterlegten Subdomain (`registration.redirect`) initiert. Falls keine Subdomain registriert wurde, wird ein 404 Status an den Client (`Not Found`) zurückgesendet.
+
+[[section0205]]
+=== Web-Anwendung
+
+Die Webanwendung zur Registrierung von Subdomain Redirects bietet eine Benutzerschnittstelle um folgende Funktionen auszuführen:
+
+ - Die neuesten Registrierungen werden inklusive wichtiger Daten (zB Ablaufdatum) angezeigt.
+ - Es können neue Registrierungen erstellt werden.
+ - Die Besitzerin einer Registrierung kann jederzeit den Redirect Link verändern.
+ - Die Besitzerin einer Registrierung kann die Registrierung verlängern.
+
+In <<redirect-image1> wird die grundlegende Benutzerschnittstelle dargestellt. Dort befinden sich 3 Buttons um die ensprechenden 3 Funktionen `Erstellung`, `Änderung` bzw. `Verlängerung` von Registierungen auszuführen. Ebenfalls sind die neuesten Registrierungen geordnet nach einem Ablaufdatum ersichtlich.
+
+[[redirect1-image]]
+.Subdomain Registry Web Anwendung 1
+image::images/REDIRECT_1.png["Subdomain Registry Web Anwendung"]
+
+In <<redirect2-image> ist die Maske zur Erstellung einer neuen Registrierung ersichtlich. Über diese Maske kann ein `Name` bzw. ein `Redirect Link` für die Registrierung festgelegt werden. Falls der `Name` noch verfügbar ist bzw. eine bestehende Registrierung bereits abgelaufen ist, würde eine neue Registrierung erfolgreich sein.
+
+[[redirect2-image]]
+.Subdomain Registry Web Anwendung 2
+image::images/REDIRECT_2.png["Subdomain Registry Web Anwendung"]
+
+<<redirect3-image>> zeigt die Maske zur Verlängerung einer bestehenden Registrierung. Die Besitzerin der Registrierung kann über die Eingabe des `Namen` der registrierten Subdomain eine Verlängerung durchführen. Dies ist nur möglich falls die Subdomain auch tatsächlich durch sie registriert wurde.
+
+[[redirect3-image]]
+.Subdomain Registry Web Anwendung 3
+image::images/REDIRECT_3.png["Subdomain Registry Web Anwendung"]
+
+Eine bestehende Registrierung kann von der Besitzerin jederzeit abgeändert werden. Der `Redirect Link` kann somit jederzeit geändert werden. Die Besitzerin muss den `Name` der bestehenden Sudomain Registrierung und zusätzlich einen neuen `Redirect Link` angeben. Die ist in <<redirect4-image>> ersichtlich.
+
+[[redirect4-image]]
+.Subdomain Registry Web Anwendung 4
+image::images/REDIRECT_4.png["Subdomain Registry Web Anwendung"]
+
+[[section0206]]
+=== Diskussion
+
+Die Demonstration zeigt einen Smart Contract zur Subdomain-Registrierung mit zugehöriger Web-Anwendung für Benutzer und einer Serveranwendung für den Betreiber. Der Smart Contract und die Web-Anwendung können potenziell vollständig dezentralisiert werden, sodass der Einfluss des Betreibers minimiert wird. Jedoch muss die Serveranwendung, welche den Redirect durchführt zentral vom Betreiber gehostet werden. Um eine vollständige Dezentralisierung des Szenarios durchzuführen, müsste die Serveranwendung, welche eine Web-Service bereitstellt dezentralisiert werden. Es gibt Projekte (zB [https://dadi.cloud](DADI)) mit dem Ziel Web-Services zu dezentralisieren, eine verlässliche Nutzbarkeit ist jedoch noch ungewiss.

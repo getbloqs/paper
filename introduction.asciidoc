@@ -1,6 +1,5 @@
 [introduction]
-
-== Einführung
+== Blockchain-Technologie
 
 === Bitcoin
 
@@ -25,7 +24,16 @@ Transaktionen stellen den wichtigsten Teil innerhalb des Bitcoin Netzwerks dar. 
 
 ==== Bitcoin Mining
 
-Der Prozess zur Generierung eines neuen gültigen Blocks und damit die Veränderung der Blockchain wird Mining gennant.
+Der Prozess zur Generierung eines neuen gültigen Blocks und damit die Veränderung der Blockchain wird Mining gennant. Mining passiert auf einem Proof-of-Work Verfahren. Dieses Verfahren verhindert, dass ungültige Transaktionen in die Blockchain integriert werden können. Die Bitcoin Blockchain wird dadurch zu einer Datenbank, welche öffentlich lesbar ist jedoch nur unter bestimmten Bedingungen beschreibbar wird.
+
+Im folgenden soll zur Übersicht der Prozess der Integration einer Transaktion in die Blockchain beschrieben werden:
+
+ - Eine neue Bitcoin Transaktion wird von einem Bitcoin Nutzer erstellt und an das Netzwerk übergeben. Bitcoin Knoten versenden die Transaktion (Gossip Protokoll) an alle weiter Knoten. Die Transaktion wird somit sehr rasch allen Knoten im Netzwerk bekannt.
+ - Es sind einige spezielle Mining-Knoten im Netzwerk, welche alle neuen Transaktionen im sog. Mempool sammeln. Für einen potenziellen neuen Block werden Transaktionen zu einem Merkle-Baum zusammengefasst. Die Wurzel des Merkle-Baums bilded neben anderen Parametern den Block-Header.
+ - Der Block-Header ist der wesentliche Eingabeparameter für den Proof-of-Work Algorithmus. Dieser sucht durch Hashing des Block-Header und einer veränderlichen Nonce (Number used only once) eine passende Lösung anhand der Schwierigkeitsvorgabe. Eine gefunde Lösung wird an das Bitcoin Netzwerk gesendet und dort wieder verteilt.
+ - Um eine Belohnung für die aufgewendete Arbeitsleitung des Miners zu lukrieren, wird eine sog. Coinbase Transaktion in den Block eingefügt. Diese Coinbase Transaktion hat keinen Input aber einen Output mit der Adresse den Miners. Dieser Prozess ist für Schöpfung neuer Bitcoins verantwortlich. Alle 210.000 Blöcke wird die Belohnung halbiert, gestartet wurde bei 50 Bitcoins pro Block.
+
+Der Schwierigkeitsgrad des Proof-of-Work Mining ist variabel und passt sich an die verfügbare Rechenleistung im globalen Bitcoin Netzwerk an. Das Ziel ist das alle 10 Minuten ein neuer Block im Netzwerk entsteht. Alle 2016 Blöcke wird deshalb ein Durchschnittswert über die letzten gefundenen Blöcke berechnet. Falls dieser höher als 10 Minuten ist, wird der Schwierigkeitsgrad minimiert, falls dieser niedriger ist wird dieser erhöht.
 
 === Ethereum
 
@@ -68,7 +76,7 @@ Falls eine Transaktion fehlschlägt, werden alle Zustandsänderungen revidiert u
 
 ==== Ethereum Blockchain und Mining
 
-Die Ethereum Blockchain ist der Bitcoin Blockchain sehr ähnlich. Jegliche Zustandsänderung eines Kontos, sei es am Kontostand oder am Speicher, muss über einen Konsens im Netzwerk geschehen. Das Ethereum Netzwerk basiert ebenfalls auf einem Verbund von vielen und weltweit verteilten Rechnern. Die Mining Knoten im Netzwerk validieren Transaktionen über den oben genannten Prozess und propagieren die Transaktion bei Erfolg innerhalb eines Blockes. Das Ethereum Netzwerk hat eine sehr schnelle Block Validierungs Zeit von ungefähr 17 Sekunden, sodass eine gültige Transaktion relativ rasch integriert wird.
+Die Ethereum Blockchain ist der Bitcoin Blockchain sehr ähnlich. Jegliche Zustandsänderung eines Kontos, sei es am Kontostand oder am Speicher, muss über einen Konsens im Netzwerk geschehen. Das Ethereum Netzwerk basiert ebenfalls auf einem Verbund von vielen und weltweit verteilten Rechnern. Die Mining Knoten im Netzwerk validieren Transaktionen über den oben genannten Prozess und propagieren die Transaktion bei Erfolg innerhalb eines Blockes. Das Ethereum Netzwerk hat eine sehr schnelle Block Validierungs Zeit von ungefähr 17 Sekunden, sodass eine gültige Transaktion relativ rasch integriert wird. Für Ethereum ist geplant das energieaufwändige Proof-of-Work Verfahren gegen ein Proof-of-Stake Verfahren auszutauschen. Mining Knoten werden zu Validatoren und müssen einen Einsatz (Stake = Ether) auf einem Konto hinterlegen. Ein Validator hat Interesse daran, dass die Blockchain korrekt funktioniert, denn der Einsatz steht auf dem Spiel. Ein Fehlverhalten des Validators kann dazu führen, dass der Stake eingeforen wird.
 
 === Blockchain Anwendungen
 
@@ -79,20 +87,15 @@ Die Blockchain Technologie wird nach Swan<<Swa2015>> als hoch disruptive Technol
 - *Blockchain 2.0 - Verträge*: In diese Kategorie würden alle Anwendungen fallen die mehrstufige Handlungsmuster umfassen, welche durch Regeln oder Wenn-Dann Beziehungen verknüpft sind. Dies könnten Crowdfunding Verträge, Initial Coin Offerings (ICOs), jegliche Formen von Wertpapieren bis hin zu Dezentralen Autonomen Organisationen (DAOs) sein. 
 - *Blockchain 3.0 - Dezentrale Anwendungen*: Hierein fallen ein breites Spektrum von Anwendungen, welche Einfluss auf politische Prozesse und den Rechtsstaat nehmen könnten. Diese Kategorie ist eher als Ausblick zu verstehen, folgendes könnte dies betreffen: Demokratische Prozesse und Wahlen, Austellung von Identitätsdokumenten, Notariat bis Hin zur Abbildung des Gesundheitswesens.
 
-[cols="^2,3,^2,^2,^2"]
-|=========================================================
-|
-|=========================================================
-
 === Blockchain Anwendungsarchitektur
 
-Klassische Softwareanwendungen sind nach einem Client-Server Paradigma strukturiert. Teile der Anwendung finden sich dabei im Client und andere Teile im Server. Dies resultiert in einer sog. Schichtenarchitektur (auch Multitier Architektur gennant). Dabei kann eine Anwendung innerhalb von 3 Schichten betrachtet werden:
+Klassische Softwareanwendungen sind nach einem Client-Server Paradigma strukturiert. Teile der Anwendung finden sich dabei im Client und andere Teile im Server. Daten werden jedoch immer am Server zentral gehalten. Blockchain Anwendungen sind hierbei anders strukturiert. Der Client kann dabei zwar zentral gehostet werden bzw. auch dezentral zB über IPFS. Die Daten sind jedoch immer dezentral in der Blockchain abgebildet. Blockchain Anwendungen werden vorwiegend mit Web-Technologien als Web-Anwendung entwickelt. Es besteht jedoch der Unterschied zu einer normalen Web-Anwendung, dass die relevante Kommunikation mit dem Ethereum Netzwerk stattfindet und nicht mit einem zentralen Server.
 
-- Präsentationsschicht: Bei dieser Schicht spricht man vom Frontend oder auch Client. Diese ist für die Präsentation der Anwendungsdaten an den Benutzer bzw. für die Aufnahme von Eingaben vom Benutzer verantwortlich. In Web-Anwendungen würde sich die Präsentationsschicht im Web-Browser finden.
-- Anwendungsschicht: Innerhalb dieser Schicht findet sich die Geschäftslogik der Anwendung. Dies sind alle Regeln einer Domäne, welche die Anwendung abbildet. Gängig ist der sog. Thin Client Ansatz, in dem sich diese Schicht gänzlich am Server befindet. Eine sog. Fat Client Variante wäre ebenfalls möglich, in der sich diese Schicht im Client befindet.
-- Datenhaltungsschicht: Alle Daten welche langfristig innerhalb der Anwendung verfügbar sein müssen, werden über diese Schicht verwaltet. Die Schicht findet sich grundsätzlich am Server, da alle Benutzer der Anwendung mit den Daten interagieren müssen.
+[[dapp-architecture-image]]
+.Blockchain Anwendungsarchitektur
+image::images/DAPP_ARCHITECTURE.png["Blockchain Anwendungsarchitektur"]
 
-Jede Schicht bietet zur anderen eine Kommunikationsschnittstelle, welche als Application Programming Interface (API) bezeichnet wird. Die Anwendungsschicht könnte zB eine Restful API anbieten, welche der Client nutzen kann. Die Datenschnittstelle könnte eine SQL API anbieten über diese könnte die Anwendungsschicht mit der Datenbank kommunizieren.
-
-
-Blockchains bieten ähnlich wie klassische Datenbanken Kommunikationsschnittstellen. Eine Anwendung kann diese Schnittstellen nutzen um lesenden oder schreibenden Zugriff auf die Blockchain bekommt. 
+- _DApp Browser_: Es gibt unterschiedliche Varianten von DApp Browsern. Es kann sich um eine vollständige Anwendung handeln, welche eine lokalen Ethereum-Knoten, eine Wallet und eine Laufzeitumgebung für Web-Anwendungen enthält. Ein Beispiel dafür wäre der Ethereum Mist Browser. Es gibt jedoch auch eine leichtgewichtigere Variante, welche einen klassischen Web-Browser mittels einer Browser Erweiterung in einen DApp Browser verwandelt. Die Browser Erweiterung MetaMask würde zum Beispiel eine solche Erweiterung sein.
+- _Kommunikation_: Der DApp Browser kann über einen lokalen Ethereum Knoten mit dem Ethereum Netzwerk kommunizieren. Dies wäre sicherlich die sicherste Variante, hat aber den Nachteil, dass der Betrieb eines Ethereum Knotens sehr ressourcenaufwendig ist. Vorallem für mobile Geräte eignet sich der Betrieb eines Ethereum Knotens in keinster Weise. Zentralisierte Dienste bieten die Möglichkeit das Ethereum Netzwerk ähnlich wie einen Proxy zu nutzen. Der Dienst Infura wäre ein Beispiel dafür. Die Browser-Erweiterung MetaMask sowie unterschieldiche mobile DApp Browser nutzen diese Art von Diensten. Dies hat klarerweise den Nachteil das die Dezentralität der Anwendung dadurch minimiert wird.
+- _Wallet_: Jede Änderung innerhalb der Blockchain kann nur als Transaktion, welche von einem privaten Schlüssel des Benutzers signiert wurde, durchgeführt werden. Dazu ist es essentiell das der DApp Browser mit einer Wallet verknüpft ist. Diese Wallet kann als externe Anwendung oder integriert in den DApp Browser geführt werden. Die Sicherheit des Benutzers hängt direkt mit der Sicherheit der Wallet in Verbindung. Deshalb ist es wesentlich, dass Benutzer größte Sorgfalt über die Sicherheit ihres privaten Schlüsselmaterials walten lassen.
+- _Hosting_: Eine DApp muss gehostet werden damit sie einem Benutzer verfügbar gemacht werden kann. Dieses Hosting kann entweder zentralisiert auf einem Server, welcher vom Ersteller der DApp verwaltet wird geschehen, oder aber auch auf einem dezentralen Dateisystem. Als dezentrale Dateisysteme kann zB IPFS genutzt werden. Die Nutzung eines dezentralen Dateisystems hat den Vorteil, dass generell wenig Möglichkeiten bestehen die DApp für Benutzer zu zensieren. 
